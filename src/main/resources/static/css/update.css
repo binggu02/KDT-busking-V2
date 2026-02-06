@@ -1,0 +1,202 @@
+/* ===== update page only ===== */
+
+/* 헤더 아래 카드가 딱 보이게 */
+.main{
+  padding: 28px 0 40px;
+}
+
+/* 카드 */
+.login-wrapper{
+  width: 380px;
+  max-width: calc(100% - 32px);
+  margin: 20px auto 0;
+  background:#fff;
+  border-radius: 26px;
+  padding: 24px 22px 18px;
+  box-shadow: 0 18px 55px rgba(0,0,0,0.10);
+  border: 1px solid #f0f0f0;
+}
+
+/* 상단 프로필 */
+.profile-top{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* 아바타 */
+.avatar{
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #e9edf3;
+  position: relative;
+  overflow:hidden;
+}
+
+/* 기본 회색 사람 아이콘 */
+.avatar::before{
+  content:"";
+  position:absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background:#cfd6e1;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+}
+.avatar::after{
+  content:"";
+  position:absolute;
+  width: 54px;
+  height: 34px;
+  border-radius: 18px 18px 12px 12px;
+  background:#cfd6e1;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+}
+
+/* 닉네임 + 뱃지 */
+.nickname-row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+.nickname-title{
+  margin:0;
+  font-size: 20px;
+  font-weight: 900;
+  color:#222;
+}
+.badge{
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background:#f2f4f7;
+  border:1px solid #e7e7e7;
+  color:#444;
+}
+
+/* 좌 라벨 / 우 입력 */
+.login-wrapper .field{
+  display:grid;
+  grid-template-columns: 92px 1fr;
+  align-items:center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.login-wrapper .field label{
+  font-size: 13px;
+  font-weight: 900;
+  color:#222;
+}
+
+/* 인풋 */
+.login-wrapper .field input{
+  height: 40px;
+  border-radius: 10px;
+  border:1px solid #e6e6e6;
+  background:#fafafa;
+  padding: 0 12px;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-wrapper .field input:focus{
+  background:#fff;
+  border-color:#c9c9c9;
+}
+
+/* ✅ 자물쇠 아이콘이 필요한 인풋 래퍼 */
+.input-lock{
+  position: relative;
+}
+
+/* 섹션 타이틀(비밀번호 변경) */
+.section-title{
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 900;
+  color:#222;
+}
+
+/* 버튼 */
+.btn-col{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.joinok-btn{
+  height: 44px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 900;
+  cursor:pointer;
+  border:1px solid #e1e1e1;
+  background:#fff;
+  color:#222;
+}
+
+.btn-col .joinok-btn:first-child{
+  background:#2b2f36;
+  border-color:#2b2f36;
+  color:#fff;
+}
+.btn-col .joinok-btn:first-child:hover{
+  background:#1f232a;
+  border-color:#1f232a;
+}
+.btn-col .joinok-btn:last-child:hover{
+  background:#f6f6f6;
+}
+
+/* 하단 링크 */
+.back-link{
+  display:inline-block;
+  margin-top: 14px;
+  font-size: 12px;
+  color:#666;
+  text-decoration:none;
+}
+.back-link:hover{
+  text-decoration: underline;
+}
+/* 비밀번호 토글 래퍼 */
+.input-toggle{
+  position: relative;
+}
+
+/* 오른쪽 버튼 공간 확보 */
+.input-toggle input{
+  padding-right: 84px; /* 보기 버튼 들어갈 자리 */
+}
+
+/* 보기/숨기기 버튼 */
+.toggle-btn{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #e1e1e1;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  color: #222;
+  cursor: pointer;
+}
+
+.toggle-btn:hover{
+  background:#f6f6f6;
+}
