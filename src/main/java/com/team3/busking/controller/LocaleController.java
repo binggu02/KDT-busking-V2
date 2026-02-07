@@ -1,11 +1,15 @@
 package com.team3.busking.controller;
 
-import java.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team3.busking.domain.Place;
+import com.team3.busking.domain.Reservation;
 import com.team3.busking.service.LocaleService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/locale")

@@ -1,6 +1,6 @@
-package com.busking.repository;
+package com.team3.busking.repository;
 
-import com.busking.domain.Reservation;
+import com.team3.busking.domain.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

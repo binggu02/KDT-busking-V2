@@ -60,7 +60,7 @@ public class Reservation {
     private LocalDateTime createdAt;
 
     // ===== 기본 생성자 (JPA용) =====
-    protected Reservation() {
+    public Reservation() {
     }
 
     // ===== getter / setter =====

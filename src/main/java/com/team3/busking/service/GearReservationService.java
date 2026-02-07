@@ -42,12 +42,13 @@ public class GearReservationService {
             throw new IllegalArgumentException("과거 시간은 예약할 수 없습니다.");
         }
 
+        // 예약 확인 메소드인데 무슨 로직인지 이해 못함 feat.병현
         long overlap = reservationRepository.countOverlap(gearId, start, end);
         if (overlap > 0) {
             throw new IllegalStateException("이미 해당 시간에 예약된 장비입니다.");
         }
 
-        Gear gear = gearRepository.findById(gearId)
+        Gear gear = gearRepository.findByGearId(gearId)
                 .orElseThrow(() -> new IllegalArgumentException("장비가 존재하지 않습니다."));
 
         Member member = memberRepository.findById(memberId)
@@ -59,7 +60,7 @@ public class GearReservationService {
         reservation.setStartDatetime(start);
         reservation.setEndDatetime(end);
         reservation.setStatus("RESERVED");
-
+        // 현재 에러 나는 이유가 gearId 값이 없어서 에러남 set
         reservationRepository.save(reservation);
     }
 }
