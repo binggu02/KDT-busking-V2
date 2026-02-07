@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface GearRepository extends JpaRepository<GearReservation, Long> {
+public interface GearRepository extends JpaRepository<Gear, Long> {
 
 	
 	// 기존 @Query 방식 주석 처리함 feat.병현
