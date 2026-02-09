@@ -2,215 +2,238 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>마이페이지</title>
 
-  <!-- 공통 CSS (mypage 폴더라서 ../) -->
-  <link rel="stylesheet" href="../common.css" />
-  <link rel="stylesheet" href="../main.css" />
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/common.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css" />
 
   <!-- 마이페이지 전용 CSS -->
-  <link rel="stylesheet" href="myPage.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage/myPage.css" />
 
-  <!-- ✅ 탭 패널 show/hide용 CSS (원하면 myPage.css로 옮겨도 됨) -->
   <style>
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.show {
-      display: block;
-    }
+    .tab-panel { display: none; }
+    .tab-panel.show { display: block; }
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ 상단 헤더 -->
-  <header class="header">
-      <div class="container header-inner">
-        <a class="logo" href="../home.jsp">
-          <img src="../buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
-        </a>
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="${pageContext.request.contextPath}/">
+      <img src="${pageContext.request.contextPath}/buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
+    </a>
 
-  	  <nav class="nav">
-  	      <a href="../gear/list.jsp">장비 예약</a>
-  	      <a href="../locale/list.jsp">지역별 장소 예약</a>
-  	      <a href="../board/main.jsp">게시판</a>
-  	    </nav>
+    <nav class="nav">
+      <a href="${pageContext.request.contextPath}/gear/list">장비 예약</a>
+      <a href="${pageContext.request.contextPath}/locale/list">지역별 장소 예약</a>
+      <a href="${pageContext.request.contextPath}/board/main">게시판</a>
+    </nav>
 
-  	    <div class="auth">
-  	      <a class="pill" href="../mypage/main.jsp">my page</a>
-  	      <a class="pill" href="../member/login.jsp">logout</a>
-  	    </div>
-  	  </div>
-  </header>
-
-  <!-- 배너는 CSS에서 숨김 처리 중 -->
-  <section class="banner">
-    <div class="banner-inner">
-      <h1>마이페이지</h1>
+    <div class="auth">
+      <a class="pill" href="${pageContext.request.contextPath}/mypage">my page</a>
+      <a class="pill" href="${pageContext.request.contextPath}/member/logout">logout</a>
     </div>
-  </section>
+  </div>
+</header>
 
-  <main class="main">
-    <div class="container">
+<section class="banner">
+  <div class="banner-inner">
+    <h1>마이페이지</h1>
+  </div>
+</section>
 
-      <!-- 프로필 카드 -->
-      <section class="profile-card">
-        <div class="profile-left">
-          <div class="avatar" aria-label="프로필 이미지"></div>
+<main class="main">
+  <div class="container">
 
-          <div class="profile-basic">
-            <div class="nickname-row">
-              <h2 class="nickname">닉네임</h2>
-              <span class="badge">일반 회원</span>
-            </div>
-            <button type="button" class="btn whatever btn-black" onclick="location.href='./update.html'"> 프로필
-              수정</button>
+    <!-- 프로필 카드 -->
+    <section class="profile-card">
+      <div class="profile-left">
+        <div class="avatar" aria-label="프로필 이미지"></div>
 
+        <div class="profile-basic">
+          <div class="nickname-row">
+            <h2 class="nickname">
+              <c:out value="${empty member.nickname ? member.name : member.nickname}" />
+            </h2>
+            <span class="badge">일반 회원</span>
           </div>
-        </div>
 
-        <div class="profile-right">
-          <dl class="info">
-            <div class="info-row">
-              <dt>ID</dt>
-              <dd>example_user</dd>
+          <button type="button" class="btn whatever btn-black"
+                  onclick="location.href='${pageContext.request.contextPath}/mypage/update'">
+            프로필 수정
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-right">
+        <dl class="info">
+          <div class="info-row">
+            <dt>ID</dt>
+            <dd><c:out value="${member.memberId}" /></dd>
+          </div>
+          <div class="info-row">
+            <dt>전화</dt>
+            <dd><c:out value="${member.phone}" /></dd>
+          </div>
+          <div class="info-row">
+            <dt>이메일</dt>
+            <dd><c:out value="${member.email}" /></dd>
+          </div>
+          <div class="info-row">
+            <dt>가입일</dt>
+            <dd><c:out value="${member.createdMemberAt}" /></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 탭 메뉴 -->
+    <section class="tabs">
+      <button class="tab" type="button" data-tab="place">장소 예약 내역</button>
+      <button class="tab" type="button" data-tab="gear">장비 대여 내역</button>
+      <button class="tab" type="button" data-tab="post">내 게시글</button>
+    </section>
+
+    <!-- 탭 패널들 -->
+    <section class="tab-panels">
+
+      <!-- 1) 장소 예약 내역 -->
+      <div class="tab-panel" data-panel="place">
+        <section class="list">
+          <c:choose>
+            <c:when test="${empty placeReservations}">
+              <article class="list-item">
+                <div class="item-left">
+                  <h3 class="item-title">장소 예약 내역이 없습니다.</h3>
+                  <p class="item-meta">예약 후 이곳에서 확인할 수 있어요.</p>
+                </div>
+                <div class="item-right">
+                  <button class="btn outline" type="button"
+                          onclick="location.href='${pageContext.request.contextPath}/locale/list'">
+                    장소 예약하기
+                  </button>
+                </div>
+              </article>
+            </c:when>
+
+            <c:otherwise>
+              <c:forEach var="r" items="${placeReservations}">
+                <article class="list-item">
+                  <div class="item-left">
+                    <h3 class="item-title">
+                      <c:out value="${r.place.placeName}" /> ·
+                      <c:out value="${r.bandName}" /> (<c:out value="${r.bandCount}" />명)
+                    </h3>
+                    <p class="item-meta">
+                      <c:out value="${r.reservationDate}" /> · <c:out value="${r.startTime}" />
+                    </p>
+                  </div>
+
+                  <div class="item-right">
+                    <span class="status ${r.status ? 'done' : 'pending'}">
+                      ${r.status ? '완료' : '취소'}
+                    </span>
+                  </div>
+                </article>
+              </c:forEach>
+            </c:otherwise>
+          </c:choose>
+        </section>
+      </div>
+
+      <!-- 2) 장비 대여 내역 -->
+      <div class="tab-panel" data-panel="gear">
+        <section class="list">
+          <c:choose>
+            <c:when test="${empty gearReservations}">
+              <article class="list-item">
+                <div class="item-left">
+                  <h3 class="item-title">장비 대여 내역이 없습니다.</h3>
+                  <p class="item-meta">대여 후 이곳에서 확인할 수 있어요.</p>
+                </div>
+                <div class="item-right">
+                  <button class="btn outline" type="button"
+                          onclick="location.href='${pageContext.request.contextPath}/gear/list'">
+                    장비 대여하기
+                  </button>
+                </div>
+              </article>
+            </c:when>
+
+            <c:otherwise>
+              <c:forEach var="gr" items="${gearReservations}">
+                <article class="list-item">
+                  <div class="item-left">
+                    <h3 class="item-title">
+                      <c:out value="${gr.gear.gearName}" />
+                    </h3>
+                    <p class="item-meta">
+                      <c:out value="${gr.startDatetime}" /> ~ <c:out value="${gr.endDatetime}" />
+                    </p>
+                  </div>
+
+                  <div class="item-right">
+                    <span class="status ${gr.status == 'RESERVED' ? 'pending' : 'done'}">
+                      <c:out value="${gr.status}" />
+                    </span>
+                  </div>
+                </article>
+              </c:forEach>
+            </c:otherwise>
+          </c:choose>
+        </section>
+      </div>
+
+      <!-- 3) 내 게시글 -->
+      <div class="tab-panel" data-panel="post">
+        <section class="list">
+          <article class="list-item">
+            <div class="item-left">
+              <h3 class="item-title">내 게시글 기능은 아직 연결되지 않았습니다.</h3>
+              <p class="item-meta">게시판 기능 연결 후 여기에서 확인할 수 있어요.</p>
             </div>
-            <div class="info-row">
-              <dt>전화</dt>
-              <dd>010-1234-5678</dd>
+            <div class="item-right">
+              <button class="btn outline" type="button"
+                      onclick="location.href='${pageContext.request.contextPath}/board/main'">
+                게시판 가기
+              </button>
             </div>
-            <div class="info-row">
-              <dt>이메일</dt>
-              <dd>user@example.com</dd>
-            </div>
-            <div class="info-row">
-              <dt>가입일</dt>
-              <dd>2024-04-24</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
+          </article>
+        </section>
+      </div>
 
-      <!-- ✅ 탭 메뉴 (data-tab 추가) -->
-      <section class="tabs">
-        <button class="tab active" type="button" data-tab="place">장소 예약 내역</button>
-        <button class="tab" type="button" data-tab="gear">장비 대여 내역</button>
-        <button class="tab" type="button" data-tab="post">내 게시글</button>
-      </section>
+    </section>
+  </div>
+</main>
 
-      <!-- ✅ 탭 패널들 -->
-      <section class="tab-panels">
+<footer class="footer">
+  <div class="container">
+    <p>© Busking Reservation</p>
+  </div>
+</footer>
 
-        <!-- 1) 장소 예약 내역 -->
-        <div class="tab-panel show" data-panel="place">
-          <!-- 지금 데이터가 장비 대여 위주라서 예시 문구만 -->
-          <section class="list">
-            <article class="list-item">
-              <div class="item-left">
-                <h3 class="item-title">장소 예약 내역이 없습니다.</h3>
-                <p class="item-meta">예약 후 이곳에서 확인할 수 있어요.</p>
-              </div>
-              <div class="item-right">
-                <button class="btn outline" type="button">장소 예약하기</button>
-              </div>
-            </article>
-          </section>
-        </div>
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  const panels = document.querySelectorAll(".tab-panel");
 
-        <!-- 2) 장비 대여 내역 (✅ 기존 목록 3개를 여기에 넣음) -->
-        <div class="tab-panel" data-panel="gear">
-          <section class="list">
-            <article class="list-item">
-              <div class="item-left">
-                <h3 class="item-title">버스킹 공연 마이크 대여 예약</h3>
-                <p class="item-meta">2024-04-24 · 인사동 거리</p>
-              </div>
+  function openTab(target) {
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === target));
+    panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
+  }
 
-              <div class="item-right">
-                <span class="status pending">확인중</span>
-                <button class="btn outline" type="button">상세보기</button>
-              </div>
-            </article>
+  // 서버에서 내려준 activeTab 기준으로 초기 탭 오픈
+  const initialTab = "${activeTab}";
+  openTab(initialTab || "place");
 
-            <article class="list-item">
-              <div class="item-left">
-                <h3 class="item-title">버스킹 공연 장비 대여 예약</h3>
-                <p class="item-meta">2024-04-10 · 롯데월드타워</p>
-              </div>
-
-              <div class="item-right">
-                <span class="status done">완료</span>
-                <button class="btn outline" type="button">상세보기</button>
-              </div>
-            </article>
-
-            <article class="list-item">
-              <div class="item-left">
-                <h3 class="item-title">버스킹 공연 장비 대여 예약</h3>
-                <p class="item-meta">2024-04-01 · 홍대 거리</p>
-              </div>
-
-              <div class="item-right">
-                <span class="status done">완료</span>
-                <button class="btn outline" type="button">상세보기</button>
-              </div>
-            </article>
-          </section>
-        </div>
-
-        <!-- 3) 내 게시글 -->
-        <div class="tab-panel" data-panel="post">
-          <section class="list">
-            <article class="list-item">
-              <div class="item-left">
-                <h3 class="item-title">내 게시글이 없습니다.</h3>
-                <p class="item-meta">게시글 작성 후 여기에서 확인할 수 있어요.</p>
-              </div>
-              <div class="item-right">
-                <button class="btn outline" type="button">게시글 쓰기</button>
-              </div>
-            </article>
-          </section>
-        </div>
-
-      </section>
-
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© Busking Reservation</p>
-    </div>
-  </footer>
-
-  <!-- ✅ 탭 클릭 시 아래 내용만 바뀌는 JS -->
-  <script>
-    const tabs = document.querySelectorAll(".tab");
-    const panels = document.querySelectorAll(".tab-panel");
-
-    tabs.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const target = btn.dataset.tab;
-
-        // 탭 active 처리
-        tabs.forEach(t => t.classList.remove("active"));
-        btn.classList.add("active");
-
-        // 패널 show/hide 처리
-        panels.forEach(p => {
-          p.classList.toggle("show", p.dataset.panel === target);
-        });
-      });
-    });
-  </script>
+  tabs.forEach((btn) => {
+    btn.addEventListener("click", () => openTab(btn.dataset.tab));
+  });
+</script>
 
 </body>
-
 </html>

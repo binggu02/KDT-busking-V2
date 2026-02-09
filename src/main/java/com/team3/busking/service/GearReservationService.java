@@ -50,7 +50,7 @@ public class GearReservationService {
         }
 
         // 예약 확인 메소드인데 무슨 로직인지 이해 못함 feat.병현
-        long overlap = reservationRepository.countOverlap(gearId, start, end);
+        long overlap = gearRepository.countOverlap(gearId, start, end);
         if (overlap > 0) {
             throw new IllegalStateException("이미 해당 시간에 예약된 장비입니다.");
         }

@@ -7,6 +7,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+
+
 @Entity
 @Table(
     name = "reservation",
@@ -17,6 +23,9 @@ import java.time.LocalTime;
         )
     }
 )
+@Getter
+@Setter
+@NoArgsConstructor // ✅ JPA용 기본 생성자
 public class Reservation {
 
     @Id
@@ -24,9 +33,11 @@ public class Reservation {
     @Column(name = "reservation_id")
     private Long id;
 
+    // 회원 PK (member.id)
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    // 장소
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
@@ -52,104 +63,11 @@ public class Reservation {
     @Column(name = "end_time")
     private LocalTime endTime;
 
+    // true = 완료, false = 취소
     @Column(name = "status", nullable = false)
     private Boolean status = true;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
-    // ===== 기본 생성자 (JPA용) =====
-    public Reservation() {
-    }
-
-    // ===== getter / setter =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
-    public String getBandName() {
-        return bandName;
-    }
-
-    public void setBandName(String bandName) {
-        this.bandName = bandName;
-    }
-
-    public Integer getBandCount() {
-        return bandCount;
-    }
-
-    public void setBandCount(Integer bandCount) {
-        this.bandCount = bandCount;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getReservationDate() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(LocalDate reservationDate) {
-        this.reservationDate = reservationDate;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 }

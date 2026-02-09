@@ -5,8 +5,17 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 @Entity
 @Table(name = "place")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Place {
 
     @Id
@@ -39,82 +48,4 @@ public class Place {
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
-    // ===== 기본 생성자 =====
-    public Place() {
-    }
-
-    // ===== getter / setter =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
-
-    public String getPlaceAddress() {
-        return placeAddress;
-    }
-
-    public void setPlaceAddress(String placeAddress) {
-        this.placeAddress = placeAddress;
-    }
-
-    public String getPlacePhone() {
-        return placePhone;
-    }
-
-    public void setPlacePhone(String placePhone) {
-        this.placePhone = placePhone;
-    }
-
-    public String getPlaceDescription() {
-        return placeDescription;
-    }
-
-    public void setPlaceDescription(String placeDescription) {
-        this.placeDescription = placeDescription;
-    }
-
-    public Boolean getPlaceStatus() {
-        return placeStatus;
-    }
-
-    public void setPlaceStatus(Boolean placeStatus) {
-        this.placeStatus = placeStatus;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
