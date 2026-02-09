@@ -15,63 +15,92 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/locale")
 public class LocaleController {
 
-	private final LocaleService localeService;
-	 public LocaleController(LocaleService localeService) {
-		    this.localeService = localeService;
-		  }
+    private final LocaleService localeService;
 
-	// 지역 목록
-	@GetMapping("/list")
-	public String cityList(Model model) {
-		model.addAttribute("pageTitle", "지역별 장소 예약");
-		model.addAttribute("cities", localeService.getCities());
-		return "locale/list";
-	}
+    public LocaleController(LocaleService localeService) {
+        this.localeService = localeService;
+    }
 
-	// 도시별 장소 목록
-	@GetMapping("/{cityCode}")
-	public String placeList(@PathVariable String cityCode, Model model) {
-		model.addAttribute("pageTitle", "장소 목록");
-		model.addAttribute("places", localeService.getPlacesByCityCode(cityCode));
-		return "locale/placeList";
-	}
+    // 지역 목록
+    @GetMapping("/list")
+    public String cityList(Model model) {
+        model.addAttribute("pageTitle", "지역별 장소 예약");
+        model.addAttribute("cities", localeService.getCities());
+        return "locale/list";
+    }
 
-	// 예약 페이지
-	@GetMapping("/reserve")
-	public String reservePage(@RequestParam Long placeId, HttpSession session, Model model) {
-		Place place = localeService.getPlace(placeId);
+    // 도시별 장소 목록
+    @GetMapping("/{cityCode}")
+    public String placeList(@PathVariable String cityCode, Model model) {
+        model.addAttribute("pageTitle", "장소 목록");
+        model.addAttribute("places", localeService.getPlacesByCityCode(cityCode));
+        return "locale/placelist";
+    }
 
-		model.addAttribute("pageTitle", "장소 예약");
-		model.addAttribute("place", place);
-		model.addAttribute("userName", session.getAttribute("userName"));
+    // 예약 페이지
+    @GetMapping("/reserve")
+    public String reservePage(@RequestParam Long placeId, HttpSession session, Model model) {
+        Place place = localeService.getPlace(placeId);
+        if (place == null) {
+            return "redirect:/locale/list";
+        }
 
-		return "locale/reserve";
-	}
+        Object userId = session.getAttribute("userId");
+        Object userName = session.getAttribute("userName");
 
-	// 예약 저장
-	@PostMapping("/reserve")
-	public String reserveSubmit(@RequestParam Long placeId, @RequestParam String bandName, @RequestParam int bandCount,
-			@RequestParam(required = false) String phone, @RequestParam(required = false) String email,
-			@RequestParam String reservationDate, @RequestParam String startTime, HttpSession session,
-			RedirectAttributes ra) {
-		Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/member/login"; // 로그인 필요 시 로그인 화면으로
+        }
 
-		Long reservationId = localeService.createReservation(userId, placeId, bandName, bandCount, phone, email,
-				reservationDate, startTime);
+        model.addAttribute("pageTitle", "장소 예약");
+        model.addAttribute("place", place);
+        model.addAttribute("userName", userName);
+        return "locale/reserve";
+    }
 
-		ra.addAttribute("reservationId", reservationId);
-		return "redirect:/locale/reserve/complete";
-	}
+    // 예약 저장 (POST)
+    @PostMapping("/reserve")
+    public String reserveSubmit(
+            @RequestParam Long placeId,
+            @RequestParam String bandName,
+            @RequestParam int bandCount,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String email,
+            @RequestParam String reservationDate,
+            @RequestParam String startTime,
+            HttpSession session,
+            RedirectAttributes ra
+    ) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/member/login"; // 로그인 필요
+        }
 
-	// 예약 완료
-	@GetMapping("/reserve/complete")
-	public String reserveComplete(@RequestParam Long reservationId, HttpSession session, Model model) {
-		Reservation reservation = localeService.getReservation(reservationId);
+        // 예약 생성
+        Long reservationId = localeService.createReservation(
+                userId, placeId, bandName, bandCount, phone, email, reservationDate, startTime
+        );
 
-		model.addAttribute("pageTitle", "예약 완료");
-		model.addAttribute("reservation", reservation);
-		model.addAttribute("userName", session.getAttribute("userName"));
+        ra.addAttribute("reservationId", reservationId);
+        return "redirect:/locale/reserve/complete";
+    }
 
-		return "locale/complete";
-	}
+    // 예약 완료 페이지
+    @GetMapping("/reserve/complete")
+    public String reserveComplete(@RequestParam Long reservationId, HttpSession session, Model model) {
+        Object userId = session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/member/login";
+        }
+
+        Reservation reservation = localeService.getReservation(reservationId);
+        if (reservation == null) {
+            return "redirect:/locale/list";
+        }
+
+        model.addAttribute("pageTitle", "예약 완료");
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("userName", session.getAttribute("userName"));
+        return "locale/complete";
+    }
 }
