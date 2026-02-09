@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface GearReservationRepository extends JpaRepository<GearReservation, Long> {
 	
 	// 예약된 id와 시작, 끝 비교 메소드 feat.병현
-	Boolean exexistsByReservationIdAndStartDateTimeAndEndDateTime(Long reservationId, LocalDateTime startDatetime, LocalDateTime endDatetime);
+	boolean existsByReservationIdAndStartDatetimeAndEndDatetime(Long reservationId, LocalDateTime startDatetime, LocalDateTime endDatetime);
 }

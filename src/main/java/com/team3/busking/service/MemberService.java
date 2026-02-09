@@ -97,7 +97,7 @@ public class MemberService {
     // 비밀번호 찾기 메소드 feat.병현
 	public String checkMemberForPw(String name, String memberId, String phone, String email) {
 		// TODO Auto-generated method stub
-		return memberRepository.findpwByNameAndMemberIdAndPhoneAndEmail(name, memberId, phone, email)
+		return memberRepository.findByNameAndMemberIdAndPhoneAndEmail(name, memberId, phone, email)
 				.orElseThrow(() ->
 						new IllegalArgumentException("일치하는 회원이 없습니다."));
 	}

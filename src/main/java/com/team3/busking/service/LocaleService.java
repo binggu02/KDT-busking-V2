@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.team3.busking.repository.PlaceRepository;
 import com.team3.busking.repository.ReservationRepository;
 
@@ -14,6 +16,8 @@ import com.team3.busking.domain.Place;
 import com.team3.busking.domain.Reservation;
 import com.team3.busking.repository.CityRepository;
 
+@Service
+@Transactional
 public class LocaleService {
 
 	private final CityRepository cityRepository;

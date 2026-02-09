@@ -17,7 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<String> findMemberIdByNameAndPhoneAndEmail(String name, String phone, String email);
 
     // 비밀번호 찾기 메소드 추가 feat.병현
-    Optional<String> findpwByNameAndMemberIdAndPhoneAndEmail(String name, String memberId, String phone, String email);
+    Optional<String> findByNameAndMemberIdAndPhoneAndEmail(String name, String memberId, String phone, String email);
     
     boolean existsByMemberId(String memberId);
 }

@@ -11,6 +11,6 @@ import com.team3.busking.domain.City;
 @Repository
 public interface LocaleRepository extends CityRepository{
 	// 아이디로 찾기
-		Optional<City> findById(String id);
+		Optional<City> findById(Long id);
 
 }

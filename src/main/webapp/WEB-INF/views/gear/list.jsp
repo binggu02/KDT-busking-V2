@@ -19,7 +19,7 @@
       </a>
 
       <nav class="nav">
-		<a href="${pageContext.request.contextPath}/gear/reserve?gearId==${gear.id}">장비 예약</a>
+		<a href="${pageContext.request.contextPath}/gear/reserve?gearId=${gear.id}">장비 예약</a>
 		      <a href="${pageContext.request.contextPath}/locale/list">지역별 장소 예약</a>
 		      <a href="${pageContext.request.contextPath}/board/main">게시판</a>
       </nav>

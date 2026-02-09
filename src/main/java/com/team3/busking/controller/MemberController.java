@@ -52,12 +52,14 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(@RequestParam String memberId, @RequestParam String pw, HttpSession session) {
 
-		Optional<Member> member = memberService.login(memberId, pw);
+		Optional<Member> memberOpt = memberService.login(memberId, pw);
 
-		if (member == null) {
+		if (memberOpt.isEmpty()) {
 			return "member/login";
 		}
 
+		Member member = memberOpt.get();
+		
 		session.setAttribute("loginUser", member);
 		return "redirect:/";
 	}
