@@ -1,7 +1,6 @@
-
 /* ===== gear reserve page only ===== */
 
-/* �④퀎 �쒖떆 */
+/* 단계 표시 */
 .step{
   display:flex;
   justify-content:center;
@@ -39,7 +38,7 @@
   color:#111;
 }
 
-/* �꾩껜 �덉씠�꾩썐 */
+/* 전체 레이아웃 */
 .reserve-wrap{
   display:grid;
   grid-template-columns: 260px 1fr;
@@ -48,7 +47,7 @@
   padding: 18px 0 30px;
 }
 
-/* �쇱そ �좏깮 移대뱶 */
+/* 왼쪽 선택 카드 */
 .selected-card{
   border:1px solid #e6e6e6;
   border-radius:10px;
@@ -86,7 +85,7 @@
   color:#666;
 }
 
-/* �ㅻⅨ履� �� */
+/* 오른쪽 폼 */
 .reserve-form{
   padding: 8px 0;
 }
@@ -111,7 +110,7 @@
   box-shadow: 0 8px 30px rgba(0,0,0,0.04);
 }
 
-/* �� */
+/* 행 */
 .row{
   display:grid;
   grid-template-columns: 90px 1fr;
@@ -159,7 +158,7 @@
   border-color:#bbb;
 }
 
-/* �좎쭨 踰붿쐞 */
+/* 날짜 범위 */
 .range{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -174,7 +173,7 @@
   margin-bottom:6px;
 }
 
-/* 寃곗젣 */
+/* 결제 */
 .pay{
   display:flex;
   gap:14px;
@@ -191,7 +190,7 @@
   color:#222;
 }
 
-/* 踰꾪듉 */
+/* 버튼 */
 .form-actions{
   display:flex;
   justify-content:flex-end;
@@ -214,7 +213,7 @@
   border-color:#000;
 }
 
-/* 諛섏쓳�� */
+/* 반응형 */
 @media (max-width: 860px){
   .reserve-wrap{
     grid-template-columns: 1fr;
