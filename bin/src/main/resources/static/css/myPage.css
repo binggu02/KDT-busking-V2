@@ -1,0 +1,363 @@
+/* =========================
+   MyPage 전용 스타일
+========================= */
+
+/* 페이지 배경 */
+body {
+  background: #f5f6f8;
+}
+
+/* =========================
+   ✅ 사진처럼: 헤더 자체가 배경이미지 영역
+========================= */
+.header {
+  position: relative;           /* absolute 제거 */
+  width: 100%;
+  height: 150px;                /* 사진 헤더 높이 */
+  background: url("../busking.png") center/cover no-repeat;
+  z-index: 10;
+  color: #fff;
+}
+
+/* 어두운 오버레이(글씨 잘 보이게) */
+.header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.25);
+}
+
+/* header 내부 정렬 */
+.header-inner {
+  position: relative;
+  z-index: 1;                   /* 오버레이 위 */
+  height: 150px;                /* 헤더 높이와 동일 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* 로고 이미지 */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* ✅ 로고 더 크게 */
+.logo-icon {
+  height: 250px;                 /* (기존 58px → 72px) 더 크게 */
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+}
+
+/* 메뉴(오른쪽으로 밀기) */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: auto;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+.nav a:hover {
+  text-decoration: underline;
+}
+
+/* 오른쪽 pill 버튼 */
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.9);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(0,0,0,0.12);
+}
+.pill:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+
+/* =========================
+   ✅ 배너는 중복이라 숨김(헤더가 배너 역할)
+========================= */
+.banner{
+  display: none;
+}
+
+/* =========================
+   Main spacing
+   - 헤더 아래에서 카드가 자연스럽게 시작
+========================= */
+.main{
+  padding: 18px 0 28px;
+  margin-top: -36px; /* 카드가 헤더 아래에서 살짝 올라오게 */
+}
+
+/* =========================
+   Profile card (너 스타일 유지)
+========================= */
+.profile-card{
+  background:#fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  padding: 22px 22px;
+  display:flex;
+  gap: 18px;
+  align-items: stretch;
+  border: 1px solid #f0f0f0;
+
+  transform: none; /* 기존 배너 오버랩용 transform 제거 */
+}
+
+.profile-left{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  flex: 1;
+  min-width: 260px;
+}
+
+.avatar{
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #e9edf3;
+  position: relative;
+  overflow: hidden;
+}
+.avatar::before{
+  content:"";
+  position:absolute;
+  inset: 18px 26px 38px 26px;
+  background:#cfd6e1;
+  border-radius: 50%;
+}
+.avatar::after{
+  content:"";
+  position:absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  height: 34px;
+  background:#cfd6e1;
+  border-radius: 20px 20px 12px 12px;
+}
+
+.profile-basic{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nickname-row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+.nickname{
+  margin:0;
+  font-size: 18px;
+  font-weight: 900;
+  color:#222;
+}
+.badge{
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f2f4f7;
+  color:#444;
+  border: 1px solid #e7e7e7;
+}
+
+/* 버튼 공통 */
+.btn{
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+.btn:hover{
+  background:#f6f6f6;
+}
+.btn.outline{
+  background:#fff;
+  border: 1px solid #dcdcdc;
+}
+
+/* 오른쪽 정보 */
+.profile-right{
+  flex: 1;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 18px;
+  display:flex;
+  align-items:center;
+}
+
+.info{
+  margin:0;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.info-row{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.info-row dt{
+  font-size: 12px;
+  color:#666;
+  font-weight: 700;
+}
+.info-row dd{
+  margin:0;
+  font-size: 12px;
+  color:#222;
+  font-weight: 700;
+}
+
+/* Tabs */
+.tabs{
+  margin-top: 14px;
+  display:flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tab{
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #e3e3e3;
+  background: #fff;
+  cursor:pointer;
+  font-size: 12px;
+  font-weight: 800;
+  color:#444;
+}
+.tab:hover{
+  background:#f6f6f6;
+}
+.tab.active{
+  background:#222;
+  border-color:#222;
+  color:#fff;
+}
+
+/* List */
+.list{
+  margin-top: 16px;
+  background:#fff;
+  border-radius: 18px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+.list-item{
+  padding: 16px 18px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 14px;
+  border-top: 1px solid #f2f2f2;
+}
+.list-item:first-child{
+  border-top: none;
+}
+
+.item-title{
+  margin:0;
+  font-size: 14px;
+  font-weight: 900;
+  color:#222;
+}
+.item-meta{
+  margin: 6px 0 0;
+  font-size: 12px;
+  color:#777;
+  font-weight: 600;
+}
+
+.item-right{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* 상태 배지 */
+.status{
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e5e5;
+}
+.status.pending{
+  background: #fff4e5;
+  border-color: #ffd9a8;
+  color: #a35a00;
+}
+.status.done{
+  background: #eaf7ef;
+  border-color: #bfe8cd;
+  color: #1f7a43;
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .profile-card{
+    flex-direction: column;
+  }
+  .profile-right{
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 14px;
+  }
+  .nav{
+    gap: 12px;
+  }
+  .more-btn{
+    display: none !important;
+  }
+}
+.avatar{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-image: url("./01.jpg");
+  background-size: cover;
+  background-position: center;
+}
+/* 탭 패널 기본 숨김 */
+.tab-panel { display: none; }
+
+/* 선택된 탭 패널만 표시 */
+.tab-panel.show { display: block; }
+

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${pageTitle}</title>
 
-  <!-- ✅ 정적 리소스는 c:url로 -->
+  <!-- 정적 리소스 -->
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
   <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
   <link rel="stylesheet" href="<c:url value='/css/locale/reserve.css'/>" />
@@ -39,7 +39,7 @@
 
     <section class="reserve-layout">
 
-      <!-- ✅ 왼쪽: 선택 장소 -->
+      <!-- 왼쪽: 선택 장소 -->
       <aside class="place-side">
         <button class="place-thumb" type="button" id="placeThumb" aria-label="지도 보기">
           <span class="pin">📍</span>
@@ -52,11 +52,11 @@
         </div>
       </aside>
 
-      <!-- ✅ 오른쪽: 입력 폼 -->
+      <!-- 오른쪽: 입력 폼 -->
       <section class="form-box">
         <div class="form-left">
-          <!-- ✅ 실제 로그인 유저 이름을 모델로 넣으면 ${userName}로 바꿔서 쓰면 됨 -->
-          <div class="line"><span class="label">예약자 명 :</span>
+          <div class="line">
+            <span class="label">예약자 명 :</span>
             <span class="value" id="uName">${userName != null ? userName : '홍길동'}</span>
           </div>
 
@@ -96,7 +96,7 @@
 
     </section>
 
-    <!-- ✅ 예약하기 버튼 -->
+    <!-- 예약하기 버튼 -->
     <div class="actions">
       <button class="reserve-submit" id="reserveBtn" type="button">예약하기</button>
     </div>
@@ -110,7 +110,7 @@
   </div>
 </footer>
 
-<!-- ✅ 지도 모달 -->
+<!-- 지도 모달 -->
 <div class="map-modal" id="mapModal" aria-hidden="true">
   <div class="map-dim" data-close="1"></div>
   <div class="map-box" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
@@ -125,20 +125,16 @@
 </div>
 
 <script>
-  // ✅ JSP에서 URL 만들어 JS에 주입
   const URL_LOCALE_LIST = "<c:url value='/locale/list'/>";
-  const URL_RESERVE_COMPLETE = "<c:url value='/locale/reserve/complete'/>"; // 네 컨트롤러 기준
-
-  // ✅ 컨텍스트 경로 (예: /busking)
+  const URL_RESERVE_COMPLETE = "<c:url value='/locale/reserve/complete'/>";
   const CTX = "${pageContext.request.contextPath}";
 
-  // ✅ 선택 장소 표시
+  // 선택 장소
   const raw = sessionStorage.getItem("selectedPlace");
   if (!raw) {
     alert("선택한 장소가 없습니다. 목록으로 이동합니다.");
     location.href = URL_LOCALE_LIST;
   }
-
   const place = raw ? JSON.parse(raw) : null;
 
   const placeThumb = document.getElementById("placeThumb");
@@ -146,21 +142,17 @@
   const placeAddr  = document.getElementById("placeAddr");
   const placePhone = document.getElementById("placePhone");
 
-  // ✅ sessionStorage의 img 경로가 "/images/01.jpg" 같은 경우 컨텍스트 경로 붙이기
   function resolveImgUrl(img) {
     if (!img) return "";
-    // 이미 http(s)면 그대로
     if (/^https?:\/\//i.test(img)) return img;
-    // "/images/.." 형태면 컨텍스트 경로 붙임
     if (img.startsWith("/")) return CTX + img;
-    // 그 외 상대경로면 일단 컨텍스트 기준으로 붙임
     return CTX + "/" + img;
   }
 
   if (place) {
     placeName.textContent = place.name || "버스킹 공연장";
     placeAddr.textContent = place.address || "-";
-    placePhone.textContent = place.phone || "02-0000-0000";
+    placePhone.textContent = place.phone || "-";
 
     if (place.img) {
       const imgUrl = resolveImgUrl(place.img);
@@ -169,7 +161,7 @@
     }
   }
 
-  // ✅ 지도 모달
+  // 지도 모달
   const modal = document.getElementById("mapModal");
   const mapFrame = document.getElementById("mapFrame");
   const mapTitle = document.getElementById("mapTitle");
@@ -180,7 +172,6 @@
     mapSubAddr.textContent = address;
     const q = encodeURIComponent(address);
     mapFrame.src = `https://www.google.com/maps?q=${q}&output=embed`;
-
     modal.classList.add("show");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -205,7 +196,7 @@
     if (e.key === "Escape" && modal.classList.contains("show")) closeMap();
   });
 
-  // ✅ 예약 버튼 -> confirm -> 완료페이지 이동
+  // 예약 버튼
   document.getElementById("reserveBtn").addEventListener("click", () => {
     const bandName  = document.getElementById("bandName").value.trim();
     const bandCount = document.getElementById("bandCount").value.trim();
