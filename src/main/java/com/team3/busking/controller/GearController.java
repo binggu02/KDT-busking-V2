@@ -23,7 +23,7 @@ public class GearController {
     @GetMapping("/list")
     public String gearList(Model model) {
         // TODO: 나중에 DB에서 장비 리스트 조회
-//        model.addAttribute("gearList", gearService.findAll());
+        model.addAttribute("gearList", gearService.findAll());
         return "gear/list";
     }
 
