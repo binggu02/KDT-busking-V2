@@ -43,7 +43,7 @@
     </nav>
 
     <div class="auth">
-      <a class="pill" href="${mypageUrl}">my page</a>
+      <a class="pill" href="${mypage/main}">my page</a>
       <a class="pill" href="${logoutUrl}">logout</a>
     </div>
   </div>

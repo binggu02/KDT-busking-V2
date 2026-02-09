@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>버스킹 회원가입</title>
 
-  <!-- 공통 css (member 폴더라서 ../ 필요) -->
-  <link rel="stylesheet" href="../common.css" />
-  <link rel="stylesheet" href="../main.css" />
+  <!-- ✅ 공통 CSS (c:url로 고정) -->
+  <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
+  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 
   <style>
     /* ====== 회원가입 페이지 단일 파일 CSS (로그인 디자인과 동일) ====== */
@@ -25,7 +25,7 @@
     .join-bg {
       position: fixed;
       inset: 0;
-      background: url("../buskinglogin.png") center / cover no-repeat;
+      background: url("<c:url value='/images/buskinglogin.png'/>") center / cover no-repeat;
       z-index: 0;
     }
     .join-bg::after {
@@ -106,14 +106,10 @@
       background: #fff;
       font-size: 14px;
     }
-    .field input:focus {
-      border-color: #888;
-    }
+    .field input:focus { border-color: #888; }
 
     /* 전체 폭 쓰는 행 */
-    .full {
-      grid-column: 1 / -1;
-    }
+    .full { grid-column: 1 / -1; }
 
     /* 성별 라디오 */
     .gender-row {
@@ -145,9 +141,7 @@
       font-weight: 700;
       font-size: 14px;
     }
-    .join-btn:hover {
-      background: #111;
-    }
+    .join-btn:hover { background: #111; }
 
     /* 하단 링크 */
     .join-links {
@@ -162,10 +156,10 @@
     .join-links a {
       color: #666;
       text-decoration: none;
+      font-weight: 600;
     }
-    .join-links a:hover {
-      text-decoration: underline;
-    }
+    .join-links a:hover { text-decoration: underline; }
+
     .divider {
       width: 1px;
       height: 10px;
@@ -173,10 +167,11 @@
       display: inline-block;
     }
 
-    /* common.css의 header가 뜨면 숨김(회원가입은 단독 화면 기준) */
-    header.header {
-      display: none !important;
-    }
+    .slash { color:#999; margin:0 2px; }
+    .find-text { font-weight: 500; }
+
+    /* common.css의 header가 뜨면 숨김 */
+    header.header { display: none !important; }
   </style>
 </head>
 
@@ -185,88 +180,89 @@
 
   <div class="join-wrap">
     <div class="join-brand">
-      <a href="../home" aria-label="메인페이지로 이동">
-    <img src="../buskinglogo.png" alt="BUSKING RESERVATION" />
-  </a>
+      <a href="<c:url value='/'/>" aria-label="메인페이지로 이동">
+        <img src="<c:url value='/images/buskinglogo.png'/>" alt="BUSKING RESERVATION" />
+      </a>
     </div>
 
     <div class="join-card">
       <h2 class="join-title">회원가입</h2>
 
-     <form action="/member/register" method="post">
-       <div class="join-grid">
+      <!-- ✅ 컨트롤러에 맞게: POST /member/register -->
+      <form method="post" action="<c:url value='/member/register'/>">
+        <div class="join-grid">
 
-         <!-- 아이디 -->
-         <div class="field">
-           <label for="memberId">아이디</label>
-           <input type="text" id="memberId" name="memberId" required placeholder="아이디를 입력하세요">
-         </div>
+          <!-- 아이디 -->
+          <div class="field">
+            <label for="memberId">아이디</label>
+            <input type="text" id="memberId" name="memberId" required placeholder="아이디를 입력하세요">
+          </div>
 
-         <!-- 비밀번호 -->
-         <div class="field">
-           <label for="pw">비밀번호</label>
-           <input type="password" id="pw" name="pw" required placeholder="비밀번호를 입력하세요">
-         </div>
+          <!-- 비밀번호 -->
+          <div class="field">
+            <label for="pw">비밀번호</label>
+            <input type="password" id="pw" name="pw" required placeholder="비밀번호를 입력하세요">
+          </div>
 
-         <!-- 이름 -->
-         <div class="field">
-           <label for="name">이름</label>
-           <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
-         </div>
+          <!-- 이름 -->
+          <div class="field">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
+          </div>
 
-         <!-- 닉네임 -->
-         <div class="field">
-           <label for="nickname">닉네임</label>
-           <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
-         </div>
+          <!-- 닉네임 -->
+          <div class="field">
+            <label for="nickname">닉네임</label>
+            <input type="text" id="nickname" name="nickname" required placeholder="닉네임을 입력하세요">
+          </div>
 
-         <!-- 이메일 -->
-         <div class="field full">
-           <label for="email">이메일</label>
-           <input type="email" id="email" name="email" placeholder="example@email.com">
-         </div>
+          <!-- 이메일 -->
+          <div class="field full">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com">
+          </div>
 
-         <!-- 전화번호 -->
-         <div class="field">
-           <label for="phone">전화번호</label>
-           <input type="tel" id="phone" name="phone" placeholder="01012345678">
-         </div>
+          <!-- 전화번호 -->
+          <div class="field">
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+          </div>
 
-         <!-- 생년월일 -->
-         <div class="field">
-           <label for="birthDate">생년월일</label>
-           <input type="date" id="birthDate" name="birthDate">
-         </div>
+          <!-- 생년월일 (컨트롤러 InitBinder: LocalDate yyyy-MM-dd 파싱됨) -->
+          <div class="field">
+            <label for="birthDate">생년월일</label>
+            <input type="date" id="birthDate" name="birthDate">
+          </div>
 
-         <!-- 성별 -->
-         <div class="field full">
-           <label>성별</label>
-           <div class="gender-row">
-             <label for="gender_m">
-               <input type="radio" name="gender" value="M" id="gender_m">
-               남
-             </label>
-             <label for="gender_f">
-               <input type="radio" name="gender" value="F" id="gender_f">
-               여
-             </label>
-           </div>
-         </div>
+          <!-- 성별 -->
+          <div class="field full">
+            <label>성별</label>
+            <div class="gender-row">
+              <label for="genderM">
+                <input type="radio" name="gender" value="M" id="genderM">
+                남
+              </label>
+              <label for="genderF">
+                <input type="radio" name="gender" value="F" id="genderF">
+                여
+              </label>
+            </div>
+          </div>
 
-       </div>
+        </div>
 
-       <button type="submit" class="join-btn">
-         가입하기
-       </button>
-     </form>
-
+        <!-- ✅ submit으로 바꿔야 컨트롤러 POST /member/register로 감 -->
+        <button type="submit" class="join-btn">가입하기</button>
 
         <div class="join-links">
-          <a href="/member/login">로그인으로</a>
+          <a href="<c:url value='/member/login'/>">로그인으로</a>
           <span class="divider"></span>
-          <a class="find-link" href="./idfind.html">ID</a>
+
+          <!-- ⚠️ find-id/find-pw는 컨트롤러에 POST만 있으므로
+               GET 페이지가 없다면 정적 html로 연결해야 404가 안 남 -->
+          <a class="find-link" href="<c:url value='/idfind.html'/>">ID</a>
           <span class="slash">/</span>
-          <a class="find-link" href="./pwfind.html">PW</a>
+          <a class="find-link" href="<c:url value='/pwfind.html'/>">PW</a>
           <span class="find-text">찾기</span>
         </div>
       </form>
