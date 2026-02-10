@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 import com.team3.busking.domain.City;
 import com.team3.busking.domain.Place;
-import com.team3.busking.domain.Reservation;
+import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.repository.CityRepository;
 
 @Service
@@ -36,7 +36,7 @@ public class LocaleService {
 	}
 
 	public List<Place> getPlacesByCityCode(String cityCode) {
-		return placeRepository.findByCity_CityCodeAndPlaceStatusTrueOrderByIdDesc(cityCode);
+		return placeRepository.findByCity_CityCodeOrderByIdDesc(cityCode);
 	}
 
 	public Place getPlace(Long placeId) {
@@ -69,7 +69,7 @@ public class LocaleService {
 			throw new IllegalStateException("이미 예약된 시간입니다.");
 		}
 
-		Reservation r = new Reservation();
+		PlaceReservation r = new PlaceReservation();
 		r.setUserId(userId);
 		r.setPlace(place);
 		r.setBandName(bandName);
@@ -84,7 +84,7 @@ public class LocaleService {
 		return reservationRepository.save(r).getId();
 	}
 
-	public Reservation getReservation(Long reservationId) {
+	public PlaceReservation getReservation(Long reservationId) {
 		return reservationRepository.findById(reservationId)
 				.orElseThrow(() -> new IllegalArgumentException("예약 정보 없음: " + reservationId));
 	}
