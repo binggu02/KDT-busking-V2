@@ -4,15 +4,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<title>Busking Reservation - Main</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Busking Reservation - Main</title>
 
-<!-- CSS -->
-<link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-<link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
+  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 </head>
+
 <body>
-	<body class="main-page">
 <div class="page">
 
   <!-- ================= HEADER ================= -->
@@ -20,9 +21,11 @@
     <div class="container header-inner">
 
       <a class="logo" href="<c:url value='/'/>">
-        <img src="<c:url value='/images/buskinglogo.png'/>" class="logo-icon" alt="BUSKING RESERVATION"/>
+        <img src="<c:url value='/images/buskinglogo.png'/>"
+             class="logo-icon" alt="BUSKING RESERVATION"/>
         <div class="logo-text">
-          <strong>BUSKING</strong><br />RESERVATION
+          <strong>BUSKING</strong><br />
+          RESERVATION
         </div>
       </a>
 
@@ -30,18 +33,21 @@
       <nav class="nav">
         <a href="<c:url value='/gear/list'/>">장비 예약</a>
         <a href="<c:url value='/locale/list'/>">지역별 장소 예약</a>
-        <a href="<c:url value='/board/main'/>">게시판</a> <!-- ← 수정됨 -->
+        <a href="<c:url value='/board/main'/>">게시판</a>
       </nav>
 
       <!-- 로그인/로그아웃 -->
       <div class="auth">
         <c:choose>
+          <!-- ✅ sessionScope를 쓰면 더 안전하지만, 네 코드 스타일대로 loginUser 그대로 맞춤 -->
           <c:when test="${empty loginUser}">
             <a href="<c:url value='/member/login'/>">login</a>
             <a href="<c:url value='/member/register'/>">register</a>
           </c:when>
           <c:otherwise>
-            <a href="<c:url value='/mypage'/>">${loginUser.memberId}</a>
+            <a href="<c:url value='/mypage'/>">
+              <c:out value="${loginUser.memberId}" />
+            </a>
             <a href="<c:url value='/member/logout'/>">logout</a>
           </c:otherwise>
         </c:choose>
@@ -105,7 +111,7 @@
       <section class="section">
         <div class="section-head">
           <h2>게시판 인기글</h2>
-          <a class="more" href="<c:url value='/board/main'/>">더보기</a> <!-- ← 수정됨 -->
+          <a class="more" href="<c:url value='/board/main'/>">더보기</a>
         </div>
 
         <ul class="list">
@@ -141,6 +147,5 @@
   </footer>
 
 </div>
-
 </body>
 </html>

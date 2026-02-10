@@ -5,9 +5,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${pageTitle}</title>
 
-  <!-- ✅ 정적 경로는 var로 빼서 쓰면 컨텍스트패스에서 100% 안전 -->
+  <title>
+    <c:choose>
+      <c:when test="${not empty pageTitle}">
+        <c:out value="${pageTitle}" />
+      </c:when>
+      <c:otherwise>장비 예약</c:otherwise>
+    </c:choose>
+  </title>
+
+  <!-- 정적 경로 -->
   <c:url var="commonCss" value="/css/common.css" />
   <c:url var="mainCss" value="/css/main.css" />
   <c:url var="listCss" value="/css/gear/list.css" />
@@ -17,7 +25,8 @@
   <link rel="stylesheet" href="${listCss}" />
 </head>
 
-<body>
+<!-- ✅ list.css에서 body.gear-page 사용 -->
+<body class="gear-page">
 
 <c:url var="homeUrl" value="/" />
 <c:url var="gearListUrl" value="/gear/list" />
@@ -25,7 +34,6 @@
 <c:url var="boardListUrl" value="/board/list" />
 <c:url var="mypageUrl" value="/mypage/main" />
 <c:url var="logoutUrl" value="/member/logout" />
-<c:url var="reserveUrl" value="/gear/reserve" />
 
 <c:url var="headerBgUrl" value="/images/busking.png" />
 <c:url var="logoUrl" value="/images/buskinglogo.png" />
@@ -43,7 +51,7 @@
     </nav>
 
     <div class="auth">
-      <a class="pill" href="${mypage/main}">my page</a>
+      <a class="pill" href="${mypageUrl}">my page</a>
       <a class="pill" href="${logoutUrl}">logout</a>
     </div>
   </div>
@@ -51,29 +59,59 @@
 
 <main class="main">
   <div class="container">
+
+    <!-- ✅ 디버깅용: DB에서 넘어온 개수 (문제 해결되면 지워도 됨) -->
+    <div style="margin:10px 0; color:#666; font-size:12px;">
+      gearList count : <c:out value="${gearList.size()}" />
+    </div>
+
     <section class="gear-grid">
 
-      <c:forEach var="g" items="${gears}">
-        <!-- ✅ g.img 가 "/images/01.jpg" 형태여야 정상 -->
-        <c:url var="imgUrl" value="${g.img}" />
+      <!-- ✅ 컨트롤러: model.addAttribute("gearList", gearService.findAll()) -->
+      <c:forEach var="g" items="${gearList}">
 
-        <a class="gear-link gear-card" href="${reserveUrl}"
-           data-name="${g.name}"
-           data-price="${g.price}"
-           data-desc="${g.desc}"
-           data-img="${imgUrl}">
+        <!-- ✅ DB: gear_thumbnail = 'acoustic_guitar.jpg' 처럼 파일명만 들어있음
+             => 항상 /images/ 를 붙여서 렌더링 -->
+        <c:choose>
+          <c:when test="${not empty g.gearThumbnail}">
+            <!-- 혹시 DB에 '/images/xxx.jpg'로 들어간 데이터도 대비 -->
+            <c:choose>
+              <c:when test="${g.gearThumbnail.startsWith('/')}">
+                <c:url var="imgUrl" value="${g.gearThumbnail}" />
+              </c:when>
+              <c:otherwise>
+                <c:url var="imgUrl" value="/images/${g.gearThumbnail}" />
+              </c:otherwise>
+            </c:choose>
+          </c:when>
+          <c:otherwise>
+            <c:url var="imgUrl" value="/images/busking.png" />
+          </c:otherwise>
+        </c:choose>
 
+        <!-- ✅ /gear/reserve GET: gearId 없으면 redirect:/gear/list -->
+        <c:url var="reserveWithIdUrl" value="/gear/reserve">
+          <c:param name="gearId" value="${g.gearId}" />
+        </c:url>
+
+        <a class="gear-link gear-card" href="${reserveWithIdUrl}">
           <div class="thumb"
                style="background-image:url('${imgUrl}');"
-               aria-label="${g.name} 이미지"></div>
+               aria-label="<c:out value='${g.gearName}'/> 이미지"></div>
 
           <div class="card-body">
-            <div class="card-title">${g.name}</div>
-            <div class="card-price">$${g.price}</div>
-            <div class="card-desc">${g.desc}</div>
+            <div class="card-title"><c:out value="${g.gearName}" /></div>
+            <div class="card-price">₩<c:out value="${g.gearPrice}" /></div>
+            <div class="card-desc"><c:out value="${g.gearDescription}" /></div>
           </div>
         </a>
+
       </c:forEach>
+
+      <!-- 목록 비었을 때 -->
+      <c:if test="${empty gearList}">
+        <div style="padding:18px; color:#666;">등록된 장비가 없습니다.</div>
+      </c:if>
 
     </section>
   </div>
@@ -84,24 +122,6 @@
     <p>© Busking Reservation</p>
   </div>
 </footer>
-
-<script>
-  document.querySelectorAll(".gear-link").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const item = {
-        name: link.dataset.name,
-        price: link.dataset.price,
-        desc: link.dataset.desc,
-        img: link.dataset.img
-      };
-
-      sessionStorage.setItem("selectedGear", JSON.stringify(item));
-      window.location.href = link.getAttribute("href");
-    });
-  });
-</script>
 
 </body>
 </html>

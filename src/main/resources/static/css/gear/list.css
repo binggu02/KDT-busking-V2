@@ -1,19 +1,25 @@
 /* =========================
-   GEAR PAGE (screenshot style)
+   GEAR PAGE (screenshot style) - JSP friendly
 ========================= */
 
-body{
+/* ✅ 페이지 전용 배경(공통 body 스타일과 충돌 방지) */
+body.gear-page{
   background: #f5f6f8;
 }
 
-/* ✅ 헤더 배경 이미지 (JSP용: 상대경로 X, 루트 기준) */
+/* ✅ 헤더: 배경 이미지는 JSP inline style(background-image)가 주입
+   ex) <header class="header" style="background-image:url('...')"> */
 .header{
   position: relative;
   width: 100%;
   height: 150px;
-  background: url("/images/busking.png") center/cover no-repeat;
   z-index: 10;
   color: #fff;
+
+  /* 이미지는 JSP에서 넣고, 여기서는 표현 속성만 유지 */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* 오버레이 */
@@ -99,15 +105,15 @@ body{
   margin-top: -18px;
 }
 
-/* ✅ 카드 그리드 */
+/* ✅ 카드 그리드: 고정 250px 느낌 유지하면서도 반응형 안전 */
 .gear-grid{
   display: grid;
-  grid-template-columns: repeat(4, 250px);
+  grid-template-columns: repeat(auto-fit, 250px);
   gap: 50px;
   justify-content: center;
 }
 
-/* 카드 */
+/* 카드(링크가 카드 전체를 감싸는 구조 a.gear-link.gear-card 기준) */
 .gear-card{
   background:#fff;
   border: 1px solid #e7e7e7;
@@ -116,11 +122,30 @@ body{
   overflow:hidden;
 }
 
+/* ✅ 링크 스타일 */
+.gear-link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  /* hover 효과 */
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.gear-link:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
 /* 썸네일 */
 .thumb{
   height: 160px;
   background: #e6e6e6;
   position: relative;
+
+  /* JSP에서 background-image를 inline으로 주는 경우 대비 */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .thumb::after{
@@ -156,31 +181,7 @@ body{
   color:#666;
 }
 
-/* ✅ 링크 스타일 */
-.gear-link{
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-/* ✅ hover 효과 (주의: 현재 구조가 a.gear-link.gear-card 라면 아래 2개는 이렇게 쓰는게 맞음) */
-.gear-link{
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.gear-link:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
-}
-
 /* 반응형 */
-@media (max-width: 1000px){
-  .gear-grid{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
 @media (max-width: 760px){
-  .gear-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .nav{ display:none; }
 }

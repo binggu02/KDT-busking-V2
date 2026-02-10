@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,32 +8,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>마이페이지</title>
 
-  <!-- ✅ 정적자원은 c:url 절대경로 -->
-  <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/mypage/myPage.css'/>" />
+  <!-- ✅ 정적 리소스 경로 -->
+  <c:url var="commonCss" value="/css/common.css" />
+  <c:url var="mainCss" value="/css/main.css" />
+  <c:url var="myPageCss" value="/css/mypage/main.css" />
+  <c:url var="logoImg" value="/images/buskinglogo.png" />
 
-  <!-- ✅ 탭 패널 show/hide용 CSS -->
-  <style>
-    .tab-panel { display:none; }
-    .tab-panel.show { display:block; }
-  </style>
+  <link rel="stylesheet" href="${commonCss}" />
+  <link rel="stylesheet" href="${mainCss}" />
+  <link rel="stylesheet" href="${myPageCss}" />
 </head>
 
-<body>
+<!-- ✅ 핵심: 이 클래스가 있어야 myPage.css가 적용됨 -->
+<body class="mypage-page">
 
-<!-- ✅ 상단 헤더 (컨트롤러 경로로 이동) -->
-<header class="header" style="background-image:url('<c:url value="/images/busking.png"/>');">
+<header class="header">
   <div class="container header-inner">
 
     <a class="logo" href="<c:url value='/'/>">
-      <img src="<c:url value='/images/buskinglogo.png'/>" alt="BUSKING RESERVATION" class="logo-icon" />
+      <img src="${logoImg}" alt="BUSKING RESERVATION" class="logo-icon" />
     </a>
 
     <nav class="nav">
       <a href="<c:url value='/gear/list'/>">장비 예약</a>
       <a href="<c:url value='/locale/list'/>">지역별 장소 예약</a>
-      <a href="<c:url value='/board/list'/>">게시판</a>
+      <a href="<c:url value='/board'/>">게시판</a>
     </nav>
 
     <div class="auth">
@@ -44,7 +43,7 @@
   </div>
 </header>
 
-<!-- 배너는 CSS에서 숨김 처리 중 -->
+<!-- (banner는 common/main에 있어도 myPage.css에서 숨김 처리) -->
 <section class="banner">
   <div class="banner-inner">
     <h1>마이페이지</h1>
@@ -54,10 +53,13 @@
 <main class="main">
   <div class="container">
 
-    <!-- ✅ 컨트롤러에서 model.addAttribute("member", loginMember); -->
-    <!-- profile-card -->
+    <!-- 프로필 카드 -->
     <section class="profile-card">
       <div class="profile-left">
+
+        <!-- 프로필 이미지: 사진 쓰고 싶으면 아래처럼 style만 추가
+             <div class="avatar has-photo" style="background-image:url('<c:url value="/images/01.jpg"/>');"></div>
+        -->
         <div class="avatar" aria-label="프로필 이미지"></div>
 
         <div class="profile-basic">
@@ -68,9 +70,9 @@
             <span class="badge">일반 회원</span>
           </div>
 
-          <!-- ✅ 프로필 수정: 컨트롤러 경로 -->
-          <button type="button" class="btn whatever btn-black"
-                  onclick="location.href='<c:url value="/mypage/update"/>'">
+          <!-- ✅ 검은 버튼: btn-black 클래스 적용 -->
+          <button type="button" class="btn btn-black"
+                  onclick="location.href='<c:url value='/mypage/update'/>'">
             프로필 수정
           </button>
         </div>
@@ -80,36 +82,37 @@
         <dl class="info">
           <div class="info-row">
             <dt>ID</dt>
-            <dd><c:out value="${member.memberId}" default="-" /></dd>
+            <dd><c:out value="${member.memberId}" default="example_user"/></dd>
           </div>
           <div class="info-row">
             <dt>전화</dt>
-            <dd><c:out value="${member.phone}" default="-" /></dd>
+            <dd><c:out value="${member.phone}" default="010-1234-5678"/></dd>
           </div>
           <div class="info-row">
             <dt>이메일</dt>
-            <dd><c:out value="${member.email}" default="-" /></dd>
+            <dd><c:out value="${member.email}" default="user@example.com"/></dd>
           </div>
+
+          <!-- ✅ createdAt 없음 이슈 방지 -->
           <div class="info-row">
             <dt>가입일</dt>
-            <!-- 가입일 필드명이 다를 수 있어서 default 처리 -->
-            <dd><c:out value="${member.createdAt}" default="-" /></dd>
+            <dd>-</dd>
           </div>
         </dl>
       </div>
     </section>
 
-    <!-- ✅ 탭 메뉴 -->
+    <!-- 탭 메뉴 -->
     <section class="tabs">
       <button class="tab active" type="button" data-tab="place">장소 예약 내역</button>
       <button class="tab" type="button" data-tab="gear">장비 대여 내역</button>
       <button class="tab" type="button" data-tab="post">내 게시글</button>
     </section>
 
-    <!-- ✅ 탭 패널들 -->
+    <!-- 탭 패널 -->
     <section class="tab-panels">
 
-      <!-- 1) 장소 예약 내역 -->
+      <!-- 1) 장소 예약 -->
       <div class="tab-panel show" data-panel="place">
         <section class="list">
           <article class="list-item">
@@ -119,26 +122,26 @@
             </div>
             <div class="item-right">
               <button class="btn outline" type="button"
-                      onclick="location.href='<c:url value="/locale/list"/>'">
-                장소 예약하기
+                      onclick="location.href='<c:url value='/mypage/reserve'/>'">
+                예약 정보 보기
               </button>
             </div>
           </article>
         </section>
       </div>
 
-      <!-- 2) 장비 대여 내역 -->
+      <!-- 2) 장비 대여 -->
       <div class="tab-panel" data-panel="gear">
         <section class="list">
           <article class="list-item">
             <div class="item-left">
-              <h3 class="item-title">장비 대여 내역이 없습니다.</h3>
-              <p class="item-meta">예약 후 이곳에서 확인할 수 있어요.</p>
+              <h3 class="item-title">장비 대여 내역은 별도 페이지에서 확인합니다.</h3>
+              <p class="item-meta">마이페이지 &gt; 장비 대여 내역</p>
             </div>
             <div class="item-right">
               <button class="btn outline" type="button"
-                      onclick="location.href='<c:url value="/gear/list"/>'">
-                장비 예약하기
+                      onclick="location.href='<c:url value='/mypage/gear'/>'">
+                장비 대여 내역 보기
               </button>
             </div>
           </article>
@@ -150,13 +153,13 @@
         <section class="list">
           <article class="list-item">
             <div class="item-left">
-              <h3 class="item-title">내 게시글이 없습니다.</h3>
-              <p class="item-meta">게시글 작성 후 여기에서 확인할 수 있어요.</p>
+              <h3 class="item-title">내 게시글은 별도 페이지에서 확인합니다.</h3>
+              <p class="item-meta">마이페이지 &gt; 내 게시글</p>
             </div>
             <div class="item-right">
               <button class="btn outline" type="button"
-                      onclick="location.href='<c:url value="/board/list"/>'">
-                게시글 보러가기
+                      onclick="location.href='<c:url value='/mypage/board'/>'">
+                내 게시글 보기
               </button>
             </div>
           </article>

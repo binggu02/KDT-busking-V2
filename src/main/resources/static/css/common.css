@@ -1,6 +1,25 @@
 /* =====================
-   공통 기본 설정
+   RESET & BASE
 ===================== */
+
+.header {
+  position: fixed;                 /* 🔥 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;                   /* ❗ 실제 헤더 높이 */
+  background: url("../images/busking.png") center / cover no-repeat;
+  color: #fff;
+  z-index: 1000;
+}
+
+/* 헤더 안 내용 */
+.header-inner {
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,17 +27,17 @@
 }
 
 body {
+   padding-top: 90px;   
   font-family: "맑은 고딕", sans-serif;
   color: #222;
   background-color: #fff;
 }
 
-
 .container {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 40px; /* 좌우 여백(원하면 20~60 조절) */
+  padding: 0 40px;
 }
 
 /* =====================
@@ -34,34 +53,32 @@ body {
 }
 
 .header-inner {
-  height: 90px;            /* 헤더 높이(원하면 조절) */
+  height: 90px;
   display: flex;
   align-items: center;
 }
 
-/* ✅ 로고는 맨 왼쪽 */
+/* 로고 */
 .logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #fff;
 }
 
-/* 로고 이미지 */
 .logo-icon {
-  width: 250px;      
+  width: 200px;
   height: auto;
   display: block;
 }
 
-/* ✅ 첫 번째 사진에 보이는 "BUSKING / RESERVATION" 글자 블록 제거(숨김) */
+/* 텍스트 로고 숨김 */
 .logo-text {
   display: none;
 }
 
-/* ✅ 메뉴를 오른쪽 끝으로 밀기 */
+/* 네비게이션 */
 .nav {
-  margin-left: auto;     /* 핵심: 로고 뒤 공간을 밀어 메뉴를 오른쪽으로 */
+  margin-left: auto;
   display: flex;
   gap: 28px;
   align-items: center;
@@ -78,7 +95,7 @@ body {
   text-decoration: underline;
 }
 
-/* ✅ login/join도 메뉴 오른쪽에 붙여서 더 오른쪽으로 */
+/* 로그인 / 마이페이지 */
 .auth {
   display: flex;
   gap: 10px;
@@ -93,11 +110,10 @@ body {
   color: #fff;
   text-decoration: none;
   font-size: 13px;
-  white-space: nowrap;
 }
 
 .auth a:hover {
-  background-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255,255,255,0.18);
 }
 
 /* =====================
@@ -109,4 +125,8 @@ body {
   text-align: center;
   font-size: 14px;
   color: #666;
+}
+/* common.css */
+.logo {
+  transform: translateY(5px);   /* 전체 페이지 기본값 */
 }

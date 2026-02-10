@@ -1,0 +1,345 @@
+/* =========================
+   MyPage 전용 스타일 (스코프)
+   common.css / main.css 충돌 방지
+========================= */
+
+/* 배경 + common.css의 body padding-top 무력화 */
+.mypage-page{
+  background: #f5f6f8;
+  padding-top: 0; /* common.css에서 90px 주는 경우 방지 */
+}
+
+/* =========================
+   Header (마이페이지 전용)
+========================= */
+.mypage-page .header{
+  position: relative !important;   /* fixed/absolute 덮기 */
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: 150px !important;
+  background: url("../../images/busking.png") center/cover no-repeat !important;
+  z-index: 10;
+  color: #fff;
+}
+
+.mypage-page .header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.25);
+}
+
+.mypage-page .header-inner{
+  position: relative;
+  z-index: 1;
+  height: 150px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* 로고(공통 transform 제거) */
+.mypage-page .logo{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transform: none !important; /* common.css의 translateY 제거 */
+}
+
+/* ✅ 로고 크게 */
+.mypage-page .logo-icon{
+  height: 100px !important; /* 원하면 90~120 조절 */
+  width: auto !important;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+}
+
+/* 네비 */
+.mypage-page .nav{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.mypage-page .nav a{
+  color:#fff;
+  text-decoration:none;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mypage-page .nav a:hover{
+  text-decoration: underline;
+}
+
+/* 오른쪽 pill */
+.mypage-page .auth{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mypage-page .pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.9);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(0,0,0,0.12);
+}
+.mypage-page .pill:hover{
+  background: rgba(255,255,255,0.18);
+}
+
+/* 배너 숨김 */
+.mypage-page .banner{ display:none; }
+
+/* =========================
+   Main spacing
+========================= */
+.mypage-page .main{
+  padding: 28px 0 28px;
+  margin-top: 0;
+}
+
+/* =========================
+   Profile card
+========================= */
+.mypage-page .profile-card{
+  background:#fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  padding: 22px 22px;
+  display:flex;
+  gap: 18px;
+  align-items: stretch;
+  border: 1px solid #f0f0f0;
+}
+
+.mypage-page .profile-left{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  flex: 1;
+  min-width: 260px;
+}
+
+/* avatar 기본 */
+.mypage-page .avatar{
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #e9edf3;
+  position: relative;
+  overflow: hidden;
+}
+.mypage-page .avatar::before{
+  content:"";
+  position:absolute;
+  inset: 18px 26px 38px 26px;
+  background:#cfd6e1;
+  border-radius: 50%;
+}
+.mypage-page .avatar::after{
+  content:"";
+  position:absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  height: 34px;
+  background:#cfd6e1;
+  border-radius: 20px 20px 12px 12px;
+}
+
+/* 사진 avatar */
+.mypage-page .avatar.has-photo{
+  background-size: cover;
+  background-position: center;
+}
+.mypage-page .avatar.has-photo::before,
+.mypage-page .avatar.has-photo::after{
+  display:none;
+}
+
+.mypage-page .profile-basic{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mypage-page .nickname-row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.mypage-page .nickname{
+  margin:0;
+  font-size: 18px;
+  font-weight: 900;
+  color:#222;
+}
+
+.mypage-page .badge{
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f2f4f7;
+  color:#444;
+  border: 1px solid #e7e7e7;
+}
+
+/* 버튼 */
+.mypage-page .btn{
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mypage-page .btn:hover{ background:#f6f6f6; }
+
+.mypage-page .btn.outline{
+  background:#fff;
+  border: 1px solid #dcdcdc;
+}
+
+/* ✅ 프로필 수정 검정 버튼 */
+.mypage-page .btn-black{
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+.mypage-page .btn-black:hover{
+  background: #000;
+  border-color: #000;
+}
+
+/* 오른쪽 정보 */
+.mypage-page .profile-right{
+  flex: 1;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 18px;
+  display:flex;
+  align-items:center;
+}
+
+.mypage-page .info{
+  margin:0;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mypage-page .info-row{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mypage-page .info-row dt{
+  font-size: 12px;
+  color:#666;
+  font-weight: 700;
+}
+
+.mypage-page .info-row dd{
+  margin:0;
+  font-size: 12px;
+  color:#222;
+  font-weight: 700;
+}
+
+/* Tabs */
+.mypage-page .tabs{
+  margin-top: 14px;
+  display:flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mypage-page .tab{
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #e3e3e3;
+  background: #fff;
+  cursor:pointer;
+  font-size: 12px;
+  font-weight: 800;
+  color:#444;
+}
+.mypage-page .tab:hover{ background:#f6f6f6; }
+
+.mypage-page .tab.active{
+  background:#222;
+  border-color:#222;
+  color:#fff;
+}
+
+/* List */
+.mypage-page .list{
+  margin-top: 16px;
+  background:#fff;
+  border-radius: 18px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+.mypage-page .list-item{
+  padding: 16px 18px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 14px;
+  border-top: 1px solid #f2f2f2;
+}
+.mypage-page .list-item:first-child{ border-top: none; }
+
+.mypage-page .item-title{
+  margin:0;
+  font-size: 14px;
+  font-weight: 900;
+  color:#222;
+}
+.mypage-page .item-meta{
+  margin: 6px 0 0;
+  font-size: 12px;
+  color:#777;
+  font-weight: 600;
+}
+.mypage-page .item-right{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* 탭 패널 */
+.mypage-page .tab-panel{ display:none; }
+.mypage-page .tab-panel.show{ display:block; }
+
+/* Responsive */
+@media (max-width: 860px){
+  .mypage-page .profile-card{ flex-direction: column; }
+  .mypage-page .profile-right{
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 14px;
+  }
+  .mypage-page .nav{ gap: 12px; }
+}
