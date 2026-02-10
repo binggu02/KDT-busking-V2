@@ -1,0 +1,35 @@
+1. lombok 다운하기
+
+https://projectlombok.org/download
+
+
+
+2. 다운받은 jar 파일 사용중인 sts 폴더 안에 넣기
+
+
+
+3. sts 폴더 안에 있는 "SpringToolsForEclipse.ini" 파일 열어서 아래 코드 추가
+
+-javaagent:lombok.jar
+
+ex) 아래처럼 추가하면 됨
+-Dp2.trustedAuthorities=https://download.eclipse.org,https://archive.eclipse.org,https://cdn.spring.io
+-XX:+UseG1GC
+-XX:+UseStringDeduplication
+--illegal-access=permit
+--add-modules=ALL-SYSTEM
+-javaagent:lombok.jar
+
+
+
+4. 프로젝트 우클릭해서 메이븐 force update하면 적용됨
+
+
+
+5. entity(도메인 클래스 파일)에 코드 추가
+
+@Getter @Setter
+
+
+
+6. service 계층에서 객체 getter setter 동작 확인

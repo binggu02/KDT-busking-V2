@@ -2,7 +2,6 @@ package com.team3.busking.service;
 
 import com.team3.busking.domain.Member;
 import com.team3.busking.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,13 +37,16 @@ public class MemberService {
     }
     
     // ================= 로그인 =================
-    public Member login(String memberId, String pw) {
-        Member member = memberRepository.findByMemberId(memberId);
+    public Optional<Member> login(String memberId, String pw) {
+        Optional<Member> memberOpt = memberRepository.findByMemberId(memberId);
 
-        if (member == null) return null;
-        if (!member.getPw().equals(pw)) return null;
+        if (memberOpt.isEmpty()) return Optional.empty();
+        
+        Member member = memberOpt.get();
+        
+        if (!member.getPw().equals(pw)) return Optional.empty();
 
-        return member;
+        return memberOpt;
     }
 
 
@@ -76,9 +78,31 @@ public class MemberService {
 
     // 5. 회원 정보 삭제
     @Transactional
-    public void deleteMember(String id) {
+    public void deleteMember(Long id) {
         memberRepository.deleteById(id);
+        
     }
+    
+    // 아이디 찾기 메소드 feat.병현
+    @Transactional
+	public String findMemberId(String name, String phone, String email) {
+		// TODO Auto-generated method stub
+    	return memberRepository.findMemberIdByNameAndPhoneAndEmail(name, phone, email)
+    			.orElseThrow(() -> 
+    					new IllegalArgumentException("일치하는 회원이 없습니다."));
+    	
+    	
+	}
+
+    // 비밀번호 찾기 메소드 feat.병현
+	public String checkMemberForPw(String name, String memberId, String phone, String email) {
+		// TODO Auto-generated method stub
+		return memberRepository.findByNameAndMemberIdAndPhoneAndEmail(name, memberId, phone, email)
+				.orElseThrow(() ->
+						new IllegalArgumentException("일치하는 회원이 없습니다."));
+	}
+    
+    
 }
 
 

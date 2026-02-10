@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -51,12 +52,14 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(@RequestParam String memberId, @RequestParam String pw, HttpSession session) {
 
-		Member member = memberService.login(memberId, pw);
+		Optional<Member> memberOpt = memberService.login(memberId, pw);
 
-		if (member == null) {
+		if (memberOpt.isEmpty()) {
 			return "member/login";
 		}
 
+		Member member = memberOpt.get();
+		
 		session.setAttribute("loginUser", member);
 		return "redirect:/";
 	}
@@ -106,11 +109,23 @@ public class MemberController {
 	public String findPw(@RequestParam String name, @RequestParam String memberId, @RequestParam String phone,
 			@RequestParam String email, Model model) {
 
-		boolean result = memberService.checkMemberForPw(name, memberId, phone, email);
+		// 기존 bool 타입을 String으로 변경 및 변수 명 result에서 pw로 변경 feat.병현
+		String pw = memberService.checkMemberForPw(name, memberId, phone, email);
 
-		model.addAttribute("result", result);
+		// pw 검사 로직 추가 feat.병현
+		if (pw.isEmpty()) {
+			// pw를 찾지 못했을 때 처리 로직
+			model.addAttribute("result", false);
+			model.addAttribute("memberId", memberId);
+			return "member/findPwResult";
+		}
+
+		// pw를 찾았을 때 처리 로직 feat.병현
+		model.addAttribute("result", true);
 		model.addAttribute("memberId", memberId);
 
+		model.addAttribute("pw", pw);
 		return "member/findPwResult";
+
 	}
 }

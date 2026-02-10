@@ -4,11 +4,13 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.team3.busking.domain.Locale;
+import com.team3.busking.domain.City;
+
+
 
 @Repository
-public interface LocaleRepository {
+public interface LocaleRepository extends CityRepository{
 	// 아이디로 찾기
-		Optional<Locale> findById(String id);
+		Optional<City> findById(Long id);
 
 }
