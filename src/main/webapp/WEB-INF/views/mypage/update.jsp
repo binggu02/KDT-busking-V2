@@ -7,38 +7,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>정보 수정</title>
-
-  <!-- 공통 CSS (mypage 폴더라서 ../) -->
-  <link rel="stylesheet" href="../common.css" />
-  <link rel="stylesheet" href="../main.css" />
-
-  <!-- 마이페이지 전용 CSS -->
-  <link rel="stylesheet" href="myPage.css" />
-
-  <!-- ✅ 업데이트 페이지 전용 CSS (반드시 마지막) -->
-  <link rel="stylesheet" href="update.css" />
+  
+  <!-- CSS 경로: info.jsp 기준으로 한 단계 위로 -->
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/mypage.css">
 </head>
 
-<body>
+<!-- body에 클래스 추가 -->
+<body class="mypage-page">
 
-  <!-- ✅ 상단 헤더 -->
+  <!-- 상단 헤더 -->
   <header class="header">
-        <div class="container header-inner">
-          <a class="logo" href="../home.jsp">
-            <img src="../buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
-          </a>
+    <div class="container header-inner">
+      <a class="logo" href="../home.jsp">
+        <img src="../buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
+      </a>
 
-    	  <nav class="nav">
-    	      <a href="../gear/list.jsp">장비 예약</a>
-    	      <a href="../locale/list.jsp">지역별 장소 예약</a>
-    	      <a href="../board/main.jsp">게시판</a>
-    	    </nav>
+      <nav class="nav">
+        <a href="../gear/list.jsp">장비 예약</a>
+        <a href="../locale/list.jsp">지역별 장소 예약</a>
+        <a href="../board/main.jsp">게시판</a>
+      </nav>
 
-    	    <div class="auth">
-    	      <a class="pill" href="../mypage/main.jsp">my page</a>
-    	      <a class="pill" href="../member/login.jsp">logout</a>
-    	    </div>
-    	  </div>
+      <div class="auth">
+        <a class="pill" href="../mypage/main.jsp">my page</a>
+        <a class="pill" href="../member/login.jsp">logout</a>
+      </div>
+    </div>
   </header>
 
   <main class="main">
@@ -46,7 +42,7 @@
 
       <div class="login-wrapper">
 
-        <!-- ✅ 프로필 상단(사진 느낌) -->
+        <!-- 프로필 상단 -->
         <div class="profile-top">
           <div class="avatar" aria-label="프로필 이미지"></div>
 
@@ -66,7 +62,7 @@
             <input type="text" id="nickname" name="nickname" required placeholder="닉네임">
           </div>
 
-          <!-- 연락처 (잠금 아이콘) -->
+          <!-- 연락처 (읽기 전용) -->
           <div class="field">
             <label for="phone">연락처</label>
             <div class="input-lock">
@@ -80,13 +76,11 @@
             <input type="email" id="useremail" name="useremail" placeholder="user@example.com">
           </div>
 
-          <!-- ✅ 비밀번호로 변경 -->
+          <!-- 비밀번호 변경 -->
           <div class="section-title">비밀번호로 변경</div>
 
           <div class="field">
             <label for="pw1"></label>
-
-            <!-- ✅ 토글 래퍼(자물쇠 없음) -->
             <div class="input-toggle">
               <input type="password" id="pw1" name="pw1" placeholder="새 비밀번호">
               <button type="button" class="toggle-btn" aria-label="비밀번호 보기" data-target="#pw1">
@@ -97,8 +91,6 @@
 
           <div class="field">
             <label for="pw2"></label>
-
-            <!-- ✅ 토글 래퍼(자물쇠 없음) -->
             <div class="input-toggle">
               <input type="password" id="pw2" name="pw2" placeholder="새 비밀번호 확인">
               <button type="button" class="toggle-btn" aria-label="비밀번호 보기" data-target="#pw2">
@@ -107,8 +99,7 @@
             </div>
           </div>
 
-
-          <!-- ✅ 버튼 -->
+          <!-- 버튼 -->
           <div class="btn-col">
             <button class="joinok-btn" type="button" onclick="location.href='./info.jsp'">
               저장하기
@@ -132,21 +123,22 @@
     </div>
   </footer>
 
-</body>
-<script>
-  document.querySelectorAll(".toggle-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const targetSel = btn.dataset.target;
-      const input = document.querySelector(targetSel);
-      if (!input) return;
+  <script>
+    // 비밀번호 보기/숨기기 토글
+    document.querySelectorAll(".toggle-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetSel = btn.dataset.target;
+        const input = document.querySelector(targetSel);
+        if (!input) return;
 
-      const isHidden = input.type === "password";
-      input.type = isHidden ? "text" : "password";
+        const isHidden = input.type === "password";
+        input.type = isHidden ? "text" : "password";
 
-      btn.textContent = isHidden ? "숨김" : "보기";
-      btn.setAttribute("aria-label", isHidden ? "비밀번호 숨기기" : "비밀번호 보기");
+        btn.textContent = isHidden ? "숨김" : "보기";
+        btn.setAttribute("aria-label", isHidden ? "비밀번호 숨기기" : "비밀번호 보기");
+      });
     });
-  });
-</script>
+  </script>
 
+</body>
 </html>

@@ -5,136 +5,34 @@
 <head>
   <meta charset="UTF-8" />
   <title>Q&A 상세</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Pretendard, Arial, sans-serif;
-    }
-
-    body {
-      background: #f5f5f5;
-      color: #222;
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    /* HEADER */
-    .header { background: #111; color: white; }
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo img { height: 40px; }
-    .nav a { margin: 0 15px; font-size: 14px; }
-    .auth .pill {
-      border: 1px solid white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      margin-left: 10px;
-    }
-
-    /* MAIN */
-    .main { padding: 40px 0; }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      padding: 40px;
-      border-radius: 10px;
-    }
-
-    .post-header {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
-    }
-    .post-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .post-info {
-      font-size: 14px;
-      color: #777;
-      display: flex;
-      gap: 20px;
-    }
-
-    .post-content {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-      white-space: pre-line;
-    }
-
-    .answer-box {
-      background: #fafafa;
-      border-left: 4px solid #ff7875;
-      padding: 20px;
-      margin-bottom: 40px;
-    }
-    .answer-box h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #ff7875;
-    }
-
-    /* BUTTON */
-    .btn-area {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    .btn-list,
-    .btn-delete {
-      border: none;
-      padding: 8px 20px;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      color: white;
-    }
-
-    .btn-list { background: #999; }
-    .btn-delete { background: #ff4d4f; }
-
-    /* FOOTER */
-    .footer {
-      margin-top: 50px;
-      text-align: center;
-      font-size: 13px;
-      color: #888;
-    }
-  </style>
 </head>
 
+<!-- 공통 CSS -->
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css" />
 <body>
 
+	<!-- ✅ 공통 헤더 -->
 	<header class="header">
-	   <div class="container header-inner">
-	     <a class="logo" href="../home.jsp">
-	       <img src="images/buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
-	     </a>
+	  <div class="container header-inner">
+		<a class="logo" href="<%= request.getContextPath() %>/">
+			<img src="<%= request.getContextPath() %>/images/buskinglogo.png"
+			     alt="BUSKING RESERVATION"
+			     class="logo-icon" />
 
-	     <nav class="nav">
-	       <a href="../gear/list.jsp">장비 예약</a>
-	       <a href="../locale/list.jsp">지역별 장소 예약</a>
-	       <a href="../board/main.jsp">게시판</a>
-	     </nav>
+		</a>
 
-	     <div class="auth">
-	       <a class="pill" href="../mypage/main.jsp">my page</a>
-	       <a class="pill" href="../member/login.jsp">logout</a>
-	     </div>
+		<nav class="nav">
+			  <a href="<%= request.getContextPath() %>/gear/list">장비 예약</a>
+			  <a href="<%= request.getContextPath() %>/locale/list">지역별 장소 예약</a>
+			  <a href="<%= request.getContextPath() %>/board/main">게시판</a>
+			</nav>
+
+			<div class="auth">
+			  <a class="pill" href="<%= request.getContextPath() %>/mypage/main">my page</a>
+			  <a class="pill" href="<%= request.getContextPath() %>/member/logout">logout</a>
+			</div>
 	   </div>
 </header>
 
@@ -166,9 +64,9 @@
 
     <!-- 버튼 -->
     <div class="btn-area">
-      <button class="btn-list" onclick="location.href='./main.jsp'">
-        목록
-      </button>
+		<button class="action-btn btn-list" onclick="location.href='<%=request.getContextPath()%>/board/main'">
+		      목록
+		    </button>
       <button class="btn-delete" onclick="deleteQna()">
         삭제
       </button>
