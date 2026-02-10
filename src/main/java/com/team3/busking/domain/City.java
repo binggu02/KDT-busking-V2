@@ -2,7 +2,12 @@ package com.team3.busking.domain;
 
 import jakarta.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "city")
 public class City {
 
@@ -19,24 +24,5 @@ public class City {
 
   public City() {}
 
-  public Long getId() {
-    return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
 
-  public String getCityCode() {
-    return cityCode;
-  }
-  public void setCityCode(String cityCode) {
-    this.cityCode = cityCode;
-  }
-
-  public String getCityName() {
-    return cityName;
-  }
-  public void setCityName(String cityName) {
-    this.cityName = cityName;
-  }
 }

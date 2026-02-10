@@ -1,32 +1,52 @@
 package com.team3.busking.controller;
 
 import com.team3.busking.domain.Member;
+import com.team3.busking.service.GearReservationService;
+import com.team3.busking.service.LocaleService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/mypage")
+@RequiredArgsConstructor
 public class MyPageController {
+
+    private final GearReservationService gearReservationService;
+    private final LocaleService reservationService;
 
     /* =========================
        마이페이지 메인
        /mypage
        ========================= */
-	@GetMapping("")
-	public String main(HttpSession session, Model model) {
+    @GetMapping("")
+    public String main(
+            HttpSession session,
+            Model model,
+            @RequestParam(required = false, defaultValue = "place") String tab
+    ) {
+        Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
 
-	    Member loginMember = (Member) session.getAttribute("loginUser");
-	    if (loginMember == null) {
-	        return "redirect:/member/login";
-	    }
+        model.addAttribute("member", loginMember);
 
-	    model.addAttribute("member", loginMember);
-	    return "mypage/main";
-	}
+        model.addAttribute("gearReservations",
+                gearReservationService.findMyGearReservations(loginMember.getId()));
 
+        // ✅ 여기 고침: LocaleService.findMyReservations(...) → reservationService.findMyReservations(...)
+        model.addAttribute("placeReservations",
+                reservationService.findMyReservations(loginMember.getId()));
+
+        model.addAttribute("activeTab", tab);
+
+        return "mypage/main";
+    }
 
     /* =========================
        프로필 수정
@@ -35,7 +55,7 @@ public class MyPageController {
     @GetMapping("/update")
     public String update(HttpSession session, Model model) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
@@ -51,7 +71,7 @@ public class MyPageController {
     @GetMapping("/withdraw")
     public String withdraw(HttpSession session) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
@@ -66,7 +86,7 @@ public class MyPageController {
     @GetMapping("/board")
     public String myBoard(HttpSession session) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
@@ -81,7 +101,7 @@ public class MyPageController {
     @GetMapping("/board/update")
     public String boardUpdate(HttpSession session) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
@@ -90,31 +110,37 @@ public class MyPageController {
     }
 
     /* =========================
-       장비 대여 내역
+       장비 대여 내역 (별도 페이지)
        /mypage/gear
        ========================= */
     @GetMapping("/gear")
-    public String gearList(HttpSession session) {
+    public String gearList(HttpSession session, Model model) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
+
+        model.addAttribute("gearReservations",
+                gearReservationService.findMyGearReservations(loginMember.getId()));
 
         return "mypage/gear/list";
     }
 
     /* =========================
-       장소 예약 정보
+       장소 예약 정보 (별도 페이지)
        /mypage/reserve
        ========================= */
     @GetMapping("/reserve")
-    public String reserveInfo(HttpSession session) {
+    public String reserveInfo(HttpSession session, Model model) {
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
+
+        model.addAttribute("placeReservations",
+                reservationService.findMyReservations(loginMember.getId()));
 
         return "mypage/reserve/info";
     }

@@ -1,0 +1,227 @@
+/* ===== gear reserve page only ===== */
+
+/* 단계 표시 */
+.step{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin: 26px 0 18px;
+}
+
+.step-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  color:#666;
+  font-size:14px;
+}
+
+.step-item .dot{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #bbb;
+  font-size:12px;
+  color:#666;
+  background:#fff;
+}
+
+.step-item.on{
+  color:#111;
+}
+.step-item.on .dot{
+  border-color:#111;
+  color:#111;
+}
+
+/* 전체 레이아웃 */
+.reserve-wrap{
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  align-items:start;
+  padding: 18px 0 30px;
+}
+
+/* 왼쪽 선택 카드 */
+.selected-card{
+  border:1px solid #e6e6e6;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  max-width: 360px;
+}
+
+.selected-thumb{
+  height:180px;
+  background:#e9e9e9;
+  background-position:center;
+  background-size:cover;
+}
+
+.selected-body{
+  padding:12px 14px 14px;
+}
+
+.selected-title{
+  font-weight:900;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.selected-price{
+  font-weight:900;
+  font-size:14px;
+  margin-bottom:4px;
+}
+
+.selected-desc{
+  font-size:12px;
+  color:#666;
+}
+
+/* 오른쪽 폼 */
+.reserve-form{
+  padding: 8px 0;
+}
+
+.form-title{
+  font-size:16px;
+  font-weight:900;
+  margin: 0 0 14px;
+}
+
+.two-col{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.block{
+  border:1px solid #e6e6e6;
+  border-radius:10px;
+  background:#fff;
+  padding: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+}
+
+/* 행 */
+.row{
+  display:grid;
+  grid-template-columns: 90px 1fr;
+  gap:12px;
+  align-items:center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.row-last{
+  border-bottom:none;
+}
+
+.row-top{
+  align-items:start;
+}
+
+.label{
+  font-size:12px;
+  font-weight:900;
+  color:#222;
+}
+
+.value{
+  font-size:12px;
+  color:#222;
+  font-weight:700;
+}
+
+/* input */
+.input{
+  width:100%;
+  height:38px;
+  border-radius:8px;
+  border:1px solid #e3e3e3;
+  padding: 0 10px;
+  background:#fafafa;
+  outline:none;
+  box-sizing:border-box;
+  font-size:12px;
+}
+
+.input:focus{
+  background:#fff;
+  border-color:#bbb;
+}
+
+/* 날짜 범위 */
+.range{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+
+.range-item .mini{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  color:#666;
+  margin-bottom:6px;
+}
+
+/* 결제 */
+.pay{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.radio{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  font-size:12px;
+  font-weight:800;
+  color:#222;
+}
+
+/* 버튼 */
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top: 14px;
+}
+
+.reserve-btn{
+  height:44px;
+  padding: 0 22px;
+  border-radius:10px;
+  border:1px solid #111;
+  background:#111;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.reserve-btn:hover{
+  background:#000;
+  border-color:#000;
+}
+
+/* 반응형 */
+@media (max-width: 860px){
+  .reserve-wrap{
+    grid-template-columns: 1fr;
+  }
+  .selected-card{
+    max-width: 420px;
+  }
+  .form-actions{
+    justify-content:flex-start;
+  }
+}
