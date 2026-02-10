@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "place")
 @Getter
 @Setter

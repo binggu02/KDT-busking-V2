@@ -1,7 +1,6 @@
 package com.team3.busking.service;
 
 import com.team3.busking.domain.GearReservation;
-import com.team3.busking.domain.Reservation;
 import com.team3.busking.repository.GearReservationRepository;
 import com.team3.busking.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
