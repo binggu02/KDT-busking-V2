@@ -40,13 +40,14 @@
       <!-- 선택 장소 -->
       <aside class="place-side">
         <div class="place-info">
-          <div class="place-name">${place.name}</div>
-          <div class="place-addr">${place.address}</div>
-          <div class="place-phone">${place.phone}</div>
+          <!-- 🔥 여기 수정됨 -->
+          <div class="place-name">${place.placeName}</div>
+          <div class="place-addr">${place.placeAddress}</div>
+          <div class="place-phone">${place.placePhone}</div>
         </div>
       </aside>
 
-      <!-- 입력 폼: 서버로 POST -->
+      <!-- 입력 폼 -->
       <section class="form-box">
         <form action="<c:url value='/locale/reserve'/>" method="post">
           <input type="hidden" name="placeId" value="${place.id}" />

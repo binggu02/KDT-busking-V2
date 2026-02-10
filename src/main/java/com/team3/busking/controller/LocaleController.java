@@ -5,8 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team3.busking.domain.Member;
 import com.team3.busking.domain.Place;
-import com.team3.busking.domain.Reservation;
+import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.service.LocaleService;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,25 +40,27 @@ public class LocaleController {
 
     // 예약 페이지
     @GetMapping("/reserve")
-    public String reservePage(@RequestParam Long placeId, HttpSession session, Model model) {
+    public String reservePage(
+            @RequestParam Long placeId,
+            HttpSession session,
+            Model model
+    ) {
         Place place = localeService.getPlace(placeId);
         if (place == null) {
             return "redirect:/locale/list";
         }
 
-        Object userId = session.getAttribute("userId");
-        Object userName = session.getAttribute("userName");
-
-        if (userId == null) {
-            return "redirect:/member/login"; // 로그인 필요 시 로그인 화면으로
-        }
+        Member loginUser = (Member) session.getAttribute("loginUser");
 
         model.addAttribute("pageTitle", "장소 예약");
         model.addAttribute("place", place);
-        model.addAttribute("userName", userName);
+
+        if (loginUser != null) {
+            model.addAttribute("userName", loginUser.getName());
+        }
+
         return "locale/reserve";
     }
-
     // 예약 저장 (POST)
     @PostMapping("/reserve")
     public String reserveSubmit(
@@ -71,14 +74,21 @@ public class LocaleController {
             HttpSession session,
             RedirectAttributes ra
     ) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/member/login"; // 로그인 필요
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/member/login";
         }
 
-        // 예약 생성
         Long reservationId = localeService.createReservation(
-                userId, placeId, bandName, bandCount, phone, email, reservationDate, startTime
+                loginUser.getId(),
+                placeId,
+                bandName,
+                bandCount,
+                phone,
+                email,
+                reservationDate,
+                startTime
         );
 
         ra.addAttribute("reservationId", reservationId);
@@ -87,20 +97,25 @@ public class LocaleController {
 
     // 예약 완료 페이지
     @GetMapping("/reserve/complete")
-    public String reserveComplete(@RequestParam Long reservationId, HttpSession session, Model model) {
-        Object userId = session.getAttribute("userId");
-        if (userId == null) {
+    public String reserveComplete(
+            @RequestParam Long reservationId,
+            HttpSession session,
+            Model model
+    ) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
             return "redirect:/member/login";
         }
 
-        Reservation reservation = localeService.getReservation(reservationId);
+        PlaceReservation reservation = localeService.getReservation(reservationId);
         if (reservation == null) {
             return "redirect:/locale/list";
         }
 
         model.addAttribute("pageTitle", "예약 완료");
         model.addAttribute("reservation", reservation);
-        model.addAttribute("userName", session.getAttribute("userName"));
-        return "locale/complete";
+        model.addAttribute("userName", loginUser.getName());
+        return "locale/reserveComplete";
     }
 }
