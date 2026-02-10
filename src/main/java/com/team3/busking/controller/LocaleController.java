@@ -1,16 +1,21 @@
 package com.team3.busking.controller;
 
+import com.team3.busking.domain.Place;
+import com.team3.busking.service.LocaleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+<<<<<<< HEAD
 import com.team3.busking.domain.Member;
 import com.team3.busking.domain.Place;
 import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.service.LocaleService;
 
 import jakarta.servlet.http.HttpSession;
+=======
+import java.util.List;
+>>>>>>> BE-jeonghun-v2
 
 @Controller
 @RequestMapping("/locale")
@@ -22,14 +27,22 @@ public class LocaleController {
         this.localeService = localeService;
     }
 
+<<<<<<< HEAD
     // 지역 목록
     @GetMapping("/list")
     public String cityList(Model model) {
         model.addAttribute("pageTitle", "지역별 장소 예약");
+=======
+    // 1) 도시 리스트
+    @GetMapping("/list")
+    public String cityList(Model model) {
+        model.addAttribute("pageTitle", "지역 선택");
+>>>>>>> BE-jeonghun-v2
         model.addAttribute("cities", localeService.getCities());
         return "locale/list";
     }
 
+<<<<<<< HEAD
     // 도시별 장소 목록
     @GetMapping("/{cityCode}")
     public String placeList(@PathVariable String cityCode, Model model) {
@@ -118,4 +131,18 @@ public class LocaleController {
         model.addAttribute("userName", loginUser.getName());
         return "locale/reserveComplete";
     }
+=======
+    // 2) /locale/seoul -> 서울 예약가능 장소 목록
+    @GetMapping("/{cityCode}")
+    public String placeList(@PathVariable String cityCode, Model model) {
+        List<Place> places = localeService.getPlacesByCityCode(cityCode);
+
+        model.addAttribute("pageTitle", "장소 목록");
+        model.addAttribute("places", places);
+        model.addAttribute("cityCode", cityCode);
+
+        return "locale/placelist";
+    }
+    
+>>>>>>> BE-jeonghun-v2
 }

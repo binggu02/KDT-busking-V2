@@ -18,21 +18,22 @@
 <main class="main">
   <h1>${pageTitle}</h1>
 
-  <div class="place-list">
-    <c:forEach var="city" items="${cities}">
-      <div class="place-card">
-
-        
-
-        <!-- ✅ 필드명 정확히 -->
-        <a href="/locale/${city.cityCode}"><h3>${city.cityName}</h3></a>
-        
-
-        
-
-      </div>
-    </c:forEach>
+  <div class="region-list">
+    <c:choose>
+      <c:when test="${empty cities}">
+        <div class="region-card">등록된 지역이 없습니다.</div>
+      </c:when>
+      <c:otherwise>
+        <c:forEach var="city" items="${cities}">
+          <a class="region-card"
+             href="${pageContext.request.contextPath}/locale/${city.cityCode}">
+            ${city.cityName}
+          </a>
+        </c:forEach>
+      </c:otherwise>
+    </c:choose>
   </div>
+
 </main>
 
 </body>
