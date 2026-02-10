@@ -3,7 +3,7 @@ gear테이블-------
 CREATE TABLE gear (
     gear_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '장비 PK',
 
-    place_id BIGINT COMMENT '장소 ID',
+    gear_quantity INT NOT NULL COMMENT '개수',
     gear_name VARCHAR(100) NOT NULL COMMENT '장비명',
     gear_description TEXT COMMENT '설명',
     gear_price INT NOT NULL COMMENT '가격',

@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
-  // cityCode로 장소 리스트
-  List<Place> findByCity_CityCodeAndPlaceStatusTrueOrderByIdDesc(String cityCode);
-
-  // cityId로도 쓰고 싶으면
-  List<Place> findByCity_IdAndPlaceStatusTrueOrderByIdDesc(Long cityId);
+    // 지역 코드로 "사용가능한 장소" 최신순
+    List<Place> findByCity_CityCodeAndPlaceStatusTrueOrderByIdDesc(String cityCode);
 }
