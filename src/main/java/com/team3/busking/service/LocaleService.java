@@ -36,7 +36,7 @@ public class LocaleService {
 	}
 
 	public List<Place> getPlacesByCityCode(String cityCode) {
-		return placeRepository.findByCity_CityCodeAndPlaceStatusTrueOrderByIdDesc(cityCode);
+		return placeRepository.findByCity_CityCodeOrderByIdDesc(cityCode);
 	}
 
 	public Place getPlace(Long placeId) {

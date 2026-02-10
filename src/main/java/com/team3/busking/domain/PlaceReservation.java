@@ -26,7 +26,7 @@ public class PlaceReservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "user_id", nullable = false)
