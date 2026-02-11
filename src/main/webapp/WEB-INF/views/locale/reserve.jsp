@@ -16,13 +16,13 @@
 <header class="header">
   <div class="container header-inner">
     <a class="logo" href="<c:url value='/'/>">
-      <img src="<c:url value='/images/buskinglogo.png'/>" alt="BUSKING" />
+      <img src="<c:url value='/images/buskinglogo.png'/>" alt="BUSKING RESERVATION" class="logo-icon" />
     </a>
 
     <nav class="nav">
       <a href="<c:url value='/gear/list'/>">장비 예약</a>
       <a href="<c:url value='/locale/list'/>" class="is-active">지역별 장소 예약</a>
-      <a href="<c:url value='/board/list'/>">게시판</a>
+      <a href="<c:url value='/board/main'/>">게시판</a>
     </nav>
 
     <div class="auth">
