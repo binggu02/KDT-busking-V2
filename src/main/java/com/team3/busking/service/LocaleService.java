@@ -1,37 +1,39 @@
 package com.team3.busking.service;
 
-import com.team3.busking.domain.City;
-import com.team3.busking.domain.Place;
-import com.team3.busking.domain.PlaceReservation;
-import com.team3.busking.repository.CityRepository;
-import com.team3.busking.repository.PlaceRepository;
-import com.team3.busking.repository.ReservationRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.team3.busking.repository.PlaceRepository;
+import com.team3.busking.repository.ReservationRepository;
+
+import jakarta.transaction.Transactional;
+
+import com.team3.busking.domain.City;
+import com.team3.busking.domain.Place;
+import com.team3.busking.domain.PlaceReservation;
+import com.team3.busking.repository.CityRepository;
+
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class LocaleService {
 
-    private final CityRepository cityRepository;
-    private final PlaceRepository placeRepository;
-    private final ReservationRepository reservationRepository; // ✅ 추가
+	private final CityRepository cityRepository;
+	private final PlaceRepository placeRepository;
+	private final ReservationRepository reservationRepository;
 
-    public LocaleService(CityRepository cityRepository,
-                         PlaceRepository placeRepository,
-                         ReservationRepository reservationRepository) { // ✅ 생성자에 추가
-        this.cityRepository = cityRepository;
-        this.placeRepository = placeRepository;
-        this.reservationRepository = reservationRepository;
-    }
+	public LocaleService(CityRepository cityRepository, PlaceRepository placeRepository,
+			ReservationRepository reservationRepository) {
+		this.cityRepository = cityRepository;
+		this.placeRepository = placeRepository;
+		this.reservationRepository = reservationRepository;
+	}
 
-    public List<City> getCities() {
-        return cityRepository.findAll();
-    }
+	public List<City> getCities() {
+		return cityRepository.findAll();
+	}
 
 	public List<Place> getPlacesByCityCode(String cityCode) {
 		return placeRepository.findByCity_CityCodeOrderByIdDesc(cityCode);
@@ -86,4 +88,10 @@ public class LocaleService {
 		return reservationRepository.findById(reservationId)
 				.orElseThrow(() -> new IllegalArgumentException("예약 정보 없음: " + reservationId));
 	}
+	
+
+    // ✅ 내 장소 예약 내역 조회 (마이페이지용)
+    public List<PlaceReservation> findMyReservations(Long memberId) {
+        return reservationRepository.findByUserIdOrderByReservationDateDescStartTimeDesc(memberId);
+    }
 }

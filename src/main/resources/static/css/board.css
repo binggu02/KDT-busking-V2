@@ -308,15 +308,15 @@
 
 /* 공통 버튼 스타일 */
 .btn-area button {
-   min-width: 70px;
-    height: 36px;
-    padding: 0 18px;
-    border-radius: 999px;        /* 🔥 동그라미 */
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
+	min-width: 70px;
+	 height: 36px;
+	 padding: 0 18px;
+	 border-radius: 999px;        /* 🔥 동그라미 */
+	 font-size: 13px;
+	 font-weight: 700;
+	 cursor: pointer;
+	 border: none;
+	 transition: all 0.2s ease;
 }
 
 /* 목록 버튼 - 회색 */

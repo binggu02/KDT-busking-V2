@@ -17,13 +17,11 @@ public interface ReservationRepository extends JpaRepository<PlaceReservation, L
     // ✅ 마이페이지: 내 장소 예약 내역 (place까지 fetch join)
     @Query("""
         select r
-        from Reservation r
+        from PlaceReservation r
         join fetch r.place p
         where r.userId = :userId
         order by r.id desc
     """)
-    // Reservation -> PlaceReservation 으로 변경 feat. 병현
     List<PlaceReservation> findMyReservationsWithPlace(@Param("userId") Long userId);
-    // Reservation -> PlaceReservation 으로 변경 feat. 병현
     List<PlaceReservation> findByUserIdOrderByReservationDateDescStartTimeDesc(Long userId);
 }
