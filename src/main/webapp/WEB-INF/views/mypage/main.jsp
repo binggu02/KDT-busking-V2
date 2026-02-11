@@ -222,18 +222,21 @@
 		</div>
 	</footer>
 
-	<script>
-  // 탭 전환 JS
+<script>
   const tabs = document.querySelectorAll(".tab");
   const panels = document.querySelectorAll(".tab-panel");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
-    });
+  function openTab(target) {
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === target));
+    panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
+  }
+
+  // 서버에서 내려준 activeTab 기준으로 초기 탭 오픈
+  const initialTab = "${activeTab}";
+  openTab(initialTab || "place");
+
+  tabs.forEach((btn) => {
+    btn.addEventListener("click", () => openTab(btn.dataset.tab));
   });
 </script>
 
