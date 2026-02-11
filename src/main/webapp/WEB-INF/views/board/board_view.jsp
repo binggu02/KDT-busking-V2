@@ -7,11 +7,11 @@
   <title>게시글 상세</title>
 
   <!-- 공통 CSS -->
-  <link rel="stylesheet" href="../css/common.css" />
-  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
+  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 
   <!-- board 전용 CSS -->
-  <link rel="stylesheet" href="../css/board.css" />
+  <link rel="stylesheet" href="<c:url value='/css/board.css'/>" />
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header-inner">
 	<a class="logo" href="<%= request.getContextPath() %>/">
-	  <img src="../images/buskinglogo.png"
+	  <img src="<c:url value='/images/buskinglogo.png'/>"
 	       alt="BUSKING RESERVATION"
 	       class="logo-icon" />
 	</a>

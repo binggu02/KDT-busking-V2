@@ -94,9 +94,11 @@
 
 			<!-- 탭 패널 -->
 			<section class="tab-panels">
-				<div class="tab-panel show" data-panel="place">
 
-					<!-- 1) 장소 예약 내역 -->
+
+
+				<!-- 1) 장소 예약 내역 -->
+				<div class="tab-panel" data-panel="place">
 					<section class="list">
 						<c:choose>
 							<c:when test="${empty placeReservations}">
@@ -143,9 +145,6 @@
 					</section>
 				</div>
 
-
-
-
 				<!-- 2) 장비 대여 내역 -->
 				<div class="tab-panel" data-panel="gear">
 					<section class="list">
@@ -191,7 +190,6 @@
 					</section>
 				</div>
 
-
 				<!-- 3) 내 게시글 -->
 				<div class="tab-panel" data-panel="post">
 					<section class="list">
@@ -211,6 +209,8 @@
 
 
 
+
+
 			</section>
 
 		</div>
@@ -221,7 +221,7 @@
 			<p>© Busking Reservation</p>
 		</div>
 	</footer>
-<!-- 이전 코드
+
 	<script>
   // 탭 전환 JS
   const tabs = document.querySelectorAll(".tab");
@@ -235,27 +235,7 @@
       panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
     });
   });
-</script> -->
-
-<!-- 현재 적용된 코드 -->
-<script>
-  const tabs = document.querySelectorAll(".tab");
-  const panels = document.querySelectorAll(".tab-panel");
-
-  function openTab(target) {
-    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === target));
-    panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
-  }
-
-  // 서버에서 내려준 activeTab 기준으로 초기 탭 오픈
-  const initialTab = "${activeTab}";
-  openTab(initialTab || "place");
-
-  tabs.forEach((btn) => {
-    btn.addEventListener("click", () => openTab(btn.dataset.tab));
-  });
 </script>
-
 
 </body>
 </html>

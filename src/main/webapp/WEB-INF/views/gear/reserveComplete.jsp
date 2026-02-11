@@ -7,9 +7,9 @@
   <meta charset="UTF-8">
   <title>예약 완료</title>
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/common.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/gear/gear.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserveComplete.css" />
 </head>
 <body>
 

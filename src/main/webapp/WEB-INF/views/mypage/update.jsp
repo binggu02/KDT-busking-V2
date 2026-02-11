@@ -9,9 +9,9 @@
   <title>정보 수정</title>
   
   <!-- CSS 경로: info.jsp 기준으로 한 단계 위로 -->
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/mypage.css">
+  <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/main.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/mypage.css'/>">
 </head>
 
 <!-- body에 클래스 추가 -->

@@ -7,9 +7,9 @@
   <meta charset="UTF-8">
   <title>장비 예약</title>
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/common.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/gear/gear.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserve.css" />
 </head>
 <body>
 
