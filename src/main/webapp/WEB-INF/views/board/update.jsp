@@ -6,11 +6,11 @@
   <meta charset="UTF-8" />
   <title>게시물 수정</title>
     <!-- 공통 CSS -->
-    <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-    <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/main.css" />
 
     <!-- board 전용 CSS -->
-    <link rel="stylesheet" href="<c:url value='/css/board.css'/>" />
+    <link rel="stylesheet" href="../css/board.css" />
   </head>
 
   <body>
@@ -19,7 +19,7 @@
   <header class="header">
     <divs="container header-inner">
   	<a class="logo" href="<%= request.getContextPath() %>/">
-  	  <img src="<c:url value='/images/buskinglogo.png'/>"
+  	  <img src="../images/buskinglogo.png"
   	       alt="BUSKING RESERVATION"
   	       class="logo-icon" />
   	</a>

@@ -7,23 +7,22 @@
   <title>게시글 상세</title>
 
   <!-- 공통 CSS -->
-  <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
-
-  <!-- board 전용 CSS -->
-  <link rel="stylesheet" href="<c:url value='/css/board.css'/>" />
-</head>
-
-<body>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css" />
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css" />
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css" />
+   
+   <body>
 
 <!-- ✅ 공통 헤더 -->
 <header class="header">
-  <div class="container header-inner">
-	<a class="logo" href="<%= request.getContextPath() %>/">
-	  <img src="<c:url value='/images/buskinglogo.png'/>"
-	       alt="BUSKING RESERVATION"
-	       class="logo-icon" />
-	</a>
+	  <div class="container header-inner">
+		<a class="logo" href="<%= request.getContextPath() %>/">
+			<img src="<%= request.getContextPath() %>/images/buskinglogo.png"
+			     alt="BUSKING RESERVATION"
+			     class="logo-icon" />
+
+		</a>
+
 
 	<nav class="nav">
 		  <a href="<%= request.getContextPath() %>/gear/list">장비 예약</a>
