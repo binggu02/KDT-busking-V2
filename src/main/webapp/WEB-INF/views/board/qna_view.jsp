@@ -13,29 +13,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css" />
 <body>
 
-	<!-- ✅ 공통 헤더 -->
-	<header class="header">
-	  <div class="container header-inner">
-		<a class="logo" href="<%= request.getContextPath() %>/">
-			<img src="<%= request.getContextPath() %>/images/buskinglogo.png"
-			     alt="BUSKING RESERVATION"
-			     class="logo-icon" />
-
-		</a>
-
-		<nav class="nav">
-			  <a href="<%= request.getContextPath() %>/gear/list">장비 예약</a>
-			  <a href="<%= request.getContextPath() %>/locale/list">지역별 장소 예약</a>
-			  <a href="<%= request.getContextPath() %>/board/main">게시판</a>
-			</nav>
-
-			<div class="auth">
-			  <a class="pill" href="<%= request.getContextPath() %>/mypage/main">my page</a>
-			  <a class="pill" href="<%= request.getContextPath() %>/member/logout">logout</a>
-			</div>
-	   </div>
-</header>
-
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <main class="main">
   <div class="container">
 

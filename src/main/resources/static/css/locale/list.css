@@ -4,52 +4,8 @@
 
 /* 페이지 배경 */
 body{
+	font-family: "맑은 고딕", sans-serif;
   background:#f5f6f8;
-}
-
-/* =========================
-   HEADER (공통 header 덮어쓰기)
-========================= */
-
-.header{
-  position: relative;
-  height: 150px;
-  width: 100%;
-  color:#fff;
-
-  /* ✅ local 폴더 기준: /css/local/ -> /images/ */
-  background-image: url("../../images/busking.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  overflow: hidden;
-}
-
-
-/* ✅ 어두운 오버레이 */
-.header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,0.25);
-  z-index: 0;
-}
-
-/* 공통 header-inner가 오버레이에 깔리지 않게 */
-.header-inner{
-  position: relative;
-  z-index: 1;               /* ✅ 오버레이 위로 */
-  height: 150px;            /* ✅ 헤더 높이 맞춤 */
-  display:flex;
-  align-items:center;
-}
-
-/* 로고 크기/위치 */
-.logo-icon{
-  width: 250px;
-  height: auto;
-  display:block;
 }
 
 /* =========================
@@ -116,12 +72,6 @@ body{
   letter-spacing: -0.2px;
 }
 
-/* active 표시(공통 nav에 is-active 클래스 씀) */
-.nav a.is-active,
-.nav a.active{
-  background: rgba(255,255,255,0.18);
-  border-radius: 999px;
-}
 
 /* =========================
    반응형

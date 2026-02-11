@@ -9,33 +9,13 @@
   <title>정보 수정</title>
   
   <!-- CSS 경로: info.jsp 기준으로 한 단계 위로 -->
-  <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>">
-  <link rel="stylesheet" href="<c:url value='/css/mypage.css'/>">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/myPage.css">
 </head>
 
 <!-- body에 클래스 추가 -->
-<body class="mypage-page">
-
-  <!-- 상단 헤더 -->
-  <header class="header">
-    <div class="container header-inner">
-      <a class="logo" href="../home.jsp">
-        <img src="../buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
-      </a>
-
-      <nav class="nav">
-        <a href="../gear/list.jsp">장비 예약</a>
-        <a href="../locale/list.jsp">지역별 장소 예약</a>
-        <a href="../board/main.jsp">게시판</a>
-      </nav>
-
-      <div class="auth">
-        <a class="pill" href="../mypage/main.jsp">my page</a>
-        <a class="pill" href="../member/login.jsp">logout</a>
-      </div>
-    </div>
-  </header>
+<body class="mypage-page update-page">
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
   <main class="main">
     <div class="container">
@@ -99,17 +79,21 @@
             </div>
           </div>
 
-          <!-- 버튼 -->
-          <div class="btn-col">
-            <button class="joinok-btn" type="button" onclick="location.href='./info.jsp'">
-              저장하기
-            </button>
-            <button class="joinok-btn" type="button" onclick="location.href='./main.jsp'">
-              취소
-            </button>
-          </div>
+		  <div class="btn-col">
+		    <button type="button" class="joinok-btn"
+		            onclick="location.href='${pageContext.request.contextPath}/update'">
+		      저장하기
+		    </button>
 
-          <a class="back-link" onclick="location.href='./withdraw.jsp'">회원 탈퇴 &gt;</a>
+			<button type="button" class="joinok-btn"
+			        onclick="location.href='/mypage'">취소
+			</button>
+		  </div>
+
+		  <button type="button" class="withdraw-btn"
+		          onclick="location.href='${pageContext.request.contextPath}/mypage/withdraw'">
+		    회원 탈퇴
+		  </button>
 
         </form>
       </div>
