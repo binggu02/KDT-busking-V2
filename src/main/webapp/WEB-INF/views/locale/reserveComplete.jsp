@@ -15,29 +15,81 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-<main class="main">
+<main class="main complete-main">
   <div class="container">
-    <h2>예약 완료</h2>
 
-    <div class="reservation-complete">
-      <p>예약이 정상적으로 완료되었습니다!</p>
+    <div class="complete-wrap">
+      <div class="complete-box">
 
-      <div class="reservation-info">
-        <p><strong>장소:</strong> ${reservation.place.placeName}</p>
-        <p><strong>주소:</strong> ${reservation.place.placeAddress}</p>
-        <p><strong>전화:</strong> ${reservation.place.placePhone}</p>
-        <p><strong>예약자:</strong> ${userName}</p>
-        <p><strong>밴드명:</strong> ${reservation.bandName}</p>
-        <p><strong>인원:</strong> ${reservation.bandCount}</p>
-        <p><strong>날짜/시간:</strong> ${reservation.reservationDate} ${reservation.startTime}</p>
-        <p><strong>전화번호:</strong> ${reservation.phone}</p>
-        <p><strong>이메일:</strong> ${reservation.email}</p>
-      </div>
+        <!-- 체크 아이콘 -->
+		<div class="check-icon">
+		  <svg width="42" height="42" fill="none" stroke="currentColor" stroke-width="3">
+		    <circle cx="21" cy="21" r="19"></circle>
+		    <path d="M12 22l6 6 12-14"></path>
+		  </svg>
+		</div>
 
-      <div class="actions">
-        <a href="<c:url value='/'/>" class="region-btn">홈으로 돌아가기</a>
+        <div class="complete-title">
+          예약이 정상적으로 완료되었습니다!
+        </div>
+
+        <!-- 가운데 카드 -->
+        <div class="mini-card">
+          <div class="mini-thumb"
+               style="background:url('${pageContext.request.contextPath}${reservation.place.thumbnail}') center/cover no-repeat;">
+          </div>
+
+          <div class="mini-body">
+            <div class="mini-gear">
+              ${reservation.place.placeName}
+            </div>
+
+            <dl class="mini-info">
+              <div class="mini-row">
+                <dt>주소</dt>
+                <dd>${reservation.place.placeAddress}</dd>
+              </div>
+              <div class="mini-row">
+                <dt>전화</dt>
+                <dd>${reservation.place.placePhone}</dd>
+              </div>
+              <div class="mini-row">
+                <dt>예약자</dt>
+                <dd>${userName}</dd>
+              </div>
+              <div class="mini-row">
+                <dt>밴드명</dt>
+                <dd>${reservation.bandName}</dd>
+              </div>
+              <div class="mini-row">
+                <dt>인원</dt>
+                <dd>${reservation.bandCount}명</dd>
+              </div>
+              <div class="mini-row">
+                <dt>날짜</dt>
+                <dd>${reservation.reservationDate}</dd>
+              </div>
+              <div class="mini-row">
+                <dt>시간</dt>
+                <dd>${reservation.startTime}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- 버튼 -->
+        <div class="complete-actions">
+          <a href="<c:url value='/locale/list'/>" class="btn-line">
+            다른 장소 보기
+          </a>
+          <a href="<c:url value='/'/>" class="btn-dark">
+            홈으로 이동
+          </a>
+        </div>
+
       </div>
     </div>
+
   </div>
 </main>
 
