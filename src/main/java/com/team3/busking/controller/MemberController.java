@@ -92,6 +92,11 @@ public class MemberController {
 	public String joinSuccess() {
 		return "member/joinfinal";
 	}
+	
+	@GetMapping("/find-id")
+	public String findId() {
+		return "member/id_find";
+	}
 
 	// ================= 아이디 찾기 =================
 	@PostMapping("/find-id")
@@ -102,6 +107,11 @@ public class MemberController {
 		model.addAttribute("memberId", memberId);
 
 		return "member/findIdResult";
+	}
+	
+	@GetMapping("/find-pw")
+	public String findPw() {
+		return "member/pw_find";
 	}
 
 	// ================= 비밀번호 찾기 =================

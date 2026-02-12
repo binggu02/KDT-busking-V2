@@ -8,7 +8,7 @@
 <title>Busking Reservation - Main</title>
 
 <!-- CSS -->
-<link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
+
 <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 </head>
 <body>
@@ -16,40 +16,7 @@
 
 <div class="page">
 
-  <!-- ================= HEADER ================= -->
-  <header class="header">
-    <div class="container header-inner">
-
-      <a class="logo" href="<c:url value='/'/>">
-        <img src="<c:url value='/images/buskinglogo.png'/>" class="logo-icon" alt="BUSKING RESERVATION"/>
-        <div class="logo-text">
-          <strong>BUSKING</strong><br />RESERVATION
-        </div>
-      </a>
-
-      <!-- 네비게이션 -->
-      <nav class="nav">
-        <a href="<c:url value='/gear/list'/>">장비 예약</a>
-        <a href="<c:url value='/locale/list'/>">지역별 장소 예약</a>
-        <a href="<c:url value='/board/main'/>">게시판</a> <!-- ← 수정됨 -->
-      </nav>
-
-      <!-- 로그인/로그아웃 -->
-      <div class="auth">
-        <c:choose>
-          <c:when test="${empty loginUser}">
-            <a href="<c:url value='/member/login'/>">login</a>
-            <a href="<c:url value='/member/register'/>">register</a>
-          </c:when>
-          <c:otherwise>
-            <a href="<c:url value='/mypage'/>">${loginUser.memberId}</a>
-            <a href="<c:url value='/member/logout'/>">logout</a>
-          </c:otherwise>
-        </c:choose>
-      </div>
-
-    </div>
-  </header>
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
   <!-- ================= HERO ================= -->
   <section class="hero">

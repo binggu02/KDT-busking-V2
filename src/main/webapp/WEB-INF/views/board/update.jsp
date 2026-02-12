@@ -6,36 +6,16 @@
   <meta charset="UTF-8" />
   <title>게시물 수정</title>
     <!-- 공통 CSS -->
-    <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-    <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/main.css" />
 
     <!-- board 전용 CSS -->
-    <link rel="stylesheet" href="<c:url value='/css/board.css'/>" />
+    <link rel="stylesheet" href="../css/board.css" />
   </head>
 
   <body>
 
-  <!-- ✅ 공통 헤더 -->
-  <header class="header">
-    <divs="container header-inner">
-  	<a class="logo" href="<%= request.getContextPath() %>/">
-  	  <img src="<c:url value='/images/buskinglogo.png'/>"
-  	       alt="BUSKING RESERVATION"
-  	       class="logo-icon" />
-  	</a>
-	<nav class="nav">
-	  <a href="<%= request.getContextPath() %>/gear/list">장비 예약</a>
-	  <a href="<%= request.getContextPath() %>/locale/list">지역별 장소 예약</a>
-	  <a href="<%= request.getContextPath() %>/board/main">게시판</a>
-	</nav>
-
-	<div class="auth">
-	  <a class="pill" href="<%= request.getContextPath() %>/mypage/main">my page</a>
-	  <a class="pill" href="<%= request.getContextPath() %>/member/logout">logout</a>
-	</div>
-	</div>
-	
-  </header>
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
   <!-- 본문 -->
   <main class="main">
     <div class="container board-wrap">

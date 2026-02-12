@@ -13,24 +13,7 @@
 </head>
 <body>
 
-<header class="header">
-  <div class="container header-inner">
-    <a class="logo" href="${pageContext.request.contextPath}/">
-      <img src="${pageContext.request.contextPath}/buskinglogo.png" alt="BUSKING RESERVATION" class="logo-icon" />
-    </a>
-
-    <nav class="nav">
-      <a href="${pageContext.request.contextPath}/gear/list">장비 예약</a>
-      <a href="${pageContext.request.contextPath}/locale/list">지역별 장소 예약</a>
-      <a href="${pageContext.request.contextPath}/board/main">게시판</a>
-    </nav>
-
-    <div class="auth">
-      <a class="pill" href="${pageContext.request.contextPath}/mypage">my page</a>
-      <a class="pill" href="${pageContext.request.contextPath}/member/logout">logout</a>
-    </div>
-  </div>
-</header>
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
 <main class="main">
   <div class="container">
