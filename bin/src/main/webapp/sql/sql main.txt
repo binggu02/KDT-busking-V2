@@ -1,0 +1,212 @@
+CREATE DATABASE IF NOT EXISTS buskingdb
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE buskingdb;
+
+CREATE USER IF NOT EXISTS 'busker'@'localhost'
+IDENTIFIED BY '1234';
+
+GRANT ALL PRIVILEGES ON buskingdb.* TO 'busker'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE TABLE member (
+    id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
+
+    member_id VARCHAR(20) NOT NULL COMMENT '로그인 ID',
+    pw VARCHAR(100) NOT NULL COMMENT '비밀번호',
+    name VARCHAR(50) NOT NULL COMMENT '이름',
+    nickname VARCHAR(50) COMMENT '닉네임',
+    email VARCHAR(225) COMMENT '이메일',
+    phone VARCHAR(11) COMMENT '전화번호',
+    birth_date DATE COMMENT '생년월일',
+    gender CHAR(1) COMMENT '성별(M/F)',
+    created_member_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
+
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_member_member_id (member_id)
+);
+
+CREATE TABLE gear (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '장비 PK',
+
+    
+    gear_name VARCHAR(100) NOT NULL COMMENT '장비명',
+    gear_description TEXT COMMENT '설명',
+    gear_price INT NOT NULL COMMENT '가격',
+    gear_thumbnail VARCHAR(255) COMMENT '썸네일',
+   gear_quantity INT NOT NULL COMMENT '개수',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성일'
+) ENGINE=InnoDB;
+INSERT INTO gear (
+    gear_quantity,
+    gear_name,
+    gear_description,
+    gear_price,
+    gear_thumbnail
+) VALUES
+(3, '어쿠스틱 기타', '버스킹용 기본 어쿠스틱 기타', 15000, 'acoustic_guitar.jpg'),
+(8, '일렉 기타 앰프', '야외 공연용 고출력 기타 앰프', 20000, 'guitar_amp.jpg'),
+(2, '마이크 세트', '유선 마이크 + 스탠드 포함', 10000, 'mic_set.jpg'),
+(5, '포터블 스피커', '야외용 블루투스 스피커', 25000, 'portable_speaker.jpg'),
+(4, '전자 키보드', '61건반 전자 키보드', 30000, 'keyboard.jpg'),
+(10, '카혼', '버스킹용 타악기 카혼', 12000, 'cajon.jpg'),
+(3, '마이크 스탠드', '높이 조절 가능 스탠드', 5000, 'mic_stand.jpg'),
+(4, '이펙터 보드', '기타 멀티 이펙터', 18000, 'effector.jpg');
+SELECT gear_id, place_id, gear_name, gear_price FROM gear;
+
+
+CREATE TABLE gear_reservation (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '예약 PK',
+
+    gear_id BIGINT NOT NULL COMMENT '장비 ID (gear.id)',
+    member_id BIGINT NOT NULL COMMENT '회원 PK (member.id)',
+
+    start_datetime DATETIME NOT NULL COMMENT '대여 시작',
+    end_datetime DATETIME NOT NULL COMMENT '대여 종료',
+
+    status VARCHAR(20) DEFAULT 'RESERVED' COMMENT '상태',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
+
+    CONSTRAINT fk_gear_reservation_gear
+        FOREIGN KEY (gear_id)
+        REFERENCES gear(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_gear_reservation_member
+        FOREIGN KEY (member_id)
+        REFERENCES member(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+   CREATE TABLE city (
+     city_id   BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     city_code VARCHAR(30) NOT NULL UNIQUE COMMENT 'seoul, busan ...',
+     city_name VARCHAR(50) NOT NULL COMMENT '서울특별시, 부산광역시 ...'
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+   INSERT INTO city (city_code, city_name) VALUES
+   ('seoul',   '서울특별시'),
+   ('incheon', '인천광역시'),
+   ('busan',   '부산광역시'),
+   ('daegu',   '대구광역시'),
+   ('gwangju', '광주광역시'),
+   ('ulsan',   '울산광역시'),
+   ('daejeon', '대전광역시');
+
+   -- PLACE
+   CREATE TABLE place (
+     place_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     city_id  BIGINT NOT NULL,
+     place_name VARCHAR(100) NOT NULL,
+     place_address VARCHAR(255) NOT NULL,
+     place_phone VARCHAR(50) NULL COMMENT 'JSP에서 사용',
+     place_description TEXT NULL,
+     thumbnail VARCHAR(255) NULL COMMENT '이미지 경로(/images/..)',
+     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     CONSTRAINT fk_place_city FOREIGN KEY (city_id) REFERENCES city(city_id)
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    
+    insert into place
+(city_id, place_name, place_address, place_phone, place_description, thumbnail)
+values
+
+-- 서울
+(1, '서울광장', '서울 중구 세종대로', '02-120', '서울 대표 버스킹 광장', null),
+(1, '한강공원 여의도', '서울 영등포구 여의동로', '02-3780-0561', '한강 버스킹 인기 지역', null),
+(1, '홍대 걷고싶은거리', '서울 마포구 홍익로', '02-3153-8100', '젊음의 거리 버스킹 명소', null),
+
+-- 인천
+(2, '송도 센트럴파크', '인천 연수구 컨벤시아대로', '032-721-4415', '야외 공연 가능 구역',  null),
+(2, '차이나타운 광장', '인천 중구 차이나타운로', '032-777-1330', '관광객 밀집 지역',  null),
+(2, '월미도 문화거리', '인천 중구 월미로', '032-765-4169', '주말 공연 활발',  null),
+
+-- 부산
+(3, '해운대 해변무대', '부산 해운대구', '051-749-4000', '해운대 버스킹 구역',  null),
+(3, '광안리 해변공연장', '부산 수영구', '051-610-4882', '야경 버스킹 명소',  null),
+(3, '서면 문화거리', '부산 부산진구', '051-605-4522', '유동인구 많음',  null),
+
+-- 대구
+(4, '동성로 중앙무대', '대구 중구 동성로', '053-803-0114', '도심 버스킹 구역',  null),
+(4, '수성못 공연존', '대구 수성구', '053-666-2863', '야외 공연 장소',  null),
+(4, '김광석 거리', '대구 중구', '053-661-2620', '음악 테마 거리',  null),
+
+-- 광주
+(5, '금남로 문화광장', '광주 동구', '062-613-2482', '도심 공연 공간',  null),
+(5, '국립아시아문화전당 앞', '광주 동구', '062-601-4114', '공연 허용 구역',  null),
+(5, '상무지구 거리공연존', '광주 서구', '062-360-7500', '버스킹 활성 지역',  null),
+
+-- 울산
+(6, '태화강 국가정원', '울산 중구', '052-229-3147', '야외 공연 가능',  null),
+(6, '삼산 문화광장', '울산 남구', '052-226-5373', '도심 공연 지역',  null),
+(6, '대왕암공원 무대', '울산 동구', '052-209-3738', '관광 공연지',  null),
+
+-- 대전
+(7, '엑스포 시민광장', '대전 유성구', '042-250-1114', '대형 광장 공연 가능',  null),
+(7, '은행동 으능정이거리', '대전 중구', '042-252-7100', '거리 버스킹 명소',  null),
+(7, '한빛탑 광장', '대전 유성구', '042-270-8452', '야외 공연 무대',  null);
+
+
+   -- RESERVATION
+   CREATE TABLE place_reservation (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    place_id BIGINT NOT NULL,
+
+    band_name VARCHAR(100) NOT NULL,
+    band_count INT NOT NULL,
+
+    phone VARCHAR(50) NULL,
+    email VARCHAR(100) NULL,
+
+    reservation_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NULL COMMENT '없으면 start_time만 저장해도 됨',
+
+    status TINYINT NOT NULL DEFAULT 1 COMMENT '1=완료,0=취소',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_res_place
+        FOREIGN KEY (place_id) REFERENCES place(place_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- (선택) 같은 장소/날짜/시간 중복 방지
+CREATE UNIQUE INDEX uq_place_reservation_slot
+ON place_reservation(place_id, reservation_date, start_time);
+
+SHOW TABLES;
+
+
+select * from place;
+
+drop table member;
+
+drop table gear;
+drop table gear_reservation;
+
+drop table city;
+drop table place;
+drop table place_reservation;
+
+-- 지역별 장소 조회
+select city_id, place_name from place;
+
+-- 지역 조회
+select * from city;
+
+-- 장소 예약 조회
+select * from place_reservation;
+
+-- 장비 조회
+select * from gear;
+
+-- 장비 예약 조회
+select * from gear_reservation;
+
+DROP INDEX uq_reservation_slot ON reservation;
+
+
+

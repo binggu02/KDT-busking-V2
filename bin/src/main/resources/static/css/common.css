@@ -19,13 +19,14 @@ body {
   max-width: 100%;
   margin: 0 auto;
   padding: 0 40px; /* 좌우 여백(원하면 20~60 조절) */
+  
 }
 
 /* =====================
    HEADER
 ===================== */
 .header {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -34,9 +35,11 @@ body {
 }
 
 .header-inner {
-  height: 90px;            /* 헤더 높이(원하면 조절) */
+  height: 180px;            /* 헤더 높이(원하면 조절) */
   display: flex;
   align-items: center;
+  background: url("/images/busking.png") no-repeat center center;
+    background-size: cover;
 }
 
 /* ✅ 로고는 맨 왼쪽 */
@@ -54,10 +57,6 @@ body {
   display: block;
 }
 
-/* ✅ 첫 번째 사진에 보이는 "BUSKING / RESERVATION" 글자 블록 제거(숨김) */
-.logo-text {
-  display: none;
-}
 
 /* ✅ 메뉴를 오른쪽 끝으로 밀기 */
 .nav {

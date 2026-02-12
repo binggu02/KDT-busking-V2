@@ -15,50 +15,24 @@
     </c:choose>
   </title>
 
-  <!-- 정적 경로 -->
-  <c:url var="commonCss" value="/css/common.css" />
-  <c:url var="mainCss" value="/css/main.css" />
-  <c:url var="listCss" value="/css/gear/list.css" />
 
-  <link rel="stylesheet" href="${commonCss}" />
-  <link rel="stylesheet" href="${mainCss}" />
-  <link rel="stylesheet" href="${listCss}" />
+  <link rel="stylesheet" href="/css/common.css">
+
+  <link rel="stylesheet" href="/css/gear/list.css">
 </head>
 
 <!-- ✅ list.css에서 body.gear-page 사용 -->
 <body class="gear-page">
 
-<c:url var="homeUrl" value="/" />
-<c:url var="gearListUrl" value="/gear/list" />
-<c:url var="localeListUrl" value="/locale/list" />
-<c:url var="boardListUrl" value="/board/list" />
-<c:url var="mypageUrl" value="/mypage/main" />
-<c:url var="logoutUrl" value="/member/logout" />
 
-<c:url var="headerBgUrl" value="/images/busking.png" />
-<c:url var="logoUrl" value="/images/buskinglogo.png" />
-
-<header class="header" style="background-image: url('${headerBgUrl}');">
-  <div class="container header-inner">
-    <a class="logo" href="${homeUrl}">
-      <img src="${logoUrl}" alt="BUSKING RESERVATION" class="logo-icon" />
-    </a>
-
-    <nav class="nav">
-      <a href="${gearListUrl}" class="is-active">장비 예약</a>
-      <a href="${localeListUrl}">지역별 장소 예약</a>
-      <a href="${boardListUrl}">게시판</a>
-    </nav>
-
-    <div class="auth">
-      <a class="pill" href="${mypageUrl}">my page</a>
-      <a class="pill" href="${logoutUrl}">logout</a>
-    </div>
-  </div>
-</header>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <main class="main">
   <div class="container">
+
+    <c:if test="${not empty msg}">
+      <div class="alert success">${msg}</div>
+    </c:if>
+
 
     <!-- ✅ 디버깅용: DB에서 넘어온 개수 (문제 해결되면 지워도 됨) -->
     <div style="margin:10px 0; color:#666; font-size:12px;">
@@ -91,7 +65,7 @@
 
         <!-- ✅ /gear/reserve GET: gearId 없으면 redirect:/gear/list -->
         <c:url var="reserveWithIdUrl" value="/gear/reserve">
-          <c:param name="gearId" value="${g.gearId}" />
+          <c:param name="gearId" value="${g.id}" />
         </c:url>
 
         <a class="gear-link gear-card" href="${reserveWithIdUrl}">
