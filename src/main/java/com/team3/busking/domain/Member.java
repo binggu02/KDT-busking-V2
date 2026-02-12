@@ -1,6 +1,7 @@
 package com.team3.busking.domain;
 
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -58,4 +61,7 @@ public class Member {
         updatable = false
     )
     private LocalDateTime createdMemberAt;
+    
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<MemberRole> roles = new ArrayList<>();
 }

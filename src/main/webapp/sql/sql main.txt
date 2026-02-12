@@ -207,6 +207,47 @@ select * from gear;
 select * from gear_reservation;
 
 DROP INDEX uq_reservation_slot ON reservation;
+---권한 부여 테이블
+CREATE TABLE role (
+  role_id BIGINT NOT NULL AUTO_INCREMENT,
+  role_name VARCHAR(30) NOT NULL UNIQUE COMMENT 'USER, ADMIN 등',
+  PRIMARY KEY (role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+--일반 회원 권한 회원 매핑
+CREATE TABLE member_role (
+  member_role_id BIGINT NOT NULL AUTO_INCREMENT,
+  member_id BIGINT NOT NULL,
+  role_id BIGINT NOT NULL,
+  PRIMARY KEY (member_role_id),
+  CONSTRAINT fk_member_role_member
+    FOREIGN KEY (member_id) REFERENCES member(id),
+  CONSTRAINT fk_member_role_role
+    FOREIGN KEY (role_id) REFERENCES role(role_id),
+  UNIQUE KEY uq_member_role (member_id, role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO role(role_name) VALUES ('USER'), ('ADMIN');
+
+-- (예시) 관리자 회원 추가 (member 스키마 컬럼에 맞게 너희 컬럼으로 조정)
+INSERT INTO member(member_id, pw, name)
+VALUES ('123456', '123456', '관리자');
+
+-- 방금 넣은 관리자 id 찾기
+SELECT id FROM member WHERE member_id='123456';
+
+-- ADMIN role_id 찾기
+SELECT role_id FROM role WHERE role_name='ADMIN';
+
+-- 관리자에게 ADMIN 권한 부여
+INSERT INTO member_role(member_id, role_id)
+SELECT m.id, r.role_id
+FROM member m, role r
+WHERE m.member_id='123456'
+  AND r.role_name='ADMIN';
+
+SELECT * FROM role;
+SELECT * FROM member_role;
 
 

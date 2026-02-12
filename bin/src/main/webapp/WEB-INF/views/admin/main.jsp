@@ -187,11 +187,11 @@
 <div class="container">
     <aside>
     <ul>
-        <li><a href="./board/list.jsp">게시판 관리</a></li>
-        <li><a href="./board/qna_list.jsp">Q&A 관리</a></li>
-        <li><a href="./gear/list.jsp">장비 예약 관리</a></li>
-        <li><a href="./locale/list.jsp">장소 예약 관리</a></li>
-        <li><a href="./locale/list.jsp">회원 관리</a></li>
+        <li><a href="./board/list">게시판 관리</a></li>
+        <li><a href="./board/qna_list">Q&A 관리</a></li>
+        <li><a href="./gear/list">장비 예약 관리</a></li>
+        <li><a href="./locale/list">장소 예약 관리</a></li>
+        <li><a href="./locale/list">회원 관리</a></li>
     </ul>
 </aside>
 

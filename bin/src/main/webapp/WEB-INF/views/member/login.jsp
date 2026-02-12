@@ -27,7 +27,7 @@
       position: fixed;
       inset: 0;
       /* ✅ 이미지 폴더가 /images 라고 했으니 여기로 맞춤 */
-      background: url("<c:url value='/images/buskinglogin.png'/>") center / cover no-repeat;
+      background: url("<c:url value='/images/busking.png'/>") center / cover no-repeat;
       z-index: 0;
     }
     .login-bg::after {
@@ -205,9 +205,9 @@
         <div class="login-links">
           <!-- ⚠️ 현재 컨트롤러는 find-id / find-pw가 POST만 있음
                링크 클릭으로 이동하려면 GET 폼 페이지 매핑이 필요할 수 있음 -->
-          <a class="find-link" href="<c:url value='/member/findId'/>">ID</a>
+          <a class="find-link" href="<c:url value='/member/find-id'/>">ID</a>
           <span class="slash">/</span>
-          <a class="find-link" href="<c:url value='/member/findPw'/>">PW</a>
+          <a class="find-link" href="<c:url value='/member/find-pw'/>">PW</a>
           <span class="find-text">찾기</span>
 
           <span class="divider"></span>

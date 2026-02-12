@@ -52,16 +52,25 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(@RequestParam String memberId, @RequestParam String pw, HttpSession session) {
 
-		Optional<Member> memberOpt = memberService.login(memberId, pw);
+	    Optional<Member> memberOpt = memberService.login(memberId, pw);
 
-		if (memberOpt.isEmpty()) {
-			return "member/login";
-		}
+	    if (memberOpt.isEmpty()) {
+	        return "member/login";
+	    }
 
-		Member member = memberOpt.get();
-		
-		session.setAttribute("loginUser", member);
-		return "redirect:/";
+	    Member member = memberOpt.get();
+	    session.setAttribute("loginUser", member);
+
+	    // ✅ ADMIN 권한이면 관리자 페이지로 이동
+	    boolean isAdmin = member.getRoles().stream()
+	            .anyMatch(mr -> "ADMIN".equalsIgnoreCase(mr.getRole().getRoleName()));
+
+	    if (isAdmin) {
+	        return "redirect:/admin/main";
+	    }
+
+	    // ✅ 일반회원이면 기존처럼 홈으로
+	    return "redirect:/";
 	}
 
 	// ================= 로그아웃 =================

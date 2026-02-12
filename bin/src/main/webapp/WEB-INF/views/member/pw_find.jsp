@@ -23,7 +23,7 @@
     .bg {
       position: fixed;
       inset: 0;
-      background: url("../buskinglogin.png") center / cover no-repeat;
+      background: url("/images/busking.png") center / cover no-repeat;
       z-index: 0;
     }
     .bg::after {
@@ -223,15 +223,15 @@
     </div>
 
     <div class="modal-actions">
-      <button class="mini-btn" type="button" onclick="location.href='./login.jsp'">login</button>
+      <button class="mini-btn" type="button" onclick="location.href='/member/login'">login</button>
     </div>
   </div>
 
   <!-- 중앙 카드 -->
   <div class="wrap">
      <div class="brand">
-    <a href="../home.jsp" aria-label="메인페이지로 이동">
-      <img src="../buskinglogo.png" alt="BUSKING RESERVATION" />
+    <a href="/" aria-label="메인페이지로 이동">
+      <img src="/images/buskinglogo.png" alt="BUSKING RESERVATION" />
     </a>
   </div>
     <div class="card">
@@ -253,10 +253,10 @@
         <button class="btn" type="submit">PW 찾기</button>
 
           <div class="login-links">
-             <a class="find-link" href="./idfind.html">Id</a>
+             <a class="find-link" href="/member/find-id">Id</a>
                <span class="find-text">찾기</span>
                <span class="divider"></span>
-               <a href="./login.jsp">로그인</a>
+               <a href="/member/login">로그인</a>
           </div>
       </form>
     </div>

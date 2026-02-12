@@ -1,107 +1,70 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${pageTitle}</title>
+  <meta charset="UTF-8">
+  <title>장비 예약</title>
 
-  <!-- ✅ 정적 경로는 var로 빼서 쓰면 컨텍스트패스에서 100% 안전 -->
-  <c:url var="commonCss" value="/css/common.css" />
-  <c:url var="mainCss" value="/css/main.css" />
-  <c:url var="listCss" value="/css/gear/list.css" />
-
-  <link rel="stylesheet" href="${commonCss}" />
-  <link rel="stylesheet" href="${mainCss}" />
-  <link rel="stylesheet" href="${listCss}" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserve.css" />
 </head>
-
 <body>
 
-<c:url var="homeUrl" value="/" />
-<c:url var="gearListUrl" value="/gear/list" />
-<c:url var="localeListUrl" value="/locale/list" />
-<c:url var="boardListUrl" value="/board/list" />
-<c:url var="mypageUrl" value="/mypage/main" />
-<c:url var="logoutUrl" value="/member/logout" />
-<c:url var="reserveUrl" value="/gear/reserve" />
-
-<c:url var="headerBgUrl" value="/images/busking.png" />
-<c:url var="logoUrl" value="/images/buskinglogo.png" />
-
-<header class="header" style="background-image: url('${headerBgUrl}');">
-  <div class="container header-inner">
-    <a class="logo" href="${homeUrl}">
-      <img src="${logoUrl}" alt="BUSKING RESERVATION" class="logo-icon" />
-    </a>
-
-    <nav class="nav">
-      <a href="${gearListUrl}" class="is-active">장비 예약</a>
-      <a href="${localeListUrl}">지역별 장소 예약</a>
-      <a href="${boardListUrl}">게시판</a>
-    </nav>
-
-    <div class="auth">
-      <a class="pill" href="${mypageUrl}">my page</a>
-      <a class="pill" href="${logoutUrl}">logout</a>
-    </div>
-  </div>
-</header>
+	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
 <main class="main">
   <div class="container">
-    <section class="gear-grid">
 
-      <c:forEach var="g" items="${gears}">
-        <!-- ✅ g.img 가 "/images/01.jpg" 형태여야 정상 -->
-        <c:url var="imgUrl" value="${g.img}" />
+    <a href="${pageContext.request.contextPath}/gear/list" class="btn">← 목록으로</a>
 
-        <a class="gear-link gear-card" href="${reserveUrl}"
-           data-name="${g.name}"
-           data-price="${g.price}"
-           data-desc="${g.desc}"
-           data-img="${imgUrl}">
+    <div class="gear-detail">
 
-          <div class="thumb"
-               style="background-image:url('${imgUrl}');"
-               aria-label="${g.name} 이미지"></div>
+      <div class="thumb large"
+           style="background-image:url('${empty gear.gearThumbnail
+             ? pageContext.request.contextPath.concat("/default.jpg")
+             : gear.gearThumbnail}')">
+      </div>
 
-          <div class="card-body">
-            <div class="card-title">${g.name}</div>
-            <div class="card-price">$${g.price}</div>
-            <div class="card-desc">${g.desc}</div>
-          </div>
-        </a>
-      </c:forEach>
+      <div class="detail-body">
+        <h2>${gear.gearName}</h2>
+        <p>${gear.gearDescription}</p>
+        <p><b>가격:</b> ${gear.gearPrice}원</p>
+        <p><b>남은 수량:</b> ${gear.gearQuantity}</p>
 
-    </section>
+        <c:if test="${not empty error}">
+          <div class="alert error">${error}</div>
+        </c:if>
+
+        <c:choose>
+          <c:when test="${gear.gearQuantity < 1}">
+            <div class="badge soldout">장비 수량이 부족합니다.</div>
+          </c:when>
+
+          <c:otherwise>
+            <form action="${pageContext.request.contextPath}/gear/reserve/confirm" method="post" class="form">
+              <input type="hidden" name="gearId" value="${gear.id}" />
+
+              <label>시작 시간</label>
+              <!-- ✅ 컨트롤러와 name 맞춤 -->
+              <input type="datetime-local" name="startDT" required />
+
+              <label>종료 시간</label>
+              <!-- ✅ 컨트롤러와 name 맞춤 -->
+              <input type="datetime-local" name="endDT" required />
+
+              <button type="submit" class="btn primary">예약확정</button>
+            </form>
+          </c:otherwise>
+        </c:choose>
+
+      </div>
+    </div>
+
   </div>
 </main>
-
-<footer class="footer">
-  <div class="container">
-    <p>© Busking Reservation</p>
-  </div>
-</footer>
-
-<script>
-  document.querySelectorAll(".gear-link").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const item = {
-        name: link.dataset.name,
-        price: link.dataset.price,
-        desc: link.dataset.desc,
-        img: link.dataset.img
-      };
-
-      sessionStorage.setItem("selectedGear", JSON.stringify(item));
-      window.location.href = link.getAttribute("href");
-    });
-  });
-</script>
 
 </body>
 </html>
