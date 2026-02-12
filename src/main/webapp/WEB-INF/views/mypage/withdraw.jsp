@@ -6,16 +6,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>회원 탈퇴</title>
-
-  <link rel="stylesheet" href="../common.css" />
-  <link rel="stylesheet" href="../main.css" />
-  <link rel="stylesheet" href="myPage.css" />
-
-  <!-- ✅ 탈퇴 페이지 전용 CSS (반드시 마지막) -->
-  <link rel="stylesheet" href="withdraw.css" />
-</head>
+  
+   <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/myPage.css">
+  </head>
 
 <body>
+	<div class="login-wrapper withdraw-card">
+		<body class="withdraw-page">
+
 	<header class="header">
 	      <div class="container header-inner">
 	        <a class="logo" href="../home.jsp">
@@ -67,12 +66,11 @@
             <button id="btnWithdraw" class="joinok-btn danger" type="button">
               완전히 탈퇴하기
             </button>
-            <button class="joinok-btn" type="button" onclick="location.href='./main.html'">
+            <button class="joinok-btn" type="button" onclick="location.href='/mypage'">
               취소
             </button>
           </div>
 
-          <a class="back-link" href="./main.jsp">회원 목록 &gt;</a>
         </form>
 
       </div>
@@ -124,7 +122,7 @@
       // form.submit();
 
       // 폼 submit 대신 이동을 원하면:
-      location.href = "../home.jsp";
+      location.href = "/";
     });
   </script>
 </body>
