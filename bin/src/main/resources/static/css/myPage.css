@@ -1,141 +1,46 @@
 /* =========================
-   MyPage 전용 스타일
+   MyPage 전용 스타일 (스코프)
+   common.css / main.css 충돌 방지
 ========================= */
 
-/* 페이지 배경 */
-body {
+/* 배경 + common.css의 body padding-top 무력화 */
+.mypage-page {
   background: #f5f6f8;
-}
-
-/* =========================
-   ✅ 사진처럼: 헤더 자체가 배경이미지 영역
-========================= */
-.header {
-  position: relative;           /* absolute 제거 */
-  width: 100%;
-  height: 150px;                /* 사진 헤더 높이 */
-  background: url("../busking.png") center/cover no-repeat;
-  z-index: 10;
-  color: #fff;
-}
-
-/* 어두운 오버레이(글씨 잘 보이게) */
-.header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,0.25);
-}
-
-/* header 내부 정렬 */
-.header-inner {
-  position: relative;
-  z-index: 1;                   /* 오버레이 위 */
-  height: 150px;                /* 헤더 높이와 동일 */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-/* 로고 이미지 */
-.logo {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-/* ✅ 로고 더 크게 */
-.logo-icon {
-  height: 250px;                 /* (기존 58px → 72px) 더 크게 */
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
-}
-
-/* 메뉴(오른쪽으로 밀기) */
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-left: auto;
-}
-.nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-}
-.nav a:hover {
-  text-decoration: underline;
-}
-
-/* 오른쪽 pill 버튼 */
-.auth {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.9);
-  color: #fff;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 800;
-  background: rgba(0,0,0,0.12);
-}
-.pill:hover {
-  background: rgba(255,255,255,0.18);
-}
-
-
-/* =========================
-   ✅ 배너는 중복이라 숨김(헤더가 배너 역할)
-========================= */
-.banner{
-  display: none;
+  padding-top: 0; /* common.css에서 90px 주는 경우 방지 */
 }
 
 /* =========================
    Main spacing
-   - 헤더 아래에서 카드가 자연스럽게 시작
 ========================= */
-.main{
-  padding: 18px 0 28px;
-  margin-top: -36px; /* 카드가 헤더 아래에서 살짝 올라오게 */
+.mypage-page .main {
+  padding: 140px 0 140px;
+ 
 }
 
 /* =========================
-   Profile card (너 스타일 유지)
+   Profile card
 ========================= */
-.profile-card{
-  background:#fff;
+.mypage-page .profile-card {
+  background: #fff;
   border-radius: 18px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.06);
   padding: 22px 22px;
-  display:flex;
+  display: flex;
   gap: 18px;
   align-items: stretch;
   border: 1px solid #f0f0f0;
-
-  transform: none; /* 기존 배너 오버랩용 transform 제거 */
 }
 
-.profile-left{
-  display:flex;
+.mypage-page .profile-left {
+  display: flex;
   gap: 14px;
-  align-items:center;
+  align-items: center;
   flex: 1;
   min-width: 260px;
 }
 
-.avatar{
+/* avatar 기본 */
+.mypage-page .avatar {
   width: 86px;
   height: 86px;
   border-radius: 50%;
@@ -143,52 +48,64 @@ body {
   position: relative;
   overflow: hidden;
 }
-.avatar::before{
-  content:"";
-  position:absolute;
+.mypage-page .avatar::before {
+  content: "";
+  position: absolute;
   inset: 18px 26px 38px 26px;
-  background:#cfd6e1;
+  background: #cfd6e1;
   border-radius: 50%;
 }
-.avatar::after{
-  content:"";
-  position:absolute;
+.mypage-page .avatar::after {
+  content: "";
+  position: absolute;
   left: 18px;
   right: 18px;
   bottom: 14px;
   height: 34px;
-  background:#cfd6e1;
+  background: #cfd6e1;
   border-radius: 20px 20px 12px 12px;
 }
 
-.profile-basic{
-  display:flex;
+/* 사진 avatar */
+.mypage-page .avatar.has-photo {
+  background-size: cover;
+  background-position: center;
+}
+.mypage-page .avatar.has-photo::before,
+.mypage-page .avatar.has-photo::after {
+  display: none;
+}
+
+.mypage-page .profile-basic {
+  display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.nickname-row{
-  display:flex;
-  align-items:center;
+.mypage-page .nickname-row {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
-.nickname{
-  margin:0;
+
+.mypage-page .nickname {
+  margin: 0;
   font-size: 18px;
   font-weight: 900;
-  color:#222;
+  color: #222;
 }
-.badge{
+
+.mypage-page .badge {
   font-size: 11px;
   padding: 4px 10px;
   border-radius: 999px;
   background: #f2f4f7;
-  color:#444;
+  color: #444;
   border: 1px solid #e7e7e7;
 }
 
-/* 버튼 공통 */
-.btn{
+/* 버튼 */
+.mypage-page .btn {
   height: 34px;
   padding: 0 14px;
   border-radius: 10px;
@@ -198,166 +115,323 @@ body {
   font-size: 12px;
   font-weight: 700;
 }
-.btn:hover{
-  background:#f6f6f6;
+.mypage-page .btn:hover {
+  background: #f6f6f6;
 }
-.btn.outline{
-  background:#fff;
+
+.mypage-page .btn.outline {
+  background: #fff;
   border: 1px solid #dcdcdc;
 }
 
+/* ✅ 프로필 수정 검정 버튼 */
+.mypage-page .btn-black {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+.mypage-page .btn-black:hover {
+  background: #000;
+  border-color: #000;
+}
+
 /* 오른쪽 정보 */
-.profile-right{
+.mypage-page .profile-right {
   flex: 1;
   border-left: 1px solid #f0f0f0;
   padding-left: 18px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 }
 
-.info{
-  margin:0;
+.mypage-page .info {
+  margin: 0;
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.info-row{
-  display:flex;
-  align-items:center;
+
+.mypage-page .info-row {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-.info-row dt{
+
+.mypage-page .info-row dt {
   font-size: 12px;
-  color:#666;
+  color: #666;
   font-weight: 700;
 }
-.info-row dd{
-  margin:0;
+
+.mypage-page .info-row dd {
+  margin: 0;
   font-size: 12px;
-  color:#222;
+  color: #222;
   font-weight: 700;
 }
 
 /* Tabs */
-.tabs{
-  margin-top: 14px;
-  display:flex;
+.mypage-page .tabs {
+  margin-top: 40px;
+  display: flex;
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.tab{
+.mypage-page .tab {
   height: 34px;
   padding: 0 14px;
   border-radius: 999px;
   border: 1px solid #e3e3e3;
   background: #fff;
-  cursor:pointer;
+  cursor: pointer;
   font-size: 12px;
   font-weight: 800;
-  color:#444;
+  color: #444;
 }
-.tab:hover{
-  background:#f6f6f6;
+.mypage-page .tab:hover {
+  background: #f6f6f6;
 }
-.tab.active{
-  background:#222;
-  border-color:#222;
-  color:#fff;
+
+.mypage-page .tab.active {
+  background: #222;
+  border-color: #222;
+  color: #fff;
 }
 
 /* List */
-.list{
+.mypage-page .list {
   margin-top: 16px;
-  background:#fff;
+  background: #fff;
   border-radius: 18px;
   border: 1px solid #f0f0f0;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  overflow:hidden;
+  overflow: hidden;
 }
 
-.list-item{
+.mypage-page .list-item {
   padding: 16px 18px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 14px;
   border-top: 1px solid #f2f2f2;
 }
-.list-item:first-child{
+.mypage-page .list-item:first-child {
   border-top: none;
 }
 
-.item-title{
-  margin:0;
+.mypage-page .item-title {
+  margin: 0;
   font-size: 14px;
   font-weight: 900;
-  color:#222;
+  color: #222;
 }
-.item-meta{
+
+.mypage-page .item-meta {
   margin: 6px 0 0;
   font-size: 12px;
-  color:#777;
+  color: #777;
   font-weight: 600;
 }
 
-.item-right{
-  display:flex;
-  align-items:center;
+.mypage-page .item-right {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-/* 상태 배지 */
-.status{
-  font-size: 11px;
-  font-weight: 900;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid #e5e5e5;
+/* 탭 패널 */
+.mypage-page .tab-panel {
+  display: none;
 }
-.status.pending{
-  background: #fff4e5;
-  border-color: #ffd9a8;
-  color: #a35a00;
-}
-.status.done{
-  background: #eaf7ef;
-  border-color: #bfe8cd;
-  color: #1f7a43;
+.mypage-page .tab-panel.show {
+  display: block;
 }
 
 /* Responsive */
-@media (max-width: 860px){
-  .profile-card{
+@media (max-width: 860px) {
+  .mypage-page .profile-card {
     flex-direction: column;
   }
-  .profile-right{
+  .mypage-page .profile-right {
     border-left: none;
     padding-left: 0;
     border-top: 1px solid #f0f0f0;
     padding-top: 14px;
   }
-  .nav{
+  .mypage-page .nav {
     gap: 12px;
   }
-  .more-btn{
-    display: none !important;
-  }
 }
-.avatar{
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-image: url("./01.jpg");
-  background-size: cover;
-  background-position: center;
-}
-/* 탭 패널 기본 숨김 */
-.tab-panel { display: none; }
+/* 기본 탭 스타일 */
+   .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+   .tab { padding: 8px 16px; border-radius: 999px; border: 1px solid #e3e3e3; background:#fff; cursor:pointer; font-weight:700; }
+   .tab.active { background:#222; color:#fff; border-color:#222; }
 
-/* 선택된 탭 패널만 표시 */
-.tab-panel.show { display: block; }
+   /* 패널 숨김/표시 */
+   .tab-panel { display:none; }
+   .tab-panel.show { display:block; }
 
+   /* 리스트 스타일 */
+   .list { background:#fff; border-radius:12px; padding:20px; border:1px solid #eee; }
+   .list-item { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-top:1px solid #f2f2f2; }
+   .list-item:first-child { border-top:none; }
+   .item-title { font-weight:700; font-size:14px; color:#222; margin:0; }
+   .item-meta { font-size:12px; color:#666; margin:4px 0 0; }
+   .btn { padding:6px 12px; border-radius:8px; border:1px solid #ccc; background:#f5f5f5; cursor:pointer; font-size:12px; }
+   .btn:hover { background:#e0e0e0; }
+   /* =========================
+      🔥 Update Page 전용 스타일
+   ========================= */
+
+   .update-page .main {
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 140px 20px 80px;
+     background: #f5f6f8;
+   }
+
+   /* 전체 네모 박스 */
+   .update-page .login-wrapper {
+     width: 100%;
+     max-width: 520px;
+     background: #ffffff;
+     padding: 50px 55px;
+     border-radius: 20px;
+     box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+     border: 1px solid #eeeeee;
+   }
+
+   /* 닉네임 타이틀 크게 */
+   .update-page .nickname-title {
+     font-size: 28px;
+     font-weight: 800;
+     margin-bottom: 6px;
+   }
+
+   /* 입력 영역 간격 넓힘 */
+   .update-page .field {
+     margin-bottom: 24px;
+     display: flex;
+     flex-direction: column;
+   }
+
+   .update-page .field label {
+     margin-bottom: 8px;
+     font-size: 14px;
+     font-weight: 600;
+     letter-spacing: 0.5px;
+   }
+
+   /* 인풋 스타일 */
+   .update-page .field input {
+     height: 45px;
+     padding: 0 15px;
+     border-radius: 10px;
+     border: 1px solid #ddd;
+     font-size: 14px;
+     transition: 0.2s;
+   }
+
+   .update-page .field input:focus {
+     border-color: #333;
+     outline: none;
+   }
+
+   /* 비밀번호 토글 */
+   .update-page .input-toggle {
+     display: flex;
+     gap: 8px;
+   }
+
+   .update-page .toggle-btn {
+     height: 45px;
+     padding: 0 16px;
+     border-radius: 10px;
+     border: 1px solid #ccc;
+     background: #f5f5f5;
+     cursor: pointer;
+   }
+
+   /* 버튼 영역 */
+   .update-page .btn-col {
+     margin-top: 35px;
+     display: flex;
+     gap: 12px;
+   }
+
+   /* 저장 / 취소 버튼 */
+   .update-page .joinok-btn {
+     flex: 1;
+     height: 45px;
+     border-radius: 12px;
+     border: none;
+     font-size: 14px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: 0.2s;
+   }
+
+   /* 저장하기 */
+   .update-page .joinok-btn:first-child {
+     background: #222;
+     color: #fff;
+   }
+
+   .update-page .joinok-btn:first-child:hover {
+     background: #000;
+   }
+
+   /* 취소 */
+   .update-page .joinok-btn:last-child {
+     background: #e5e5e5;
+     color: #333;
+   }
+
+   .update-page .joinok-btn:last-child:hover {
+     background: #dcdcdc;
+   }
+
+   /* 회원탈퇴 버튼 */
+   .update-page .withdraw-btn {
+     margin-top: 25px;
+     width: 100%;
+     height: 45px;
+     border-radius: 12px;
+     border: none;
+     background: #e53935;
+     color: #fff;
+     font-size: 14px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: 0.2s;
+   }
+
+   .update-page .withdraw-btn:hover {
+     background: #c62828;
+   }
+   /* =========================
+      🔥 Update 페이지 완전 가운데 정렬
+   ========================= */
+
+   .update-page .main {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
+
+   .update-page .main > * {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+   }
+
+   .update-page .login-wrapper {
+     margin: 0 auto;
+   }

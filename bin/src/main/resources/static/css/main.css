@@ -1,16 +1,125 @@
+
+/* =====================
+   공통 기본 설정
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "맑은 고딕", sans-serif;
+  color: #222;
+  background-color: #fff;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 40px; /* 좌우 여백(원하면 20~60 조절) */
+  
+}
+
+/* =====================
+   HEADER
+===================== */
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  color: #fff;
+}
+
+.header-inner {
+  height: 180px;            /* 헤더 높이(원하면 조절) */
+  display: flex;
+  align-items: center;
+}
+
+/* ✅ 로고는 맨 왼쪽 */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* 로고 이미지 */
+.logo-icon {
+  width: 250px;      
+  height: auto;
+  display: block;
+}
+
+
+/* ✅ 메뉴를 오른쪽 끝으로 밀기 */
+.nav {
+  margin-left: auto;     /* 핵심: 로고 뒤 공간을 밀어 메뉴를 오른쪽으로 */
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ login/join도 메뉴 오른쪽에 붙여서 더 오른쪽으로 */
+.auth {
+  display: flex;
+  gap: 10px;
+  margin-left: 18px;
+  align-items: center;
+}
+
+.auth a {
+  padding: 6px 14px;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.auth a:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* =====================
+   FOOTER
+===================== */
+.footer {
+  background-color: #f4f4f4;
+  padding: 25px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
 /* =====================
    HERO
 ===================== */
 .hero{
-  /* ✅ 헤더가 absolute라서 겹치지 않게 상단 공간 확보 */
-  padding-top: 90px;              /* common.css의 .header-inner height(90px)와 맞춤 */
-  min-height: 380px;              /* 원하면 더 키워도 됨 */
+  /* ❌ padding-top 제거 (body에서 처리함) */
+  min-height: 380px;
   display: flex;
   align-items: center;
 
-  /* ✅ 배너 경로 수정: css/ 기준 → images/로 한 단계 위로 */
-  background-color: #111; /* 이미지 못 떠도 검정 배경 */
-  background-image: url("../images/busking.png");
+  background-color: #111;
+  background-image: url("/images/busking.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,7 +128,9 @@
   position: relative;
 }
 
-/* ✅ 배너 위에 살짝 어둡게(글자 가독성) */
+
+
+/* 배너 오버레이 */
 .hero::before{
   content:"";
   position:absolute;
@@ -28,15 +139,16 @@
 }
 
 .hero-inner{
-  padding: 70px 0 60px;           /* 히어로 안쪽 여백 */
+  padding: 70px 0 60px;
   position: relative;
-  z-index: 1;                     /* 오버레이 위로 */
+  z-index: 1;
 }
 
 .hero h1{
   font-size: 40px;
   font-weight: 800;
   margin-bottom: 12px;
+  margin-left: 50px;
 }
 
 .hero p{
@@ -64,8 +176,6 @@
   background: rgba(255,255,255,0.18);
 }
 
-
-
 /* =====================
    MAIN / SECTION
 ===================== */
@@ -78,7 +188,9 @@
   margin-top: 26px;
 }
 
-/* ✅ 인기 장소 / 게시판 인기글 제목줄 */
+/* =====================
+   SECTION HEADER
+===================== */
 .section-head{
   display:flex;
   align-items:center;
@@ -99,9 +211,8 @@
   text-decoration: underline;
 }
 
-
 /* =====================
-   POPULAR PLACES (3 columns)
+   POPULAR PLACES
 ===================== */
 .grid.grid-3{
   display:grid;
@@ -115,17 +226,15 @@
   background: #fff;
 }
 
-/* 카드 클릭 가능하게 했을 때 */
 .place-link{
   display:block;
   color: inherit;
   text-decoration: none;
 }
 
-/* ✅ 회색 없이 꽉 차게 */
 .place-card .thumb{
   width: 100%;
-  height: 220px;   /* 크기 조절은 여기만 */
+  height: 220px;
 }
 
 .place-card .thumb img{
@@ -135,7 +244,6 @@
   display: block;
 }
 
-/* 카드 아래 텍스트(네가 card-body 넣었을 때만 적용됨) */
 .place-card .card-body{
   padding: 12px 14px 14px;
 }
@@ -153,7 +261,6 @@
   color: #666;
 }
 
-
 /* =====================
    BOARD LIST
 ===================== */
@@ -168,7 +275,7 @@
   justify-content: space-between;
   align-items:center;
   gap: 16px;
-  padding: 12px 12px;
+  padding: 12px;
   border: 1px solid #e7e7e7;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -187,3 +294,20 @@
   white-space:nowrap;
 }
 
+/* main.css */
+
+/* 메인에서는 헤더를 hero 위로 */
+.main-page .header {
+  position: absolute;      /* 🔥 hero 위에 겹침 */
+  background: transparent; /* 🔥 배경 제거 */
+}
+
+/* 메인에서는 body 패딩 제거 */
+.main-page {
+  padding-top: 0;
+}
+/* main.css */
+
+.main-page .logo {
+  transform: translateY(6px);  /* 숫자만 취향대로 조절 */
+}

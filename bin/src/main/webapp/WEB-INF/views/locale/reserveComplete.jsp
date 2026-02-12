@@ -7,123 +7,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${pageTitle}</title>
 
-  <!-- ✅ static/css 기준 -->
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
   <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
-
-  <!-- ✅ 너 폴더구조: static/css/local/locallist.css -->
-  <link rel="stylesheet" href="<c:url value='/css/locale/list.css'/>" />
+  <link rel="stylesheet" href="<c:url value='/css/locale/reserveComplete.css'/>" />
 </head>
 
 <body>
-  <!-- ✅ 헤더 (배너 확정 적용) -->
-  <header class="header"
-          style="background-image: url('<c:url value='/images/busking.png'/>');">
-    <div class="container header-inner">
-      <a class="logo" href="<c:url value='/'/>">
-        <img src="<c:url value='/images/buskinglogo.png'/>"
-             alt="BUSKING RESERVATION" class="logo-icon" />
-      </a>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-      <nav class="nav">
-        <a href="<c:url value='/gear/list'/>">장비 예약</a>
-        <a href="<c:url value='/locale/list'/>" class="is-active">지역별 장소 예약</a>
-        <a href="<c:url value='/board/list'/>">게시판</a>
-      </nav>
+<main class="main">
+  <div class="container">
+    <h2>예약 완료</h2>
 
-      <div class="auth">
-        <a class="pill" href="<c:url value='/mypage/main'/>">my page</a>
-        <a class="pill" href="<c:url value='/member/logout'/>">logout</a>
+    <div class="reservation-complete">
+      <p>예약이 정상적으로 완료되었습니다!</p>
+
+      <div class="reservation-info">
+        <p><strong>장소:</strong> ${reservation.place.placeName}</p>
+        <p><strong>주소:</strong> ${reservation.place.placeAddress}</p>
+        <p><strong>전화:</strong> ${reservation.place.placePhone}</p>
+        <p><strong>예약자:</strong> ${userName}</p>
+        <p><strong>밴드명:</strong> ${reservation.bandName}</p>
+        <p><strong>인원:</strong> ${reservation.bandCount}</p>
+        <p><strong>날짜/시간:</strong> ${reservation.reservationDate} ${reservation.startTime}</p>
+        <p><strong>전화번호:</strong> ${reservation.phone}</p>
+        <p><strong>이메일:</strong> ${reservation.email}</p>
+      </div>
+
+      <div class="actions">
+        <a href="<c:url value='/'/>" class="region-btn">홈으로 돌아가기</a>
       </div>
     </div>
-  </header>
+  </div>
+</main>
 
-  <!-- ✅ 본문 -->
-  <main class="main">
-    <div class="container">
-
-      <!-- ✅ placelist.jsp 스타일 맞춤: 제목 한 줄 -->
-      <h2 style="margin: 0 0 16px;">지역 선택</h2>
-
-      <section class="region-grid" aria-label="지역 선택">
-
-        <a class="region-btn" href="<c:url value='/locale/seoul'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">서울 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/incheon'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">인천 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/busan'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">부산 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/daegu'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">대구 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/gwangju'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">광주 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/ulsan'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">울산 광역시</span>
-        </a>
-
-        <a class="region-btn" href="<c:url value='/locale/daejeon'/>">
-          <span class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="txt">대전 광역시</span>
-        </a>
-
-      </section>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© Busking Reservation</p>
-    </div>
-  </footer>
 </body>
+</html>

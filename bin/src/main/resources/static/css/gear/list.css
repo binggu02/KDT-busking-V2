@@ -1,0 +1,95 @@
+/* =========================
+   GEAR PAGE (screenshot style) - JSP friendly
+========================= */
+
+/* ✅ 페이지 전용 배경(공통 body 스타일과 충돌 방지) */
+body.gear-page{
+  background: #f5f6f8;
+}
+
+/* 본문 영역(스크샷처럼 살짝 위로) */
+.main{
+  padding: 26px 0 40px;
+  margin-top: -18px;
+}
+
+/* ✅ 카드 그리드: 고정 250px 느낌 유지하면서도 반응형 안전 */
+.gear-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
+  gap: 50px;
+  justify-content: center;
+}
+
+/* 카드(링크가 카드 전체를 감싸는 구조 a.gear-link.gear-card 기준) */
+.gear-card{
+  background:#fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+/* ✅ 링크 스타일 */
+.gear-link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  /* hover 효과 */
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.gear-link:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
+/* 썸네일 */
+.thumb{
+  height: 160px;
+  background: #e6e6e6;
+  position: relative;
+
+  /* JSP에서 background-image를 inline으로 주는 경우 대비 */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.thumb::after{
+  content:"";
+  position:absolute;
+  inset: 18px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* 카드 내용 */
+.card-body{
+  padding: 12px 12px 14px;
+}
+
+.card-title{
+  font-size: 12px;
+  font-weight: 900;
+  color:#222;
+  margin-bottom: 6px;
+}
+
+.card-price{
+  font-size: 12px;
+  font-weight: 900;
+  color:#222;
+  margin-bottom: 2px;
+}
+
+.card-desc{
+  font-size: 11px;
+  color:#666;
+}
+
+/* 반응형 */
+@media (max-width: 760px){
+  .nav{ display:none; }
+}
