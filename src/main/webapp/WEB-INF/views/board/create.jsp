@@ -1,66 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <title>게시글 작성</title>
-  <!-- 공통 CSS -->
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css" />
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css" />
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css" />
-  <body>
+</head>
+<body>
 
-	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-  <!-- 본문 -->
-  <main class="main">
-    <div class="container board-wrap">
-      <h2 class="board-title">게시글 작성</h2>
+<main class="main">
+  <div class="container board-wrap">
+    <h2 class="board-title">게시글 작성</h2>
 
-	  <div class="board-create-box">
-	    <h2 class="board-title">게시글 작성</h2>
+    <div class="board-create-box">
+      <form action="<%= request.getContextPath() %>/board/create" method="post" class="board-form">
 
-	    <form action="<%= request.getContextPath() %>/board/write" method="post" class="board-form">
+        <div class="form-group">
+          <label>게시판</label>
+          <select name="boardTypeId" required>
+            <option value="1" <c:if test="${board.boardTypeId == 1}">selected</c:if>>자유게시판</option>
+            <option value="2" <c:if test="${board.boardTypeId == 2}">selected</c:if>>Q&A</option>
+          </select>
+        </div>
 
-	      <!-- 게시판 종류 -->
-	      <div class="form-group">
-	        <label>게시판</label>
-	        <select name="category" required>
-	          <option value="FREE">자유게시판</option>
-	          <option value="QNA">Q&A</option>
-	        </select>
-	      </div>
+        <div class="form-group">
+          <label>제목</label>
+          <input type="text" name="title" placeholder="제목을 입력하세요" value="${board.title}" required />
+        </div>
 
-	      <!-- 제목 -->
-	      <div class="form-group">
-	        <label>제목</label>
-	        <input type="text" name="title" placeholder="제목을 입력하세요" required />
-	      </div>
+        <div class="form-group">
+          <label>내용</label>
+          <textarea name="content" rows="10" placeholder="내용을 입력하세요" required>${board.content}</textarea>
+        </div>
 
-	      <!-- 내용 -->
-	      <div class="form-group">
-	        <label>내용</label>
-	        <textarea name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
-	      </div>
+        <div class="form-group">
+          <label>썸네일 URL</label>
+          <input type="text" name="thumbnailWriter" placeholder="썸네일 URL 입력 (선택)" value="${board.thumbnailWriter}" />
+        </div>
 
-	      <!-- 버튼 -->
-	      <div class="form-buttons">
-	        <button type="submit" class="btn-primary">작성 완료</button>
-	        <a href="<%= request.getContextPath() %>/board/main" class="btn-secondary">취소</a>
-	      </div>
-
-	    </form>
-	  </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn-primary">작성 완료</button>
+          <a href="<%= request.getContextPath() %>/board/main?typeId=${board.boardTypeId}" class="btn-secondary">취소</a>
+        </div>
 
       </form>
     </div>
-  </main>
+  </div>
+</main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© Busking Reservation</p>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="container">
+    <p>© Busking Reservation</p>
+  </div>
+</footer>
 </body>
 </html>
