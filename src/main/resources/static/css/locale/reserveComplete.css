@@ -1,63 +1,81 @@
-/* ✅ 완료 페이지 전용 */
+/* =========================
+   RESERVE COMPLETE – Calm & Modern
+========================= */
 
 .complete-main{
-  padding: 34px 0 60px;
+  padding: 50px 0 80px;
+  background: #f5f6f8;
 }
 
+/* 중앙 정렬 */
 .complete-wrap{
   display:flex;
   justify-content:center;
+  align-items:center;
 }
 
+/* 전체 박스 */
 .complete-box{
-  width: 720px;
-  max-width: calc(100% - 28px);
+  width: 620px;
+  max-width: calc(100% - 32px);
   background:#fff;
-  border: 1.6px solid #222;
-  border-radius: 28px;
-  padding: 28px 22px 26px;
+  border-radius: 22px;
+  padding: 38px 34px 42px;
   text-align:center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
 }
 
+/* 체크 아이콘 (차분한 다크톤) */
 .check-icon{
   display:flex;
   justify-content:center;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  color:#111;
+  align-items:center;
+  width:60px;
+  height:60px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background:#2f2f33;
+  color:#fff;
+  font-size:26px;
+  font-weight:900;
 }
 
+/* 제목 */
 .complete-title{
-  margin: 6px 0 18px;
-  font-size: 22px;
+  margin-bottom: 28px;
+  font-size: 20px;
   font-weight: 900;
   color:#111;
+  letter-spacing: -0.2px;
 }
 
-/* 가운데 작은 카드 */
+/* ======================
+   예약 요약 카드
+====================== */
+
 .mini-card{
-  width: 230px;
-  margin: 0 auto;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
+  width: 240px;
+  margin: 0 auto 32px;
+  border-radius: 14px;
   overflow:hidden;
   background:#fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
 .mini-thumb{
-  height: 160px;
-  background:#ececec;
+  height: 150px;
+  background:#e9eaec center/cover no-repeat;
 }
 
 .mini-body{
-  padding: 12px 12px 14px;
+  padding: 16px 16px 18px;
   text-align:left;
 }
 
 .mini-gear{
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color:#111;
 }
 
@@ -65,20 +83,19 @@
   margin: 0;
   display:flex;
   flex-direction:column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .mini-row{
   display:flex;
-  gap: 8px;
-  font-size: 12px;
-  line-height: 1.25;
+  font-size: 12.5px;
+  line-height: 1.4;
 }
 
 .mini-row dt{
-  width: 74px;
-  color:#666;
-  font-weight: 800;
+  width: 72px;
+  color:#777;
+  font-weight: 700;
 }
 
 .mini-row dd{
@@ -88,45 +105,77 @@
   word-break: break-word;
 }
 
-/* 하단 버튼 */
+/* ======================
+   버튼 영역
+====================== */
+
 .complete-actions{
   display:flex;
   justify-content:center;
-  gap: 12px;
-  margin-top: 18px;
+  align-items:center;
+  gap: 14px;
 }
 
-.btn-line, .btn-dark{
-  height: 40px;
-  padding: 0 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 900;
-  cursor:pointer;
-}
-
-.btn-line{
-  border: 1px solid #d6d6d6;
-  background:#fff;
-  color:#111;
-}
-.btn-line:hover{ background:#f6f6f6; }
-
+/* 공통 버튼 */
+.btn-line,
 .btn-dark{
-  border: 1px solid #2b2f36;
-  background:#2b2f36;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-width: 160px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all .2s ease;
+}
+
+/* 서브 버튼 */
+.btn-line{
+  background:#fff;
+  border: 1px solid #d8d8d8;
+  color:#333;
+}
+
+.btn-line:hover{
+  background:#f0f1f3;
+}
+
+/* 메인 버튼 (튀지 않는 다크톤) */
+.btn-dark{
+  border:0;
+  background:#2f2f33;
   color:#fff;
 }
+
 .btn-dark:hover{
-  background:#1f232a;
-  border-color:#1f232a;
+  background:#1f1f22;
 }
 
-/* ✅ (선택) 모바일에서 버튼/카드 약간 더 보기 좋게 */
-@media (max-width: 520px){
-  .complete-box{ padding: 22px 16px 20px; border-radius: 22px; }
-  .complete-title{ font-size: 20px; }
-  .mini-card{ width: 100%; max-width: 280px; }
-  .complete-actions{ flex-direction: column; }
-  .btn-line, .btn-dark{ width: 100%; }
+/* ======================
+   반응형
+====================== */
+
+@media (max-width: 600px){
+
+  .complete-box{
+    padding: 28px 20px 32px;
+  }
+
+  .mini-card{
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .complete-actions{
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-line,
+  .btn-dark{
+    width: 100%;
+  }
 }
