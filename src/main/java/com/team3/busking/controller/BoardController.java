@@ -98,24 +98,11 @@ public class BoardController {
        ========================= */
     @PostMapping("/update")
     public String updateSubmit(Board board) {
-        // 기존 글 불러오기
-        Board existing = boardService.getBoardById(board.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("글 없음"));
-
-        // 업데이트
-        existing.setTitle(board.getTitle());
-        existing.setContent(board.getContent());
-        existing.setThumbnailWriter(board.getThumbnailWriter());
-        boardService.createBoard(
-                existing.getUserId(),
-                existing.getBoardTypeId(),
-                existing.getTitle(),
-                existing.getContent(),
-                existing.getThumbnailWriter()
-        );
-
+        // 서비스에서 기존 DB 조회 후 안전하게 update
+        boardService.updateBoard(board);
         return "redirect:/board/view?id=" + board.getBoardId();
     }
+
 
     /* =========================
        삭제

@@ -44,6 +44,31 @@ public class BoardService {
         return boardRepository.save(board);
     }
     
+    @Transactional
+    public void updateBoard(Board boardDto) {
+        // 1. 기존 DB 엔티티 조회
+        Board existing = boardRepository.findById(boardDto.getBoardId())
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        // 2. 값 업데이트
+        if (boardDto.getBoardTypeId() == null) {
+            throw new IllegalArgumentException("게시판 타입이 선택되지 않았습니다.");
+        }
+        existing.setBoardTypeId(boardDto.getBoardTypeId());
+        existing.setTitle(boardDto.getTitle());
+        existing.setContent(boardDto.getContent());
+
+        // null 체크 후 set
+        if (boardDto.getThumbnailWriter() != null) {
+            existing.setThumbnailWriter(boardDto.getThumbnailWriter());
+        }
+
+       
+
+        // 3. save() 호출 없어도 트랜잭션 commit 시 JPA가 자동으로 update
+    }
+
+    
     //게시글 삭제
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
