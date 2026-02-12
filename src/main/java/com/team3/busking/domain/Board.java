@@ -1,6 +1,7 @@
 package com.team3.busking.domain;
 
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,4 +34,6 @@ public class Board {
 
     @Column(name = "thumbnail_writer", length = 255)
     private String thumbnailWriter;
+
+	
 }

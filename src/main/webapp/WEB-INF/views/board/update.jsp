@@ -16,7 +16,7 @@
   <div class="container board-wrap">
 
     <h2 class="board-title">게시글 수정</h2>
-
+	
     <div class="board-box board-edit-box">
       <form action="<%= request.getContextPath() %>/board/update" method="post" class="board-form">
 
