@@ -19,7 +19,6 @@
     <div class="container">
       <h2 style="margin: 0 0 16px;">${pageTitle}</h2>
 
-      <!-- FE 카드 UI + BE 필드(place.*) 매핑 -->
       <section class="place-grid">
         <c:forEach var="place" items="${places}">
           <article class="place-card"
@@ -27,15 +26,28 @@
                    data-address="${place.placeAddress}"
                    data-phone="${place.placePhone}">
 
+            <!-- 썸네일 클릭하면 지도 토글 -->
             <button class="thumb" type="button"
                     style="background-image:url('${pageContext.request.contextPath}${place.thumbnail}')"
                     aria-label="${place.placeName} 지도 보기"></button>
 
             <div class="card-body">
               <div class="card-title">${place.placeName}</div>
-              <!-- 로직(파라미터 placeId) 유지 -->
-              <a class="reserve-btn" href="<c:url value='/locale/reserve?placeId=${place.id}'/>">예약하기</a>
+
+              <div class="card-actions">
+                <button class="map-btn" type="button">지도보기</button>
+                <a class="reserve-btn" href="<c:url value='/locale/reserve?placeId=${place.id}'/>">예약하기</a>
+              </div>
             </div>
+
+            <!-- ✅ 카드 내부 지도 -->
+            <div class="card-map" aria-hidden="true">
+              <iframe class="card-map-frame"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      src=""></iframe>
+            </div>
+
           </article>
         </c:forEach>
       </section>
@@ -48,52 +60,44 @@
     </div>
   </footer>
 
-  <!-- 지도 모달 (UI 보강용: 로직과 무관) -->
-  <div class="map-modal" id="mapModal" aria-hidden="true">
-    <div class="map-dim" data-close="1"></div>
-    <div class="map-box" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
-      <div class="map-head">
-        <div class="map-title" id="mapTitle">지도</div>
-        <button class="map-close" type="button" data-close="1">✕</button>
-      </div>
-      <div class="map-sub" id="mapAddr">-</div>
-      <iframe id="mapFrame" class="map-frame" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
-    </div>
-  </div>
-
   <script>
-    const modal = document.getElementById("mapModal");
-    const mapFrame = document.getElementById("mapFrame");
-    const mapAddr = document.getElementById("mapAddr");
-    const mapTitle = document.getElementById("mapTitle");
-
-    function openMap(placeName, address){
-      mapTitle.textContent = placeName;
-      mapAddr.textContent = address;
+    function setMapIframe(iframe, address){
       const q = encodeURIComponent(address);
-      mapFrame.src = `https://www.google.com/maps?q=${q}&output=embed`;
-      modal.classList.add("show");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
+      iframe.src = `https://www.google.com/maps?q=${q}&output=embed`;
     }
 
-    function closeMap(){
-      modal.classList.remove("show");
-      modal.setAttribute("aria-hidden", "true");
-      mapFrame.src = "";
-      document.body.style.overflow = "";
-    }
+    document.querySelectorAll(".place-card").forEach(card => {
+      const btn = card.querySelector(".map-btn");
+      const thumb = card.querySelector(".thumb");
+      const iframe = card.querySelector(".card-map-frame");
 
-    document.querySelectorAll(".place-card .thumb").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const card = btn.closest(".place-card");
-        openMap(card.dataset.name, card.dataset.address);
-      });
-    });
+      function toggleMap(){
+        const isOpen = card.classList.contains("open");
 
-    modal.addEventListener("click", (e) => {
-      if (e.target.dataset.close === "1") closeMap();
+        // 닫기
+        if (isOpen) {
+          card.classList.remove("open");
+          iframe.src = "";
+          card.querySelector(".card-map")?.setAttribute("aria-hidden", "true");
+          return;
+        }
+
+        // 다른 카드 열려있으면 닫기(원하면 삭제 가능)
+        document.querySelectorAll(".place-card.open").forEach(c => {
+          c.classList.remove("open");
+          const fr = c.querySelector(".card-map-frame");
+          if (fr) fr.src = "";
+          c.querySelector(".card-map")?.setAttribute("aria-hidden", "true");
+        });
+
+        // 열기
+        setMapIframe(iframe, card.dataset.address);
+        card.classList.add("open");
+        card.querySelector(".card-map")?.setAttribute("aria-hidden", "false");
+      }
+
+      btn.addEventListener("click", toggleMap);
+      thumb.addEventListener("click", toggleMap);
     });
   </script>
 </body>

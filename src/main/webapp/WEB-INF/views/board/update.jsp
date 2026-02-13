@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>게시물 수정</title>
   <link rel="stylesheet" href="../css/common.css" />
-  <link rel="stylesheet" href="../css/main.css" />
+
   <link rel="stylesheet" href="../css/board.css" />
 </head>
 <body>
