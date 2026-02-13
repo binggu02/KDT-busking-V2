@@ -11,11 +11,16 @@ public class AdminMemberController {
 
     @GetMapping("/main")
     public String main(HttpSession session) {
-        // 관리자 세션 체크(키 이름은 너희가 쓰는 걸로 맞춰)
-        // loginUser를 쓰는 경우 roles로 체크하거나, loginAdmin 같은 별도 세션을 두면 됨
         if (session.getAttribute("loginUser") == null) {
             return "redirect:/member/login";
         }
         return "admin/main";
+    }
+
+    // ✅ 로그아웃 추가
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();   // 세션 전체 삭제
+        return "redirect:/member/login";
     }
 }

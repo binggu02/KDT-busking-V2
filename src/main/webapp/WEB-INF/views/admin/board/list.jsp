@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>게시판 관리</title>
     <style>
-        /* (너 CSS 거의 그대로 두고) */
         * { margin:0; padding:0; box-sizing:border-box; font-family:"Pretendard", Arial, sans-serif; }
         body { background-color:#e5e5e5; }
         .header { position:fixed; top:0; left:0; width:100%; height:80px;
@@ -81,33 +80,43 @@
             </thead>
 
             <tbody>
-            <!-- ✅ 실제 데이터가 있으면 반복 -->
             <c:if test="${not empty boardList}">
                 <c:forEach var="b" items="${boardList}">
                     <tr>
-                        <td><c:out value="${b.id}"/></td>
+                        <td><c:out value="${b.boardId}"/></td>
                         <td><c:out value="${b.title}"/></td>
-                        <td><c:out value="${b.writer}"/></td>
-                        <td><c:out value="${b.createdAt}"/></td>
+                        <td><c:out value="${b.userId}"/></td>
+                        <td><c:out value="${b.createWriterAt}"/></td>
                         <td class="manage-btns">
-                            <!-- 확인(상세) -->
-                            <a class="view" href="<c:url value='/admin/board/view'><c:param name='id' value='${b.id}'/></c:url>">확인</a>
 
-                            <!-- 수정(수정폼) -->
-                            <a class="edit" href="<c:url value='/admin/board/edit'><c:param name='id' value='${b.id}'/></c:url>">수정</a>
+                            <a class="view"
+                               href="<c:url value='/admin/board/view'>
+                                       <c:param name='id' value='${b.boardId}'/>
+                                     </c:url>">확인</a>
 
-                            <!-- 삭제(POST로 처리 권장) -->
-                            <form method="post" action="<c:url value='/admin/board/delete'/>" style="display:inline;">
-                                <input type="hidden" name="id" value="${b.id}">
-                                <button type="submit" class="delete"
-                                        onclick="return confirm('정말 삭제할까요?');">삭제</button>
+                            <a class="edit"
+                               href="<c:url value='/admin/board/edit'>
+                                       <c:param name='id' value='${b.boardId}'/>
+                                     </c:url>">수정</a>
+
+									 <form method="post"
+									       action="<c:url value='/admin/board/delete'/>"
+									       style="display:inline;">
+									     <input type="hidden" name="boardId" value="${b.boardId}">
+									     <input type="hidden" name="boardTypeId" value="${b.boardTypeId}">
+									     <button type="submit"
+									             class="delete"
+									             onclick="return confirm('정말 삭제할까요?');">
+									         삭제
+									     </button>
+									 </form>
                             </form>
+
                         </td>
                     </tr>
                 </c:forEach>
             </c:if>
 
-            <!-- ✅ 데이터 없을 때 -->
             <c:if test="${empty boardList}">
                 <tr>
                     <td class="empty" colspan="5">게시글이 없습니다.</td>
