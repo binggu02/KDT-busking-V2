@@ -45,11 +45,11 @@ public class BoardController {
 
         model.addAttribute("board", board);
 
-        // 게시판 타입에 따라 다른 뷰
+        // Q&A 게시글이면 answer도 보여줄 수 있도록 qna_view 사용
         if (board.getBoardTypeId() == 2) {
-            return "board/qna_view";
+            return "board/qna_view"; // 사용자용 Q&A 상세 페이지
         }
-        return "board/board_view";
+        return "board/board_view"; // 일반 게시글 상세
     }
 
     /* =========================
@@ -102,7 +102,6 @@ public class BoardController {
         boardService.updateBoard(board);
         return "redirect:/board/view?id=" + board.getBoardId();
     }
-
 
     /* =========================
        삭제

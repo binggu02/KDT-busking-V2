@@ -41,7 +41,7 @@ public class AdminBoardController {
         return "admin/board/qna_list";
     }
 
-    // ✅ 게시글 삭제
+    // 게시글 삭제
     @PostMapping("/delete")
     public String deleteBoard(@RequestParam("boardId") Long boardId,
                               @RequestParam("boardTypeId") Long boardTypeId,
@@ -51,13 +51,48 @@ public class AdminBoardController {
 
         boardService.deleteBoard(boardId);
 
-        // 게시판 종류에 따라 다시 돌아갈 페이지 결정
         if (boardTypeId == 2L) {
             return "redirect:/admin/board/qna_list";
         }
-
         return "redirect:/admin/board/list";
     }
+
+ // Q&A 답변 페이지(GET) - 기존 글 불러오기 (edit.jsp 유지)
+    @GetMapping("/edit")
+    public String editQnaForm(@RequestParam("id") Long boardId,
+                              HttpSession session,
+                              Model model) {
+
+        if (!isAdmin(session)) return "redirect:/member/login";
+
+        Board board = boardService.getBoardById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+        model.addAttribute("board", board);
+
+        // edit.jsp를 그대로 사용
+        return "admin/board/edit";
+    }
+
+    // Q&A 답변 저장(POST) - /edit
+    @PostMapping("/edit")
+    public String saveQnaAnswer(@RequestParam("boardId") Long boardId,
+                                @RequestParam("answer") String answer,
+                                HttpSession session) {
+
+        if (!isAdmin(session)) return "redirect:/member/login";
+
+        Board board = boardService.getBoardById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        // 답변 저장
+        board.setAnswer(answer);
+        boardService.updateBoard(board);
+
+        return "redirect:/admin/board/qna_list";
+    }
+
+
+   
 
     private boolean isAdmin(HttpSession session) {
         Object obj = session.getAttribute("loginUser");
@@ -71,7 +106,4 @@ public class AdminBoardController {
                 .anyMatch(mr -> mr.getRole() != null
                         && "ADMIN".equalsIgnoreCase(mr.getRole().getRoleName()));
     }
-    
-    
-    
 }
