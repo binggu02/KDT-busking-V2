@@ -29,8 +29,9 @@ CREATE TABLE place (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- RESERVATION
-CREATE TABLE reservation (
-  reservation_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE place_reservation (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
   user_id BIGINT NOT NULL,
   place_id BIGINT NOT NULL,
 
@@ -42,12 +43,16 @@ CREATE TABLE reservation (
 
   reservation_date DATE NOT NULL,
   start_time TIME NOT NULL,
-  end_time TIME NULL COMMENT '없으면 start_time만 저장해도 됨',
+  end_time TIME NULL,
 
   status TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=완료,0=취소',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT fk_res_place FOREIGN KEY (place_id) REFERENCES place(place_id)
+  CONSTRAINT uq_place_reservation_slot
+      UNIQUE (place_id, reservation_date, start_time),
+
+  CONSTRAINT fk_res_place
+      FOREIGN KEY (place_id) REFERENCES place(place_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- (선택) 같은 장소/날짜/시간 중복 방지
