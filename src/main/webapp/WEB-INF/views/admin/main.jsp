@@ -187,13 +187,20 @@
 <div class="container">
     <aside>
     <ul>
-        <li><a href="./board/list">게시판 관리</a></li>
-        <li><a href="./board/qna_list">Q&A 관리</a></li>
-        <li><a href="./gear/list">장비 예약 관리</a></li>
-        <li><a href="./locale/list">장소 예약 관리</a></li>
-        <li><a href="./member/list">회원 관리</a></li>
+        <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
+        <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
+
+        <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
+        <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
+
+        <!-- ✅ 추가: 장비/장소 정보 수정(업데이트) -->
+        <li><a href="<c:url value='/admin/gear/update_list'/>">장비 정보 업데이트</a></li>
+        <li><a href="<c:url value='/admin/place/update'/>">장소 정보 업데이트</a></li>
+
+        <li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
     </ul>
 </aside>
+
 
 
     <main>
