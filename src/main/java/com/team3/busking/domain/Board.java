@@ -1,7 +1,6 @@
 package com.team3.busking.domain;
 
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +34,7 @@ public class Board {
     @Column(name = "thumbnail_writer", length = 255)
     private String thumbnailWriter;
 
-	
+    // ✅ Q&A 답변 필드 추가
+    @Column(columnDefinition = "TEXT")
+    private String answer;
 }

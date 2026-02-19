@@ -209,7 +209,7 @@
             <div>
                 <div class="section">
                     <h2>게시판 관리</h2>
-                    <div class="board-box"></div>
+                    <div class="board-box"></div>	
                 </div>
 
                 <div class="section">

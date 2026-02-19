@@ -71,6 +71,7 @@
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         /* ===== 레이아웃 ===== */
@@ -133,18 +134,21 @@
             gap: 8px;
         }
 
-        .manage-btns button {
+        .manage-btns button, .manage-btns a {
             border: none;
             padding: 6px 14px;
             border-radius: 6px;
             font-size: 13px;
             cursor: pointer;
             color: white;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .delete { background-color: #ff4d4f; }
         .edit { background-color: #ff7875; }
         .view { background-color: #ff4d4f; }
+        .empty { padding: 30px; color: #666; }
     </style>
 </head>
 
@@ -152,28 +156,25 @@
 
 <header class="header">
 
-    <a href="/">
-        <img src="./images/buskinglogo.png" class="logo-img">
-    </a>
+    <a href="/"><img src="./images/buskinglogo.png" class="logo-img"></a>
 
     <div class="menu">
         <span>장비 예약</span>
         <span>지역별 장소 예약</span>
         <span>게시판</span>
-        <div class="logout">logout</div>
+        <!-- 로그아웃 버튼 링크로 변경 -->
+        <a class="logout" href="<c:url value='/admin/logout'/>">logout</a>
     </div>
 </header>
 
 <div class="container">
-     <aside>
+    <aside>
         <ul>
-
-            <li onclick="location.href='admin_board.html'">게시판 관리</li>
-            <li onclick="location.href='admin_qna.html'">Q&A 관리</li>
+            <li onclick="location.href='/admin/board/list'">게시판 관리</li>
+            <li onclick="location.href='/admin/board/qna_list'">Q&A 관리</li>
             <li onclick="location.href='admin_gear.html'"><b>장비 예약 관리</b></li>
             <li onclick="location.href='admin_location.html'"><b>장소 예약 관리</b></li>
-          <li onclick="location.href='admin_member.html'"><b>회원 관리</b></li>
-
+            <li onclick="location.href='admin_member.html'"><b>회원 관리</b></li>
         </ul>
     </aside>
 
@@ -191,17 +192,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>예약 취소는 어떻게 하나요?</td>
-                    <td>user01</td>
-                    <td>2026-01-22</td>
-                    <td class="manage-btns">
-                        <button class="delete">삭제</button>
-                        <button class="edit">답변</button>
-                        <button class="view">확인</button>
-                    </td>
-                </tr>
+                <c:if test="${not empty boardList}">
+                    <c:forEach var="b" items="${boardList}">
+                        <tr>
+                            <td><c:out value="${b.boardId}"/></td>
+                            <td><c:out value="${b.title}"/></td>
+                            <td><c:out value="${b.userId}"/></td>
+                            <td><c:out value="${b.createWriterAt}"/></td>
+                            <td class="manage-btns">
+                                <a class="view" href="<c:url value='/admin/board/view'><c:param name='id' value='${b.boardId}'/></c:url>">확인</a>
+                                <a class="edit" href="<c:url value='/admin/board/edit'><c:param name='id' value='${b.boardId}'/></c:url>">답변</a>
+                                
+                                <!-- 삭제 버튼 -->
+                                <form method="post" action="<c:url value='/admin/board/delete'/>" style="display:inline;">
+                                    <input type="hidden" name="boardId" value="${b.boardId}">
+                                    <input type="hidden" name="boardTypeId" value="${b.boardTypeId}">
+                                    <button type="submit" class="delete" onclick="return confirm('정말 삭제할까요?');">삭제</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${empty boardList}">
+                    <tr>
+                        <td class="empty" colspan="5">게시글이 없습니다.</td>
+                    </tr>
+                </c:if>
             </tbody>
         </table>
     </main>

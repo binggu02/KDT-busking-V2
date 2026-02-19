@@ -2,6 +2,8 @@ package com.team3.busking.controller.admin;
 
 import com.team3.busking.domain.Member;
 import com.team3.busking.service.admin.AdminMemberService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @RequestMapping("/admin/member")
 public class AdminMemberController {
+
 
     private final AdminMemberService adminMemberService;
 
@@ -49,6 +52,23 @@ public class AdminMemberController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         adminMemberService.deleteMember(id);
+    
         return "redirect:/admin/member/list";
+    }
+
+    @GetMapping("/main")
+    public String main(HttpSession session) {
+        if (session.getAttribute("loginUser") == null) {
+            return "redirect:/member/login";
+        }
+        return "admin/main";
+
+    }
+
+    // ✅ 로그아웃 추가
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();   // 세션 전체 삭제
+        return "redirect:/member/login";
     }
 }
