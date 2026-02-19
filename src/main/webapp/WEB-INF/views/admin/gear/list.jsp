@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>장비 예약 관리</title>
+<meta charset="UTF-8">
+<title>장비 예약 관리</title>
 
 	<link rel="stylesheet" href="<c:url value='/css/common.css'/>">
 	    <link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
@@ -35,36 +36,59 @@
     <main>
         <h2>장비 예약 관리</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>장비명</th>
-                    <th>예약자</th>
-                    <th>예약일</th>
-                    <th>사용일</th>
-                    <th>상태</th>
-                    <th>관리</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>마이크 세트</td>
-                    <td>user02</td>
-                    <td>2026-01-23</td>
-                    <td>2026-01-28</td>
-                    <td class="status wait">대기</td>
-                    <td class="manage-btns">
-                        <button class="approve-btn">승인</button>
-                        <button class="reject-btn">거절</button>
-                        <button class="view-btn">확인</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
-</div>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+			<table>
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>장비명</th>
+						<th>예약자</th>
+						<th>예약일</th>
+						<th>사용일</th>
+						<th>상태</th>
+						<th>관리</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="r" items="${reservationList}">
+						<tr>
+							<td>${r.id}</td>
+							<td><c:choose>
+									<c:when test="${not empty r.gear}">
+                    ${r.gear.gearName}
+                </c:when>
+									<c:otherwise>(장비정보 없음)</c:otherwise>
+								</c:choose></td>
+							<td><c:choose>
+									<c:when test="${not empty r.member}">
+                    ${r.member.memberId}
+                </c:when>
+									<c:otherwise>(예약자 없음)</c:otherwise>
+								</c:choose></td>
+							<td>${r.createdAt}</td>
+							<td>${r.startDatetime}~ ${r.endDatetime}</td>
+							<td class="status wait">${r.status}</td>
+
+							<td class="manage-btns">
+								<form method="post"
+									action="<c:url value='/admin/gear/${r.id}/delete'/>"
+									onsubmit="return confirm('정말 삭제할까요?');">
+									<button class="reject-btn" type="submit">삭제</button>
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+
+					<c:if test="${empty reservationList}">
+						<tr>
+							<td colspan="7" style="padding: 30px; color: #777;">예약 내역이
+								없습니다.</td>
+						</tr>
+					</c:if>
+				</tbody>
+
+			</table>
+		</main>
+	</div>
+
 </body>
 </html>

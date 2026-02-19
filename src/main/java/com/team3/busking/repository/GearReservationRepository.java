@@ -18,4 +18,12 @@ public interface GearReservationRepository extends JpaRepository<GearReservation
     """)
     List<GearReservation> findMyGearReservationsWithGear(@Param("memberId") Long memberId);
     List<GearReservation> findByMember_IdOrderByIdDesc(Long memberId);
+    @Query("""
+            select gr
+            from GearReservation gr
+            join fetch gr.gear g
+            join fetch gr.member m
+            order by gr.id desc
+        """)
+        List<GearReservation> findAllWithGearAndMember();
 }

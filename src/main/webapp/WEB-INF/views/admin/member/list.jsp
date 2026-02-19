@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,48 +34,46 @@
 	                </ul>
 	            </aside>   
 
-    <main>
-        <h2>회원 관리</h2>
+		<main>
+			<h2>회원 관리</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>아이디</th>
-                    <th>이름</th>
-                    <th>가입일</th>
-                    <th>상태</th>
-                    <th>관리</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>user01</td>
-                    <td>김버스킹</td>
-                    <td>2026-01-10</td>
-                    <td class="status active">활동중</td>
-                    <td class="manage-btns">
-                        <button class="block-btn">차단</button>
-                        <button class="view-btn">확인</button>
-                    </td>
-                </tr>
+			<table>
+				<thead>
+					<tr>
+						<th>번호(ID)</th>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>관리</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="m" items="${memberList}">
+						<tr>
+							<td>${m.id}</td>
+							<td>${m.memberId}</td>
+							<td>${m.name}</td>
+							<td class="manage-btns"><a class="edit-btn"
+								href="<c:url value='/admin/member/${m.id}/edit'/>">수정</a>
 
-                <tr>
-                    <td>2</td>
-                    <td>user02</td>
-                    <td>이공연</td>
-                    <td>2026-01-12</td>
-                    <td class="status block">차단</td>
-                    <td class="manage-btns">
-                        <button class="active-btn">해제</button>
-                        <button class="view-btn">확인</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
-</div>
+								<form method="post"
+									action="<c:url value='/admin/member/${m.id}/delete'/>"
+									onsubmit="return confirm('정말 삭제할까요?');"
+									style="display: inline;">
+									<button class="delete-btn" type="submit">삭제</button>
+								</form></td>
+						</tr>
+					</c:forEach>
+
+					<c:if test="${empty memberList}">
+						<tr>
+							<td colspan="4" style="padding: 30px; color: #777;">회원이
+								없습니다.</td>
+						</tr>
+					</c:if>
+				</tbody>
+			</table>
+		</main>
+	</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

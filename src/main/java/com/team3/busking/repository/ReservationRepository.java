@@ -24,4 +24,12 @@ public interface ReservationRepository extends JpaRepository<PlaceReservation, L
     """)
     List<PlaceReservation> findMyReservationsWithPlace(@Param("userId") Long userId);
     List<PlaceReservation> findByUserIdOrderByReservationDateDescStartTimeDesc(Long userId);
+    
+    @Query("""
+            select r
+            from PlaceReservation r
+            join fetch r.place p
+            order by r.id desc
+        """)
+        List<PlaceReservation> findAllWithPlace();
 }
