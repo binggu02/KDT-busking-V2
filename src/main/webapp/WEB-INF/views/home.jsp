@@ -11,19 +11,37 @@
 
 <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 </head>
-<body>
+
 	<body class="main-page">
 
 <div class="page">
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+	<section class="hero">
+	  <div class="container hero-inner">
+	    <h1>당신의 순간을, 무대로.</h1>
+	    <p class="hero-sub">Busking Platform</p>
+	  </div>
+	</section>
+	<!-- ================= BRAND INTRO ================= -->
+	<section class="brand-intro">
+	  <div class="container">
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>나만의 버스킹 무대를 펼쳐보세요</h1>
-    </div>
-  </section>
+	    <p class="intro-label">OUR PHILOSOPHY</p>
+
+	    <h2 class="intro-title">
+	      거리의 무대를<br>
+	      가장 가치 있는 순간으로
+	    </h2>
+
+	    <p class="intro-desc">
+	      우리는 공간과 아티스트를 연결하여<br>
+	      누구나 자신만의 무대를 경험할 수 있도록 돕습니다.
+	    </p>
+
+	  </div>
+	</section>
+
 
   <!-- ================= MAIN ================= -->
   <main class="main">

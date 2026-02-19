@@ -1,0 +1,117 @@
+/* =========================
+   ADMIN DASHBOARD STYLE
+   (헤더 영향 없음)
+========================= */
+
+.admin-page{
+  background:#f4f6f9;
+  min-height:100vh;
+  padding-bottom:60px;
+}
+
+/* ===== 전체 레이아웃 ===== */
+.admin-container{
+  display:flex;
+}
+
+/* ===== 사이드바 ===== */
+.admin-aside{
+  width:220px;
+  background:#2b2f36;
+  padding:30px 0;
+}
+
+.admin-aside ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.admin-aside li{
+  margin-bottom:6px;
+}
+
+.admin-aside a{
+  display:block;
+  padding:10px 24px;
+  color:#ddd;
+  text-decoration:none;
+  font-size:14px;
+  transition:.2s;
+}
+
+.admin-aside a:hover{
+  background:#3a3f47;
+  color:#fff;
+}
+
+/* ===== 메인 영역 ===== */
+.admin-main{
+  flex:1;
+  padding:40px;
+}
+
+/* ===== 그리드 ===== */
+.admin-main .content-grid{
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap:30px;
+}
+
+/* ===== 카드 ===== */
+.admin-main .section{
+  background:#fff;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.06);
+  margin-bottom:20px;
+}
+
+.admin-main .section h2{
+  margin:0 0 16px;
+  font-size:18px;
+  font-weight:800;
+  border-bottom:1px solid #eee;
+  padding-bottom:8px;
+}
+
+/* 박스들 */
+.board-box{
+  height:140px;
+  background:#f1f3f6;
+  border-radius:10px;
+}
+
+.reserve-wrap{
+  display:flex;
+  gap:16px;
+}
+
+.reserve-box{
+  flex:1;
+  height:100px;
+  background:#f1f3f6;
+  border-radius:10px;
+}
+
+.member-box{
+  height:300px;
+  background:#f1f3f6;
+  border-radius:10px;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 1024px){
+
+  .admin-main .content-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .admin-aside{
+    display:none;
+  }
+
+  .admin-main{
+    padding:24px;
+  }
+}
