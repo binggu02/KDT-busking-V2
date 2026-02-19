@@ -13,26 +13,47 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
 <main class="main">
   <div class="container">
 
-    <a href="${pageContext.request.contextPath}/gear/list" class="btn">← 목록으로</a>
+    <!-- 단계 표시 -->
+    <div class="step">
+      <div class="step-item on">
+        <div class="dot">1</div>
+        예약 정보 입력
+      </div>
+      <div class="step-item">
+        <div class="dot">2</div>
+        예약 완료
+      </div>
+    </div>
 
-    <div class="gear-detail">
+    <!-- 전체 레이아웃 -->
+    <div class="reserve-wrap">
 
-      <div class="thumb large"
-           style="background-image:url('${empty gear.gearThumbnail
-             ? pageContext.request.contextPath.concat("/default.jpg")
-             : gear.gearThumbnail}')">
+      <!-- 왼쪽 선택 카드 -->
+      <div class="selected-card">
+
+        <div class="selected-thumb"
+             style="background-image:url('${empty gear.gearThumbnail 
+               ? pageContext.request.contextPath.concat("/default.jpg") 
+               : gear.gearThumbnail}')">
+        </div>
+
+        <div class="selected-body">
+          <div class="selected-title">${gear.gearName}</div>
+          <div class="selected-price">${gear.gearPrice}원</div>
+          <div class="selected-desc">${gear.gearDescription}</div>
+        </div>
+
       </div>
 
-      <div class="detail-body">
-        <h2>${gear.gearName}</h2>
-        <p>${gear.gearDescription}</p>
-        <p><b>가격:</b> ${gear.gearPrice}원</p>
-        <p><b>남은 수량:</b> ${gear.gearQuantity}</p>
+      <!-- 오른쪽 폼 영역 -->
+      <div class="reserve-form">
+
+        <h3 class="form-title">예약 정보 입력</h3>
 
         <c:if test="${not empty error}">
           <div class="alert error">${error}</div>
@@ -44,23 +65,54 @@
           </c:when>
 
           <c:otherwise>
-            <form action="${pageContext.request.contextPath}/gear/reserve/confirm" method="post" class="form">
+            <form action="${pageContext.request.contextPath}/gear/reserve/confirm"
+                  method="post">
+
               <input type="hidden" name="gearId" value="${gear.id}" />
 
-              <label>시작 시간</label>
-              <!-- ✅ 컨트롤러와 name 맞춤 -->
-              <input type="datetime-local" name="startDT" required />
+              <div class="block">
 
-              <label>종료 시간</label>
-              <!-- ✅ 컨트롤러와 name 맞춤 -->
-              <input type="datetime-local" name="endDT" required />
+                <div class="row">
+                  <div class="label">남은 수량</div>
+                  <div class="value">${gear.gearQuantity}</div>
+                </div>
 
-              <button type="submit" class="btn primary">예약확정</button>
+                <div class="row row-top">
+                  <div class="label">예약 기간</div>
+
+                  <div class="range">
+                    <div class="range-item">
+                      <span class="mini">시작</span>
+                      <input type="datetime-local"
+                             name="startDT"
+                             class="input"
+                             required>
+                    </div>
+
+                    <div class="range-item">
+                      <span class="mini">종료</span>
+                      <input type="datetime-local"
+                             name="endDT"
+                             class="input"
+                             required>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="reserve-btn">
+                  예약확정
+                </button>
+              </div>
+
             </form>
           </c:otherwise>
         </c:choose>
 
       </div>
+
     </div>
 
   </div>

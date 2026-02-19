@@ -43,7 +43,8 @@ public class BoardService {
         board.setThumbnailWriter(thumbnail);
         return boardRepository.save(board);
     }
-    
+
+    // 게시글 수정 (Q&A 답변 포함)
     @Transactional
     public void updateBoard(Board boardDto) {
         // 1. 기존 DB 엔티티 조회
@@ -63,13 +64,15 @@ public class BoardService {
             existing.setThumbnailWriter(boardDto.getThumbnailWriter());
         }
 
-       
+        // ✅ Q&A 답변 업데이트
+        if (boardDto.getAnswer() != null) {
+            existing.setAnswer(boardDto.getAnswer());
+        }
 
         // 3. save() 호출 없어도 트랜잭션 commit 시 JPA가 자동으로 update
     }
 
-    
-    //게시글 삭제
+    // 게시글 삭제
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
     }

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,7 +36,14 @@
     <!-- 답변 영역 -->
     <section class="answer-box">
       <h3>관리자 답변</h3>
-      <p>답변 기능은 추후 연결</p>
+      <c:choose>
+        <c:when test="${not empty board.answer}">
+          <p>${board.answer}</p>
+        </c:when>
+        <c:otherwise>
+          <p>아직 답변이 등록되지 않았습니다.</p>
+        </c:otherwise>
+      </c:choose>
     </section>
 
     <!-- 버튼 -->
