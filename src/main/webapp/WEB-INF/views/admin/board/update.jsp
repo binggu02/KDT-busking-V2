@@ -8,7 +8,7 @@
 <title>QnA 답변 작성</title>
 
 <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
 </head>
 
 <body>
@@ -28,8 +28,8 @@
                     <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
                     <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
                     <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
-					<li><a href="<c:url value='/admin/gear/update'/>">장비 관리</a></li>
-					<li><a href="<c:url value='/admin/locale/update'/>">장소 관리</a></li>
+					<li><a href="<c:url value='/admin/gear/update_list'/>">장비 관리</a></li>
+					<li><a href="<c:url value='/admin/locale/update_list'/>">장소 관리</a></li>
 					<li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
                 </ul>
             </aside>   

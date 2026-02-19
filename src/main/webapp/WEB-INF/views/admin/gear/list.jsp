@@ -8,7 +8,79 @@
 <title>장비 예약 관리</title>
 
 	<link rel="stylesheet" href="<c:url value='/css/common.css'/>">
-	    <link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
+	<link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
+	<style type="text/css">
+	
+main {
+	flex: 1;
+	background-color: #fff;
+	padding: 40px;
+}
+
+/* ===== 테이블 ===== */
+h2 {
+	margin-bottom: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+thead {
+	background-color: #f3f3f3;
+}
+
+th, td {
+	padding: 14px;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+	font-size: 14px;
+}
+
+.status {
+	font-weight: bold;
+}
+
+.status.wait {
+	color: #ff9800;
+}
+
+.status.approve {
+	color: #2e7d32;
+}
+
+.status.reject {
+	color: #c62828;
+}
+
+.manage-btns {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+}
+
+.manage-btns button {
+	border: none;
+	padding: 6px 14px;
+	border-radius: 6px;
+	font-size: 13px;
+	cursor: pointer;
+	color: white;
+}
+
+.approve-btn {
+	background-color: #4caf50;
+}
+
+.reject-btn {
+	background-color: #f44336;
+}
+
+.view-btn {
+	background-color: #607d8b;
+	</style>
+	    
 	</head>
 
 	<body>
@@ -28,8 +100,8 @@
 	                    <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
 	                    <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
 	                    <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
-						<li><a href="<c:url value='/admin/gear/update'/>">장비 관리</a></li>
-						<li><a href="<c:url value='/admin/locale/update'/>">장소 관리</a></li>
+						<li><a href="<c:url value='/admin/gear/update_list'/>">장비 관리</a></li>
+						<li><a href="<c:url value='/admin/locale/update_list'/>">장소 관리</a></li>
 						<li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
 	                </ul>
 	            </aside>   

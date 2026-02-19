@@ -251,7 +251,7 @@ SELECT * FROM role;
 SELECT * FROM member_role;
 
 
-board --
+-- board
 
 -- =========================
 -- 게시판 종류 테이블
