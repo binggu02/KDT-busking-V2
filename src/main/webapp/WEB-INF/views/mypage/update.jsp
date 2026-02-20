@@ -34,26 +34,26 @@
           </div>
         </div>
 
-        <form>
+        <form action="${pageContext.request.contextPath}/mypage/update" method="post">
 
           <!-- 닉네임 -->
           <div class="field">
             <label for="nickname">닉네임</label>
-            <input type="text" id="nickname" name="nickname" required placeholder="닉네임">
+            <input type="text" id="nickname" name="nickname" value="${member.nickname }" required>
           </div>
 
-          <!-- 연락처 (읽기 전용) -->
+          <!-- 연락처  -->
           <div class="field">
             <label for="phone">연락처</label>
             <div class="input-lock">
-              <input type="text" id="phone" name="phone" value="010-1234-5678" readonly>
+              <input type="text" id="phone" name="phone" value="${member.phone }" required >
             </div>
           </div>
 
           <!-- 이메일 -->
           <div class="field full">
             <label for="useremail">이메일</label>
-            <input type="email" id="useremail" name="useremail" placeholder="user@example.com">
+            <input type="email" id="useremail" name="email" value="${member.email }">
           </div>
 
           <!-- 비밀번호 변경 -->
@@ -80,13 +80,12 @@
           </div>
 
 		  <div class="btn-col">
-		    <button type="button" class="joinok-btn"
-		            onclick="location.href='${pageContext.request.contextPath}/update'">
+		    <button type="submit" class="joinok-btn">
 		      저장하기
 		    </button>
 
 			<button type="button" class="joinok-btn"
-			        onclick="location.href='/mypage'">취소
+			        onclick="location.href='${pageContext.request.contextPath}/mypage'">취소
 			</button>
 		  </div>
 
