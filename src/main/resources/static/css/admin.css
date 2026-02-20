@@ -104,18 +104,20 @@
   .admin-main .content-grid{
     grid-template-columns: 1fr;
   }
- .admin-aside{
-  background:#fff;
-  border-right:1px solid #eee;
-}
 
-.admin-aside a{
-  color:#555;
-}
+  /* aside 색 유지 */
+  .admin-aside{
+    background:#2b2f36;
+  }
 
-.admin-aside a:hover{
-  background:#FEE500;
-  color:#191919;
+  .admin-aside a{
+    color:#ddd;
+  }
+
+  .admin-aside a:hover{
+    background:#3a3f47;
+    color:#fff;
+  }
 }
 
 }
