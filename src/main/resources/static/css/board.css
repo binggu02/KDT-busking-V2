@@ -1,159 +1,202 @@
 /* =========================
-   BOARD PAGE ONLY
+   COMMUNITY BOARD STYLE
 ========================= */
 
-/* board 페이지 배경 */
 .board-page {
-  background: #f5f6f8;
+  background: #f3f4f6;
+  padding: 60px 0 100px;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
-.board-page .main {
-  padding: 30px 0 60px;
-}
-
-.board-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.board-search {
-  width: min(720px, 100%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 999px;
-  padding: 10px 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-  margin: 30px 0 20px;
-}
-
-.board-search input {
-  border: none;
-  outline: none;
+/* 가운데 고정 폭 */
+.board-container {
   width: 100%;
-  font-size: 14px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.board-search button {
-  height: 32px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid #e1e1e1;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
+/* 상단 제목 + 버튼 */
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.board-header h2 {
+  font-size: 22px;
   font-weight: 700;
+  color: #222;
 }
 
-/* =========================
-   TABS
-========================= */
+/* 글쓰기 버튼 */
+.btn-write {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
+.btn-write:hover {
+  background: #000;
+}
+
+/* 탭 */
 .board-tabs {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
 }
 
 .tab {
-  height: 34px;
-  padding: 0 16px;
-  border-radius: 999px;
-  border: 1px solid #e3e3e3;
-  background: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #777;
+  text-decoration: none;
 }
 
 .tab.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
+  color: #111;
+  border-bottom: 2px solid #111;
 }
 
-/* =========================
-   LIST
-========================= */
-
-.board-box {
-  width: min(980px, 100%);
+/* 테이블 박스 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
   background: #fff;
-  border: 1px solid #dcdcdc;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  border: 1px solid #e5e7eb;
 }
 
-.board-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 18px;
-  border-top: 1px solid #e3e3e3;
+/* 헤더 */
+.board-table thead {
+  background: #fafafa;
 }
 
-.board-left {
-  display: flex;
-  gap: 12px;
-  flex: 1;
+.board-table thead th {
+  padding: 14px 15px;
+  font-size: 12px;
+  text-align: left;
+  color: #888;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.board-link {
-  font-weight: 700;
+/* 바디 */
+.board-table tbody td {
+  padding: 18px 15px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* hover */
+.board-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* 제목 */
+.title-cell a {
+  font-weight: 600;
   color: #222;
   text-decoration: none;
 }
 
-.board-sub {
-  font-size: 13px;
-  color: #666;
+.title-cell a:hover {
+  color: #000;
+  text-decoration: underline;
 }
 
-.board-right {
-  width: 140px;
-  text-align: right;
+/* 작성자 / 날짜 */
+.board-table td:nth-child(2),
+.board-table td:nth-child(3) {
   font-size: 13px;
-  color: #555;
+  color: #888;
+}
+/* =========================
+   BOARD VIEW PAGE
+========================= */
+
+.board-view-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 100px;
+}
+
+/* 카드 박스 */
+.board-view-box {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 50px 60px;
+}
+
+/* 제목 */
+.board-view-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 15px;
+}
+
+/* 작성자/날짜 */
+.board-view-meta {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 내용 */
+.board-view-content {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #333;
+  white-space: pre-line;
+  margin-bottom: 50px;
+}
+
+/* 하단 버튼 영역 */
+.board-view-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;  
+  
+}
+
+/* 버튼 */
+.btn-outline {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 999px;   
+}
+
+.btn-outline:hover {
+  background: #111;
+  color: #fff;
 }
 
 /* =========================
-   VIEW PAGE
+   TAB PANEL FIX
 ========================= */
-
-.board-view-box {
-  padding: 40px;
-}
-
-.board-view-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.board-view-content {
-  font-size: 15px;
-  line-height: 1.9;
-  margin-bottom: 40px;
-}
 
 .tab-panel {
   display: none;
+  width: 100%;
 }
 
 .tab-panel.show {
-  display: block;
+  display: block;  /* 🔥 flex 제거 */
 }
-
 
 /* =========================
    EDIT PAGE
@@ -163,6 +206,9 @@
   width: min(800px, 100%);
   margin: 0 auto;
   padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .board-title {
@@ -170,6 +216,7 @@
   margin-bottom: 30px;
   font-size: 22px;
   font-weight: 700;
+  color: #111;
 }
 
 .board-form input,
@@ -178,73 +225,62 @@
   padding: 12px 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.board-form input:focus,
+.board-form textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.2);
+  outline: none;
 }
 
 .form-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-.btn-primary {
-  background: #111;
-  color: #fff;
-}
-
-.btn-secondary {
-  background: #e5e5e5;
-  color: #333;
-}
-/* ===== 게시글 상세 버튼 영역 ===== */
-.board-view-actions {
-  display: flex;
-  justify-content: flex-end;   /* 🔥 오른쪽 끝 */
-  gap: 10px;
-  margin-top: 40px;
-}
-
-/* 공통 버튼 */
-.action-btn {
-  min-width: 70px;
-  height: 36px;
-  padding: 0 18px;
-  border-radius: 999px;        /* 🔥 동그라미 */
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
+/* 공통 버튼 스타일 */
+.form-buttons .btn {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
   border: none;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 목록 */
-.btn-list {
-  background: #f2f2f2;
+/* 취소 버튼 */
+.form-buttons .btn-secondary {
+  background-color: #e5e5e5;
   color: #333;
 }
 
-.btn-list:hover {
-  background: #e6e6e6;
+.form-buttons .btn-secondary:hover {
+  background-color: #d4d4d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* 수정 */
-.btn-edit {
-  background: #111;
+/* 수정완료 버튼 */
+.form-buttons .btn-primary {
+  background-color: #111;
   color: #fff;
 }
 
-.btn-edit:hover {
-  background: #000;
+.form-buttons .btn-primary:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(17,17,17,0.35);
 }
 
-/* 삭제 (위험 버튼) */
-.btn-delete {
-  background: #ff4d4f;
-  color: #fff;
-}
 
-.btn-delete:hover {
-  background: #e63b3d;
-}
 /* qna.css - Q&A 상세 전용 CSS */
 
 /* 질문 영역 */
