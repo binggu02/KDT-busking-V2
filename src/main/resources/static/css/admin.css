@@ -2,7 +2,6 @@
    ADMIN DASHBOARD STYLE
    (헤더 영향 없음)
 ========================= */
-
 .admin-page{
   background:#f4f6f9;
   min-height:100vh;
@@ -77,7 +76,7 @@
 
 /* 박스들 */
 .board-box{
-  height:140px;
+  height:180px;              /* ✅ 기존 140 → 살짝 증가 */
   background:#f1f3f6;
   border-radius:10px;
 }
@@ -89,29 +88,171 @@
 
 .reserve-box{
   flex:1;
-  height:100px;
+  height:220px;              /* ✅ 기존 100 → 증가 (카드가 잘 보이게) */
   background:#f1f3f6;
   border-radius:10px;
 }
 
 .member-box{
-  height:300px;
+  height:420px;              /* ✅ 기존 300 → 증가 */
   background:#f1f3f6;
   border-radius:10px;
 }
 
 /* ===== 반응형 ===== */
 @media (max-width: 1024px){
-
   .admin-main .content-grid{
     grid-template-columns: 1fr;
   }
-
-  .admin-aside{
-    display:none;
-  }
-
-  .admin-main{
-    padding:24px;
-  }
+ .admin-aside{
+  background:#fff;
+  border-right:1px solid #eee;
 }
+
+.admin-aside a{
+  color:#555;
+}
+
+.admin-aside a:hover{
+  background:#FEE500;
+  color:#191919;
+}
+
+}
+
+/* =========================
+   KAKAO STYLE DASHBOARD
+========================= */
+
+.board-box,
+.reserve-box,
+.member-box{
+  background:#F7F8FA;   /* 부드러운 회색 */
+}
+
+/* 내부 */
+.box-inner{
+  height:100%;
+  padding:16px;
+  overflow:auto;
+}
+
+/* 상단 제목 */
+.box-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  font-weight:700;
+  font-size:14px;
+  color:#191919;
+}
+
+/* 요약 배지 */
+.metrics{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.metric{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:12px;
+  color:#555;
+}
+
+.metric b{
+  color:#191919;
+  font-weight:800;
+}
+
+/* 리스트 */
+.list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* 카드형 아이템 */
+.item{
+  background:#fff;
+  border-radius:14px;
+  padding:12px 14px;
+  border:1px solid #eee;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  transition:all .2s ease;
+}
+
+.item:hover{
+  border-color:#FEE500;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* 상단 정렬 */
+.item-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
+
+.item-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ID 배지 (카카오 노랑) */
+.badge-id{
+  background:#ff7a00;   /* 진한 주황 */
+  color:#fff;
+  font-weight:800;
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:999px;
+}
+
+
+/* 일반 배지 */
+.badge{
+  background:#FFD84D;
+  color:#fff;
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:999px;
+}
+
+/* 제목 */
+.item-title{
+  font-size:13px;
+  font-weight:700;
+  color:#191919;
+}
+
+/* 메타 정보 */
+.item-meta{
+  font-size:12px;
+  color:#666;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* 비어있을 때 */
+.empty{
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  border:1px dashed #ddd;
+  color:#888;
+  font-size:13px;
+  text-align:center;
+}
+

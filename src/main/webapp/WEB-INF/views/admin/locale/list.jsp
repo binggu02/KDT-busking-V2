@@ -72,6 +72,7 @@ th, td {
 	            <!-- 사이드 메뉴 -->
 	            <aside class="admin-aside">
 	                <ul>
+	                	<li><a href="<c:url value='/admin/main'/>">대시보드</a></li>
 	                    <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
 	                    <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
 	                    <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
