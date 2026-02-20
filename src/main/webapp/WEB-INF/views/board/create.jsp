@@ -52,10 +52,8 @@
   </div>
 </main>
 
-<footer class="footer">
-  <div class="container">
-    <p>© Busking Reservation</p>
+
   </div>
-</footer>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

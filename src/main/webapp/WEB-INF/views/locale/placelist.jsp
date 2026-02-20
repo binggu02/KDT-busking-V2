@@ -8,7 +8,7 @@
   <title>${pageTitle}</title>
 
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+ 
   <link rel="stylesheet" href="<c:url value='/css/locale/placelist.css'/>" />
 </head>
 
@@ -27,9 +27,14 @@
                    data-phone="${place.placePhone}">
 
             <!-- 썸네일 클릭하면 지도 토글 -->
-            <button class="thumb" type="button"
-                    style="background-image:url('${pageContext.request.contextPath}${place.thumbnail}')"
-                    aria-label="${place.placeName} 지도 보기"></button>
+			
+			<button class="thumb"
+			        type="button"
+			        aria-label="지도보기"
+			        style="background-image: url('<c:url value="/images/Hongdae.png"/>');">
+			</button>
+
+
 
             <div class="card-body">
               <div class="card-title">${place.placeName}</div>
@@ -54,17 +59,20 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© Busking Reservation</p>
-    </div>
-  </footer>
+  <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
   <script>
     function setMapIframe(iframe, address){
       const q = encodeURIComponent(address);
       iframe.src = `https://www.google.com/maps?q=${q}&output=embed`;
     }
+	// 썸네일 배경 세팅
+	document.querySelectorAll(".thumb").forEach(btn=>{
+	  const img = btn.dataset.thumb;
+	  if(img){
+	    btn.style.backgroundImage = `url('${img}')`;
+	  }
+	});
 
     document.querySelectorAll(".place-card").forEach(card => {
       const btn = card.querySelector(".map-btn");

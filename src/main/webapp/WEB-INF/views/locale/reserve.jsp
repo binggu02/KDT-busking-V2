@@ -8,7 +8,7 @@
   <title>${pageTitle}</title>
 
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+  
   <link rel="stylesheet" href="<c:url value='/css/locale/reserve.css'/>" />
 </head>
 
@@ -84,10 +84,8 @@
   </div>
 </main>
 
-<footer class="footer">
-  <div class="container">
-    <p>© Busking Reservation</p>
+
   </div>
-</footer>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
