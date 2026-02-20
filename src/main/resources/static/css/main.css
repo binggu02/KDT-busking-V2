@@ -209,7 +209,15 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 60px;
+
 }
+
+.grid-3 a {
+	text-decoration: none;   /* 밑줄 제거 */
+	color: #000000;
+}
+
+
 
 .place-card {
   background: #fff;
