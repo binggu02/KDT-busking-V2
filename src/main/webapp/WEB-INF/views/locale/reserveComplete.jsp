@@ -36,7 +36,7 @@
         <!-- 가운데 카드 -->
         <div class="mini-card">
           <div class="mini-thumb"
-               style="background:url('${pageContext.request.contextPath}${reservation.place.thumbnail}') center/cover no-repeat;">
+               style="background:url('${pageContext.request.contextPath}/images/place/${reservation.place.thumbnail}') center/cover no-repeat;">
           </div>
 
           <div class="mini-body">

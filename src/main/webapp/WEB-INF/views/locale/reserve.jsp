@@ -43,8 +43,7 @@
 
           <div class="form-left">
             <div class="line">
-              <span class="label">예약자 명 :</span>
-              <span class="value">${userName}</span>
+              <label class="label">예약자 명 : ${userName }</label>
             </div>
 
             <div class="line input">

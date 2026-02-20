@@ -75,30 +75,48 @@ body{
 }
 
 /* 왼쪽 입력 */
+.form-left{
+  padding-right:20px;
+  border-right:1px solid #f0f0f0;
+}
+
 .form-left .line{
   display:flex;
-  flex-direction: column;
-  gap:6px;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:18px;
 }
 
-.form-left label{
+
+.form-left .label{
   font-size:13px;
   font-weight:800;
+  letter-spacing:0.5px;
   color:#333;
+  text-transform:uppercase;
 }
-
 .form-left input{
-  height:42px;
-  border-radius:12px;
-  border:1px solid #ddd;
-  padding:0 14px;
+  height:48px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  padding:0 16px;
+  font-size:14px;
   font-weight:600;
-  transition:.2s;
+  background:#fafafa;
+  transition: all .25s ease;
 }
 
+/* 포커스 효과 */
 .form-left input:focus{
+  background:#fff;
   border-color:#1f86ff;
+  box-shadow:0 0 0 4px rgba(31,134,255,0.12);
   outline:none;
+}
+
+/* hover 효과 */
+.form-left input:hover{
+  border-color:#cfd8e3;
 }
 
 /* 오른쪽 */
