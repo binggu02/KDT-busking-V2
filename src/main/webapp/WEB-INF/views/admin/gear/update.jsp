@@ -118,15 +118,15 @@ textarea {
             <label>설명</label>
             <textarea name="gearDescription">${gear.gearDescription}</textarea>
 
-      <div class="form-group">
         <label>장비 설명</label>
         <textarea name="description">${equipment.description}</textarea>
-      </div>
 
       <div class="btn-group">
-        <a href="./list.jsp" class="btn btn-cancel">목록</a>
+        
         <button type="button" class="btn submit" onclick="updateGear()">수정 완료</button>
+        <a href="/admin/gear/update_list" class="btn cancel">수정 취소</a>
       </div>
+      
 
     </div>
   </form>
@@ -140,7 +140,7 @@ textarea {
 <script>
 function updateGear() {
   alert("장비 정보가 수정되었습니다.");
-  location.href = "gear_list.jsp";
+  location.href = "/admin/gear/update_list";
 }
 </script>
 

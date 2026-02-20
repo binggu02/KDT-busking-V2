@@ -40,6 +40,22 @@ public class AdminBoardController {
 
         return "admin/board/qna_list";
     }
+    
+    @GetMapping("/view")
+    public String view(@RequestParam("id") Long boardId,
+                       HttpSession session,
+                       Model model) {
+
+        if (!isAdmin(session)) return "redirect:/member/login";
+
+        Board board = boardService.getBoardById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        model.addAttribute("board", board);
+
+        return "admin/board/view";
+    }
+
 
     // 게시글 삭제
     @PostMapping("/delete")
@@ -91,6 +107,46 @@ public class AdminBoardController {
         return "redirect:/admin/board/qna_list";
     }
 
+    // 자유게시판 수정 페이지(GET)
+       @GetMapping("/revise")
+       public String reviseForm(@RequestParam("id") Long boardId,
+                                HttpSession session,
+                                Model model) {
+
+           if (!isAdmin(session)) return "redirect:/member/login";
+
+           Board board = boardService.getBoardById(boardId)
+                   .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+           model.addAttribute("board", board);
+
+           return "admin/board/revise";
+       }
+
+
+       // 자유게시판 수정 저장(POST)
+       @PostMapping("/revise")
+       public String reviseSubmit(@RequestParam("boardId") Long boardId,
+                                  @RequestParam("title") String title,
+                                  @RequestParam("content") String content,
+                                  HttpSession session) {
+
+           if (!isAdmin(session)) return "redirect:/member/login";
+
+           Board board = boardService.getBoardById(boardId)
+                   .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+           board.setTitle(title);
+           board.setContent(content);
+
+           boardService.updateBoard(board);
+
+           return "redirect:/admin/board/list";
+       }
+
+
+
+      
 
    
 
