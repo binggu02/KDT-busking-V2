@@ -65,9 +65,6 @@
   </div>
 </main>
 
-<footer class="footer">
-  <p>© Busking Reservation</p>
-</footer>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

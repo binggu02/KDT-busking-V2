@@ -8,7 +8,7 @@
   <title>${pageTitle}</title>
 
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
+  
   <link rel="stylesheet" href="<c:url value='/css/locale/reserveComplete.css'/>" />
 </head>
 
@@ -92,6 +92,6 @@
 
   </div>
 </main>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

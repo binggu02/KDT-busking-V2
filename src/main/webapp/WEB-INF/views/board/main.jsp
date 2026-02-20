@@ -103,12 +103,7 @@
   <span class="text">글쓰기</span>
 </button>
 
-<footer class="footer">
-  <div class="container">
-    <p>© Busking Reservation</p>
-  </div>
-</footer>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script>
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".tab-panel");
