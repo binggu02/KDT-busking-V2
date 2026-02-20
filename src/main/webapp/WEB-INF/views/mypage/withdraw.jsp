@@ -77,12 +77,7 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© Busking Reservation</p>
-    </div>
-  </footer>
-
+  <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   <script>
     // ✅ 보기/숨기기 토글
     document.querySelectorAll(".toggle-btn").forEach((btn) => {
