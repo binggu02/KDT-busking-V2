@@ -23,6 +23,12 @@
       <!-- 선택 장소 -->
       <aside class="place-side">
         <div class="place-info">
+        	<div class="place-img-wrap">
+			  <img src="<c:url value='/images/place/${place.thumbnail}' />"
+			       alt="${place.placeName}"
+			       class="place-img">
+			</div>
+        
           <!-- 🔥 여기 수정됨 -->
           <div class="place-name">${place.placeName}</div>
           <div class="place-addr">${place.placeAddress}</div>
