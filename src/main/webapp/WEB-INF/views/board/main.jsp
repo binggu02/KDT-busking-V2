@@ -8,7 +8,7 @@
   <title>게시판</title>
 
   <link rel="stylesheet" href="../css/common.css" />
-  <link rel="stylesheet" href="../css/main.css" />
+
   <link rel="stylesheet" href="../css/board.css" />
 </head>
 

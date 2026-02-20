@@ -15,8 +15,18 @@
 		<c:choose>
 		    <c:when test="${not empty sessionScope.loginUser}">
 		        <a href="<c:url value='/member/logout'/>">Logout</a>
-				<a href="<c:url value='/mypage'/>">mypage</a>
-		    </c:when>
+		 
+          <c:choose>
+            <c:when test="${sessionScope.loginUser.roles[0].role.roleName eq 'ADMIN'}">
+              <a href="<c:url value='/admin/main'/>">main</a>
+            </c:when>
+
+            <c:otherwise>
+              <a href="<c:url value='/mypage'/>">mypage</a>
+            </c:otherwise>
+          </c:choose>
+
+        </c:when>
 		    <c:otherwise>
 		        <a href="<c:url value='/member/login'/>">Login</a>
 		    </c:otherwise>

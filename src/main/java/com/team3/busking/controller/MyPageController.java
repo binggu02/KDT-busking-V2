@@ -1,6 +1,7 @@
 package com.team3.busking.controller;
 
 import com.team3.busking.domain.Member;
+import com.team3.busking.service.BoardService;
 import com.team3.busking.service.GearReservationService;
 import com.team3.busking.service.LocaleService;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ public class MyPageController {
 
     private final GearReservationService gearReservationService;
     private final LocaleService reservationService;
+    private final BoardService boardService;
 
     /* =========================
        마이페이지 메인
@@ -42,6 +44,9 @@ public class MyPageController {
         // ✅ 여기 고침: LocaleService.findMyReservations(...) → reservationService.findMyReservations(...)
         model.addAttribute("placeReservations",
                 reservationService.findMyReservations(loginMember.getId()));
+        
+        model.addAttribute("posts",
+        		boardService.getBoardsByUserId(loginMember.getId()));
 
         model.addAttribute("activeTab", tab);
 

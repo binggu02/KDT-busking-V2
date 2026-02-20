@@ -1,152 +1,149 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>장비 정보 수정</title>
+<link rel="stylesheet" href="<c:url value='/css/common.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: "Pretendard", Arial, sans-serif;
-  background:#f5f6f8;
+
+main {
+	flex: 1;
+	background: #fff;
+	padding: 40px;
 }
 
-.container {
-  max-width: 900px;
-  margin: 80px auto;
-}
-
-h1 {
-  margin-bottom: 30px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 6px 15px rgba(0,0,0,.08);
-}
-
-.form-group {
-  margin-bottom: 20px;
+h2 {
+	margin-bottom: 20px;
 }
 
 label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #555;
+	display: block;
+	margin-top: 20px;
+	font-weight: bold;
+	margin-bottom: 6px;
 }
 
-input, textarea, select {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+input[type=text], textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
 }
 
 textarea {
-  height: 120px;
-  resize: none;
+	height: 150px;
+	resize: none;
 }
 
 .btn-group {
-  margin-top: 30px;
-  text-align: right;
+	margin-top: 20px;
+	display: flex;
+	gap: 10px;
 }
 
 .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  text-decoration: none;
+	padding: 8px 18px;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+	color: white;
 }
 
-.btn-submit {
-  background: #ff5a5f;
-  color: #fff;
+.submit {
+	background-color: #52c41a;
 }
 
-.btn-cancel {
-  background: #ddd;
-  margin-right: 10px;
+.cancel {
+	background-color: #ff4d4f;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+	line-height: 28px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+
+    <!-- 기존 사용자 헤더 그대로 사용 -->
+    <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+    <!-- 🔥 admin 전용 영역 시작 -->
+    <div class="admin-page">
+
+        <div class="admin-container">
+
+            <!-- 사이드 메뉴 -->
+            <aside class="admin-aside">
+                <ul>
+                    <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
+                    <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
+                    <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
+                    <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
+					<li><a href="<c:url value='/admin/gear/update_list'/>">장비 관리</a></li>
+					<li><a href="<c:url value='/admin/locale/update_list'/>">장소 관리</a></li>
+					<li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
+                </ul>
+            </aside>   
+
+<main>
+
+
+
+<div >
   <h1>장비 정보 수정</h1>
 
-  <!-- form 유지 (하지만 submit 안 씀) -->
-  <form>
-    <input type="hidden" name="equipmentId" value="${equipment.id}"/>
+    <form method="post" action="<c:url value='/admin/gear/update'/>">
+        <input type="hidden" name="id" value="${gear.id}"/>
 
-    <div class="card">
+            <label>장비명</label>
+            <input type="text" name="gearName" value="${gear.gearName}" required/>
 
-      <div class="form-group">
-        <label>장비명</label>
-        <input type="text" name="name" value="${equipment.name}">
-      </div>
+            <label>수량</label>
+            <input type="number" name="gearQuantity" value="${gear.gearQuantity}" min="0" required/>
 
-      <div class="form-group">
-        <label>장비 종류</label>
-        <select name="category">
-          <option value="기타" ${equipment.category=='기타'?'selected':''}>기타</option>
-          <option value="피아노" ${equipment.category=='피아노'?'selected':''}>피아노</option>
-          <option value="베이스" ${equipment.category=='베이스'?'selected':''}>베이스</option>
-          <option value="드럼" ${equipment.category=='드럼'?'selected':''}>드럼</option>
-          <option value="마이크" ${equipment.category=='마이크'?'selected':''}>마이크</option>
-          <option value="스피커" ${equipment.category=='스피커'?'selected':''}>스피커</option>
-        </select>
-      </div>
+            <label>가격(원)</label>
+            <input type="number" name="gearPrice" value="${gear.gearPrice}" min="0" required/>
 
-      <div class="form-group">
-        <label>대여 금액 (₩)</label>
-        <input type="number" name="price" value="${equipment.price}">
-      </div>
+            <label>썸네일 경로</label>
+            <input type="text" name="gearThumbnail" value="${gear.gearThumbnail}"/>
 
-      <div class="form-group">
-        <label>재고 수량</label>
-        <input type="number" name="stock" value="${equipment.stock}">
-      </div>
+            <label>설명</label>
+            <textarea name="gearDescription">${gear.gearDescription}</textarea>
 
-      <div class="form-group">
-        <label>대여 가능 여부</label>
-        <select name="available">
-          <option value="Y" ${equipment.available=='Y'?'selected':''}>가능</option>
-          <option value="N" ${equipment.available=='N'?'selected':''}>불가</option>
-        </select>
-      </div>
-
-      <div class="form-group">
         <label>장비 설명</label>
         <textarea name="description">${equipment.description}</textarea>
-      </div>
 
       <div class="btn-group">
-        <a href="./list.jsp" class="btn btn-cancel">목록</a>
-        <button type="button" class="btn btn-submit" onclick="updateGear()">수정 완료</button>
+        
+        <button type="button" class="btn submit" onclick="updateGear()">수정 완료</button>
+        <a href="/admin/gear/update_list" class="btn cancel">수정 취소</a>
       </div>
+      
 
     </div>
   </form>
+  </main>
 </div>
+</div>
+
+
+
 
 <script>
 function updateGear() {
   alert("장비 정보가 수정되었습니다.");
-  location.href = "gear_list.jsp";
+  location.href = "/admin/gear/update_list";
 }
 </script>
 
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

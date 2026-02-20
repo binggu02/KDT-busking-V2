@@ -45,9 +45,9 @@
 
 	<!-- 탭 메뉴 -->
 	<section class="tabs">
-	  <button class="tab" type="button" data-tab="place">장소 예약 내역</button>
+	  <button class="tab" type="button" data-tab="place" >장소 예약 내역</button>
 	  <button class="tab" type="button" data-tab="gear">장비 대여 내역</button>
-	  <button class="tab" type="button" data-tab="post">내 게시글</button>
+	  <button class="tab" type="button" data-tab="posts">내 게시글</button>
 	</section>
 
 	<!-- 탭 패널들 -->
@@ -141,20 +141,50 @@
 	  </div>
 
 	  <!-- 3) 내 게시글 -->
-	  <div class="tab-panel" data-panel="post">
+	  <div class="tab-panel" data-panel="posts">
 	    <section class="list">
-	      <article class="list-item">
-	        <div class="item-left">
-	          <h3 class="item-title">내 게시글 기능은 아직 연결되지 않았습니다.</h3>
-	          <p class="item-meta">게시판 기능 연결 후 여기에서 확인할 수 있어요.</p>
-	        </div>
-	        <div class="item-right">
-	          <button class="btn outline" type="button"
-	                  onclick="location.href='${pageContext.request.contextPath}/board/main'">
-	            게시판 가기
-	          </button>
-	        </div>
-	      </article>
+	      <c:choose>
+	        <c:when test="${empty posts}">
+	          <article class="list-item">
+	            <div class="item-left">
+	              <h3 class="item-title">게시글이 없습니다.</h3>
+	              <p class="item-meta">게시글을 작성하면 여기에서 확인할수 있어요.</p>
+	            </div>
+	            <div class="item-right">
+	              <button class="btn outline" type="button"
+	                      onclick="location.href='${pageContext.request.contextPath}/board/main'">
+	                게시글 가기
+	              </button>
+	            </div>
+	          </article>
+	        </c:when>
+
+	        <c:otherwise>
+	          <c:forEach var="post" items="${posts}">
+	            <article class="list-item">
+	              <div class="item-left">
+	                <h3 class="item-title">
+	                  <c:out value="${post.boardId}" />
+	                </h3>
+	                <p class="item-meta">
+	                  <c:out value="${post.createWriterAt}" /> ~ <c:out value="${gr.endDatetime}" />
+	                </p>
+	              </div>
+
+	              <div class="item-right">
+	              	<button class="btn outline" type="button"
+		                      onclick="location.href='<c:url value='${post.boardId}'/>'">
+		                게시글 가기
+		              </button>
+	              
+	              </div>
+	            </article>
+	          </c:forEach>
+	        </c:otherwise>
+	      </c:choose>
+	      
+	      
+	      
 	    </section>
 	  </div>
 
@@ -177,6 +207,10 @@
       panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
     });
   });
+  
+  window.addEventListener("DOMContentLoaded", () => {
+	    document.querySelector('.tab[data-tab="place"]')?.click();
+	  });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

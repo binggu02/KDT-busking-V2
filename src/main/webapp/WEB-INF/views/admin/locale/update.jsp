@@ -7,139 +7,92 @@
 <meta charset="UTF-8">
 <title>장소 정보 수정</title>
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: "Pretendard", Arial, sans-serif;
-  background:#f5f6f8;
-}
-
-.container {
-  max-width: 900px;
-  margin: 80px auto;
-}
-
-h1 {
-  margin-bottom: 30px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 6px 15px rgba(0,0,0,.08);
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #555;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-textarea {
-  height: 120px;
-  resize: none;
-}
-
-.btn-group {
-  margin-top: 30px;
-  text-align: right;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.btn-submit {
-  background: #ff5a5f;
-  color: #fff;
-}
-
-.btn-cancel {
-  background: #ddd;
-  margin-right: 10px;
-}
-</style>
+<link rel="stylesheet" href="<c:url value='/css/common.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
 </head>
 
 <body>
 
-<div class="container">
-  <h1>장소 정보 수정</h1>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-  <!-- form 유지 (submit 안 씀) -->
-  <form>
-    <input type="hidden" name="placeId" value="${place.id}"/>
+<div class="admin-page">
+  <div class="admin-container">
 
-    <div class="card">
+    <aside class="admin-aside">
+      <ul>
+        <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
+        <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
 
-      <div class="form-group">
-        <label>장소명</label>
-        <input type="text" name="name" value="${place.name}">
-      </div>
+        <!-- 장비 예약 관리(네 컨트롤러에 맞게 쓰고 있으면 그걸로) -->
+        <li><a href="<c:url value='/admin/gear-reservations/list'/>">장비 예약 관리</a></li>
 
-      <div class="form-group">
-        <label>지역</label>
-        <input type="text" name="region" value="${place.region}">
-      </div>
+        <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
 
-      <div class="form-group">
-        <label>주소</label>
-        <input type="text" name="address" value="${place.address}">
-      </div>
+        <!-- ✅ 여기서 '장소 관리'는 update_list로 -->
+        <li><a href="<c:url value='/admin/gear/update_list'/>">장비 관리</a></li>
+        <li><a href="<c:url value='/admin/locale/update_list'/>">장소 관리</a></li>
 
-      <div class="form-group">
-        <label>수용 인원</label>
-        <input type="number" name="capacity" value="${place.capacity}">
-      </div>
+        <li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
+      </ul>
+    </aside>
 
-      <div class="form-group">
-        <label>대관 가능 여부</label>
-        <select name="available">
-          <option value="Y" ${place.available=='Y'?'selected':''}>가능</option>
-          <option value="N" ${place.available=='N'?'selected':''}>불가</option>
-        </select>
-      </div>
+    <div class="admin-content">
+      <h1>장소 정보 수정</h1>
 
-      <div class="form-group">
-        <label>장소 설명</label>
-        <textarea name="description">${place.description}</textarea>
-      </div>
+      <!-- ✅ 진짜로 저장되게 POST로 -->
+      <form action="<c:url value='/admin/locale/update'/>" method="post">
+        <!-- Spring Security 쓰면(POST면) 아래 CSRF도 넣는 게 안전 -->
+        <c:if test="${not empty _csrf}">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </c:if>
 
-      <div class="btn-group">
-        <a href="./list.jsp" class="btn btn-cancel">목록</a>
-        <button type="button" class="btn btn-submit" onclick="updatePlace()">수정 완료</button>
-      </div>
+        <!-- ✅ 컨트롤러는 id를 필수로 받음 -->
+        <input type="hidden" name="id" value="${place.id}"/>
+
+        <div class="card">
+
+          <div class="form-group">
+            <label>장소명</label>
+            <input type="text" name="placeName" value="${place.placeName}" required>
+          </div>
+
+          <div class="form-group">
+            <label>도시 ID</label>
+            <input type="number" name="cityId" value="${place.city.id}">
+          </div>
+
+          <div class="form-group">
+            <label>주소</label>
+            <input type="text" name="placeAddress" value="${place.placeAddress}" required>
+          </div>
+
+          <div class="form-group">
+            <label>전화번호</label>
+            <input type="text" name="placePhone" value="${place.placePhone}">
+          </div>
+
+          <div class="form-group">
+            <label>썸네일</label>
+            <input type="text" name="thumbnail" value="${place.thumbnail}">
+          </div>
+
+          <div class="form-group">
+            <label>장소 설명</label>
+            <textarea name="placeDescription" rows="5">${place.placeDescription}</textarea>
+          </div>
+
+          <div class="btn-group">
+            <a href="<c:url value='/admin/locale/update_list'/>" class="btn btn-cancel">목록</a>
+            <button type="submit" class="btn btn-submit">수정 완료</button>
+          </div>
+
+        </div>
+      </form>
 
     </div>
-  </form>
+  </div>
 </div>
 
-<script>
-function updatePlace() {
-  alert("장소 정보가 수정되었습니다.");
-  location.href = "locale_list.jsp";
-}
-</script>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

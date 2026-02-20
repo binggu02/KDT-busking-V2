@@ -1,227 +1,213 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Busking Admin</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Pretendard", Arial, sans-serif;
-        }
-
-        body {
-            background-color: #e5e5e5;
-        }
-
-        /* ===== 헤더 (고정) ===== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: url("./images/busking.png") center / cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 40px;
-            z-index: 1000;
-        }
-
-        /* 배너 어두운 오버레이 (글씨 잘 보이게) */
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-
-        /* 로고 */
-        .logo-img {
-            position: absolute;
-            left: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 120px;
-            z-index: 2;
-        }
-
-        /* 메뉴 */
-        .menu {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            z-index: 2;
-        }
-
-        .menu span {
-            color: #ffffff;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .menu span:hover {
-            opacity: 0.8;
-        }
-
-        /* 로그아웃 */
-        .logout {
-            color: white;
-            border: 1px solid white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .logout:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* ===== 전체 레이아웃 ===== */
-        .container {
-            display: flex;
-            margin-top: 80px; /* 고정 헤더 높이만큼 */
-            height: calc(100vh - 80px);
-        }
-
-        /* 사이드바 */
-        aside {
-            width: 220px;
-            background-color: #d9d9d9;
-            padding: 30px 20px;
-        }
-
-        aside ul {
-            list-style: none;
-        }
-
-        aside li {
-            margin-bottom: 20px;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        aside li:hover {
-            font-weight: bold;
-        }
-
-        /* 메인 */
-        main {
-            flex: 1;
-            background-color: #ffffff;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        /* 콘텐츠 */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 40px;
-        }
-
-        .section {
-            margin-bottom: 50px;
-        }
-
-        .section h2 {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        /* 게시판 관리 */
-        .board-box {
-            width: 100%;
-            height: 180px;
-            background-color: #e0e0e0;
-        }
-
-        /* 예약 관리 */
-        .reserve-wrap {
-            display: flex;
-            gap: 30px;
-        }
-
-        .reserve-box {
-            width: 200px;
-            height: 220px;
-            background-color: #e0e0e0;
-        }
-
-        /* 회원 관리 */
-        .member-box {
-            width: 100%;
-            height: 500px;
-            background-color: #e0e0e0;
-        }
-    </style>
+    <link rel="stylesheet" href="<c:url value='/css/common.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
 </head>
 
 <body>
 
-<!-- 헤더 -->
-<header class="header">
-    <a href="../admin/main.jsp">
-        <img src="./images/buskinglogo.png" class="logo-img" alt="로고">
-    </a>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-    <div class="menu">
-        <span>장비 예약</span>
-        <span>지역별 장소 예약</span>
-        <span>게시판</span>
-        <div class="logout">logout</div>
-    </div>
-</header>
+<div class="admin-page">
+    <div class="admin-container">
 
-<!-- 본문 -->
-<div class="container">
-    <aside>
-    <ul>
-        <li><a href="./board/list">게시판 관리</a></li>
-        <li><a href="./board/qna_list">Q&A 관리</a></li>
-        <li><a href="./gear/list">장비 예약 관리</a></li>
-        <li><a href="./locale/list">장소 예약 관리</a></li>
-        <li><a href="./locale/list">회원 관리</a></li>
-    </ul>
-</aside>
+        <!-- 사이드 메뉴 -->
+        <aside class="admin-aside">
+            <ul>
+            	<li><a href="<c:url value='/admin/main'/>">대시보드</a></li>
+                <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
+                <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
 
+                <!-- 실제 장비예약 경로에 맞게 -->
+                <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
 
-    <main>
-        <div class="content-grid">
-            <!-- 왼쪽 -->
-            <div>
-                <div class="section">
-                    <h2>게시판 관리</h2>
-                    <div class="board-box"></div>
+                <li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
+                <li><a href="<c:url value='/admin/gear/update_list'/>">장비 관리</a></li>
+                <li><a href="<c:url value='/admin/locale/update_list'/>">장소 관리</a></li>
+                <li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
+            </ul>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="admin-main">
+            <div class="content-grid">
+
+                <!-- 왼쪽 -->
+                <div>
+
+                    <!-- 게시판 관리 -->
+                    <div class="section">
+                        <h2>게시판 관리</h2>
+
+                        <div class="board-box">
+                            <div class="box-inner">
+
+                                <div class="metrics">
+                                    <div class="metric">게시글 <b>${boardCount}</b></div>
+                                    <div class="metric">회원 <b>${memberCount}</b></div>
+                                    <div class="metric">장소예약 <b>${placeReservationCount}</b></div>
+                                    <div class="metric">장비예약 <b>${gearReservationCount}</b></div>
+                                </div>
+
+                                <div class="box-title">
+                                    <span>최근 게시글</span>
+                                    <span style="font-size:12px; color:#666;">최신 5개</span>
+                                </div>
+
+                                <c:if test="${not empty recentBoards}">
+                                    <ul class="list">
+                                        <c:forEach var="b" items="${recentBoards}">
+                                            <li class="item">
+                                                <div class="item-top">
+                                                    <div class="item-left">
+                                                        <span class="badge badge-id">${b.boardId}</span>
+                                                        <span class="item-title">type: ${b.boardTypeId}</span>
+                                                    </div>
+                                                    <span class="badge">user: ${b.userId}</span>
+                                                </div>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:if>
+
+                                <c:if test="${empty recentBoards}">
+                                    <div class="empty">최근 게시글이 없습니다.</div>
+                                </c:if>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 예약 관리 -->
+                    <div class="section">
+                        <h2>예약 관리</h2>
+
+                        <div class="reserve-wrap">
+
+                            <!-- 최근 장소 예약 -->
+                            <div class="reserve-box">
+                                <div class="box-inner">
+                                    <div class="box-title">
+                                        <span>최근 장소 예약</span>
+                                        <span style="font-size:12px; color:#666;">최신 5개</span>
+                                    </div>
+
+                                    <c:if test="${not empty recentPlaceReservations}">
+                                        <ul class="list">
+                                            <c:forEach var="r" items="${recentPlaceReservations}">
+                                                <li class="item">
+                                                    <div class="item-top">
+                                                        <div class="item-left">
+                                                            <span class="badge badge-id">${r.id}</span>
+                                                            <span class="item-title">
+                                                                <c:out value="${r.place.placeName}"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item-meta">
+                                                        <span>📅 <c:out value="${r.reservationDate}"/></span>
+                                                        <span>⏰ <c:out value="${r.startTime}"/>~<c:out value="${r.endTime}"/></span>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+
+                                    <c:if test="${empty recentPlaceReservations}">
+                                        <div class="empty">최근 장소 예약이 없습니다.</div>
+                                    </c:if>
+                                </div>
+                            </div>
+
+                            <!-- 최근 장비 예약 -->
+                            <div class="reserve-box">
+                                <div class="box-inner">
+                                    <div class="box-title">
+                                        <span>최근 장비 예약</span>
+                                        <span style="font-size:12px; color:#666;">최신 5개</span>
+                                    </div>
+
+                                    <c:if test="${not empty recentGearReservations}">
+                                        <ul class="list">
+                                            <c:forEach var="gr" items="${recentGearReservations}">
+                                                <li class="item">
+                                                    <div class="item-top">
+                                                        <div class="item-left">
+                                                            <span class="badge badge-id">${gr.id}</span>
+                                                            <span class="item-title">
+                                                                <c:out value="${gr.gear.gearName}"/>
+                                                            </span>
+                                                        </div>
+                                                        <span class="badge"><c:out value="${gr.member.name}"/></span>
+                                                    </div>
+                                                    <div class="item-meta">
+                                                        <span>🕒 <c:out value="${gr.startDatetime}"/></span>
+                                                        <span>→ <c:out value="${gr.endDatetime}"/></span>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+
+                                    <c:if test="${empty recentGearReservations}">
+                                        <div class="empty">최근 장비 예약이 없습니다.</div>
+                                    </c:if>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
+                <!-- 오른쪽 -->
                 <div class="section">
-                    <h2>예약 관리</h2>
-                    <div class="reserve-wrap">
-                        <div class="reserve-box"></div>
-                        <div class="reserve-box"></div>
+                    <h2>회원 관리</h2>
+
+                    <div class="member-box">
+                        <div class="box-inner">
+                            <div class="box-title">
+                                <span>최근 가입 회원</span>
+                                <span style="font-size:12px; color:#666;">최신 5명</span>
+                            </div>
+
+                            <c:if test="${not empty recentMembers}">
+                                <ul class="list">
+                                    <c:forEach var="m" items="${recentMembers}">
+                                        <li class="item">
+                                            <div class="item-top">
+                                                <div class="item-left">
+                                                    <span class="badge badge-id">${m.id}</span>
+                                                    <span class="item-title"><c:out value="${m.name}"/></span>
+                                                </div>
+                                                <span class="badge"><c:out value="${m.memberId}"/></span>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
+
+                            <c:if test="${empty recentMembers}">
+                                <div class="empty">최근 회원이 없습니다.</div>
+                            </c:if>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 오른쪽 -->
-            <div class="section">
-                <h2>회원 관리</h2>
-                <div class="member-box"></div>
             </div>
-        </div>
-    </main>
+        </main>
+
+    </div>
 </div>
 
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

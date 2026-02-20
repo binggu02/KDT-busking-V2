@@ -1,13 +1,11 @@
 package com.team3.busking.service;
 
-import com.team3.busking.domain.GearReservation;
-import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.repository.GearReservationRepository;
+import com.team3.busking.repository.PlaceRepository;
 import com.team3.busking.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @Transactional

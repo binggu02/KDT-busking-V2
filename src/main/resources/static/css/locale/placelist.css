@@ -1,235 +1,338 @@
 /* =========================
-   PLACE LIST PAGE (placelist.jsp 기준)
+   PLACE LIST - MODERN UI
 ========================= */
 
-body{ background:#f5f6f8; }
-
-/* 헤더 배경: JSP에서 inline background-image 줬으니 여기서는 기본만 */
-.header{
-  position: relative;
-  width: 100%;
-  height: 150px;
-  background: center/cover no-repeat;
-  z-index: 10;
-  color: #fff;
+body{
+  background:#f7f8fa;
 }
-
-.header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,0.25);
-}
-
-.header-inner{
-  position: relative;
-  z-index: 1;
-  height: 150px;
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-/* 로고 */
-.logo{ display:inline-flex; align-items:center; text-decoration:none; }
-.logo-icon{
-  height: 90px;
-  width: auto;
-  display:block;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
-}
-
-/* 메뉴 */
-.nav{
-  display:flex;
-  align-items:center;
-  gap: 24px;
-  margin-left: auto;
-}
-.nav a{
-  color:#fff;
-  text-decoration:none;
-  font-size: 13px;
-  font-weight: 800;
-}
-.nav a:hover{ text-decoration: underline; }
-
-/* pill */
-.auth{ display:flex; align-items:center; gap: 10px; }
-.pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  height: 30px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.9);
-  color: #fff;
-  text-decoration:none;
-  font-size: 12px;
-  font-weight: 900;
-  background: rgba(0,0,0,0.12);
-}
-.pill:hover{ background: rgba(255,255,255,0.18); }
 
 /* 본문 */
 .main{
-  padding: 26px 0 40px;
-  margin-top: -18px;
+  padding: 50px 0 70px;
+}
+
+/* 타이틀 */
+.main h2{
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 28px;
 }
 
 /* =========================
-   카드 (JSP 클래스명 기준)
-   .place-grid / .place-card / .thumb / .card-body / .card-title / .reserve-btn
+   카드 그리드
 ========================= */
 
 .place-grid{
   display: grid;
-  grid-template-columns: repeat(4, 180px);
-  gap: 42px;
-  justify-content: flex-start;
-  align-items: start;
-  padding-top: 34px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
 }
 
+/* 카드 */
 .place-card{
-  width: 180px;
   background:#fff;
-  border: 1px solid #e7e7e7;
-  border-radius: 22px;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.05);
+  border-radius: 20px;
   overflow:hidden;
-  padding-bottom: 10px;
-  display: block;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  transition: all .25s ease;
+  display:flex;
+  flex-direction: column;
 }
 
-/* ✅ JSP는 button.thumb를 쓰고 background-image inline style로 줌 */
+.place-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+/* 썸네일 */
 .place-card .thumb{
-  width: 100%;
-  height: 130px;
+  height: 180px;
   background: #e6e6e6 center/cover no-repeat;
-  position: relative;
   border: 0;
-  display:block;
   cursor: pointer;
+  position: relative;
 }
 
 .place-card .thumb::after{
   content:"";
   position:absolute;
-  inset: 14px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.03);
-  border: 1px solid rgba(0,0,0,0.05);
-  pointer-events: none;
+  inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 60%);
+  opacity:0;
+  transition: .25s;
 }
 
-.place-card .thumb:focus{
-  outline: 3px solid rgba(0,0,0,0.25);
-  outline-offset: -3px;
+.place-card:hover .thumb::after{
+  opacity:1;
 }
 
+/* 카드 바디 */
 .place-card .card-body{
-  padding: 10px 12px 10px;
+  padding: 16px 18px 18px;
   display:flex;
-  align-items:center;
   justify-content: space-between;
-  gap: 10px;
+  align-items:center;
+  gap: 12px;
 }
 
+/* 장소 이름 */
 .place-card .card-title{
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 900;
-  color:#222;
-  line-height: 1.2;
-}
-
-.place-card .reserve-btn{
-  border: 0;
-  background: #d9d9d9;
   color:#111;
-  padding: 6px 12px;
+}
+
+/* 예약 버튼 */
+.place-card .reserve-btn{
+  background:#111;
+  color:#fff;
+  padding: 8px 16px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
-  cursor: pointer;
-}
-.place-card .reserve-btn:hover{ filter: brightness(0.95); }
-
-/* 반응형 */
-@media (max-width: 1100px){
-  .place-grid{
-    grid-template-columns: repeat(2, 180px);
-    justify-content: center;
-  }
+  text-decoration: none;
+  transition:.2s;
 }
 
-@media (max-width: 760px){
-  .place-grid{
-    grid-template-columns: 1fr;
-    justify-content: center;
-  }
-  .place-card{ width: 220px; }
-  .place-card .thumb{ height: 150px; }
-  .nav{ display:none; }
+.place-card .reserve-btn:hover{
+  background:#000;
+  transform: scale(1.05);
 }
 
 /* =========================
-   MAP MODAL
+   반응형
 ========================= */
-.map-modal{
-  position: fixed;
-  inset: 0;
-  display: none;
-  z-index: 9999;
+
+@media (max-width: 768px){
+  .place-card .thumb{
+    height: 160px;
+  }
 }
-.map-modal.show{ display:block; }
+/* =========================
+   카드 내부 지도 토글 (추가)
+========================= */
 
-.map-dim{
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.45);
-}
-
-.map-box{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(860px, calc(100% - 24px));
-  background: #fff;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0,0,0,.25);
-}
-
-.map-head{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 1px solid #eee;
-}
-
-.map-title{ font-weight: 900; }
-
-.map-close{
+/* ✅ button.thumb 기본 스타일만 제거 (크기/배경은 기존 설정 유지) */
+.place-card .thumb{
+  width: 100%;
   border: 0;
-  background: transparent;
-  font-size: 18px;
+  padding: 0;
+  outline: none;
+  appearance: none;
+  background-color: transparent; /* 기존 background(이미지/색) 유지 */
+}
+
+/* 카드 바디 안 버튼 정렬 */
+.place-card .card-actions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* 지도보기 버튼 */
+.place-card .map-btn{
+  background: #fff;
+  color: #111;
+  border: 1px solid #d8d8d8;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
   cursor: pointer;
 }
 
-.map-sub{
-  padding: 10px 14px;
-  font-size: 13px;
-  color: #444;
-  border-bottom: 1px solid #eee;
+.place-card .map-btn:hover{
+  background: #f2f2f2;
 }
 
-.map-frame{
+/* ✅ 지도 영역 기본은 닫힘 */
+.place-card .card-map{
+  display: none;
   width: 100%;
-  height: 460px;
-  border: 0;
+  height: 230px;
+  border-top: 1px solid #eee;
+  overflow: hidden;
 }
+
+/* ✅ open 클래스 붙으면 표시 */
+.place-card.open .card-map{/* =========================
+   PLACE LIST - MODERN UI
+========================= */
+
+body{
+  background:#f7f8fa;
+}
+
+/* 본문 */
+.main{
+  padding: 50px 0 70px;
+}
+
+/* 타이틀 */
+.main h2{
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   카드 그리드
+========================= */
+
+.place-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+/* 카드 */
+.place-card{
+  background:#fff;
+  border-radius: 20px;
+  overflow:hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  transition: all .25s ease;
+  display:flex;
+  flex-direction: column;
+}
+
+.place-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+/* 썸네일 */
+.place-card .thumb{
+  height: 180px;
+  background: #e6e6e6 center/cover no-repeat;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.place-card .thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 60%);
+  opacity:0;
+  transition: .25s;
+}
+
+.place-card:hover .thumb::after{
+  opacity:1;
+}
+
+/* 카드 바디 */
+.place-card .card-body{
+  padding: 16px 18px 18px;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 12px;
+}
+
+/* 장소 이름 */
+.place-card .card-title{
+  font-size: 15px;
+  font-weight: 900;
+  color:#111;
+}
+
+/* 예약 버튼 */
+.place-card .reserve-btn{
+  background:#111;
+  color:#fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  transition:.2s;
+}
+
+.place-card .reserve-btn:hover{
+  background:#000;
+  transform: scale(1.05);
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 768px){
+  .place-card .thumb{
+    height: 160px;
+  }
+}
+/* =========================
+   카드 내부 지도 토글 (추가)
+========================= */
+
+/* ✅ button.thumb 기본 스타일만 제거 (크기/배경은 기존 설정 유지) */
+.place-card .thumb{
+  width: 100%;
+  border: 0;
+  padding: 0;
+  outline: none;
+  appearance: none;
+  background-color: transparent; /* 기존 background(이미지/색) 유지 */
+}
+
+/* 카드 바디 안 버튼 정렬 */
+.place-card .card-actions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* 지도보기 버튼 */
+.place-card .map-btn{
+  background: #fff;
+  color: #111;
+  border: 1px solid #d8d8d8;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.place-card .map-btn:hover{
+  background: #f2f2f2;
+}
+
+/* ✅ 지도 영역 기본은 닫힘 */
+.place-card .card-map{
+  display: none;
+  width: 100%;
+  height: 230px;
+  border-top: 1px solid #eee;
+  overflow: hidden;
+}
+
+/* ✅ open 클래스 붙으면 표시 */
+.place-card.open .card-map{
+  display: block;
+}
+
+/* iframe 꽉 채우기 */
+.place-card .card-map-frame{
+  width: 100%;
+  height: 230px;
+  border: 0;
+  display: block;
+}
+
+
+  display: block;
+}
+
+/* iframe 꽉 채우기 */
+.place-card .card-map-frame{
+  width: 100%;
+  height: 230px;
+  border: 0;
+  display: block;
+}
+
