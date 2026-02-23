@@ -6,11 +6,18 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
+
 @Entity
 @Getter
 @Setter
 @Table(name = "gear_reservation")
 public class GearReservation {
+	public enum GearReservationStatus{
+		RESERVED,
+	    RETURNED,
+	    CANCELED
+	}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +38,9 @@ public class GearReservation {
     @Column(name = "end_datetime", nullable = false)
     private LocalDateTime endDatetime;
 
-    @Column(name = "status", nullable = false, length = 20) // ✅ DB: VARCHAR(20) DEFAULT 'RESERVED'
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 20)
+    private GearReservationStatus status;
 
     @Column(name = "created_at", insertable = false, updatable = false) // ✅ DB: DEFAULT CURRENT_TIMESTAMP
     private LocalDateTime createdAt;

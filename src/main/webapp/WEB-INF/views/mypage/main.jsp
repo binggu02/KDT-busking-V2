@@ -129,10 +129,17 @@
 	              </div>
 
 	              <div class="item-right">
-	                <span class="status ${gr.status == 'RESERVED' ? 'pending' : 'done'}">
-	                  <c:out value="${gr.status}" />
-	                </span>
-	              </div>
+					  <span class="status ${gr.status == 'RESERVED' ? 'pending' : 'done'}">
+					    <c:out value="${gr.status}" />
+					  </span>
+					
+					  <c:if test="${gr.status != 'RETURNED'}">
+					    <button class="btn outline" type="button"
+					      onclick="location.href='${pageContext.request.contextPath}/mypage/gear/return?id=${gr.id}&tab=gear'">
+					      반납하기
+					    </button>
+					  </c:if>
+					</div>
 	            </article>
 	          </c:forEach>
 	        </c:otherwise>
@@ -193,24 +200,39 @@
   </div>
 </main>
 
-
 <script>
-  // 탭 전환 JS
   const tabs = document.querySelectorAll(".tab");
   const panels = document.querySelectorAll(".tab-panel");
 
+  function activateTab(tabName) {
+    tabs.forEach(t => {
+      t.classList.toggle("active", t.dataset.tab === tabName);
+    });
+
+    panels.forEach(p => {
+      p.classList.toggle("show", p.dataset.panel === tabName);
+    });
+  }
+
+  // 탭 클릭 이벤트
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
+      activateTab(target);
+
+      // URL에 탭 정보 추가 (뒤로가기 대응)
+      const url = new URL(window.location);
+      url.searchParams.set("tab", target);
+      window.history.replaceState(null, "", url);
     });
   });
-  
+
+  // 페이지 로드시 URL 파라미터 읽기
   window.addEventListener("DOMContentLoaded", () => {
-	    document.querySelector('.tab[data-tab="place"]')?.click();
-	  });
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentTab = urlParams.get("tab") || "place"; // 기본값 place
+    activateTab(currentTab);
+  });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

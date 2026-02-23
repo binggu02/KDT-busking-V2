@@ -189,4 +189,21 @@ public class MyPageController {
 
         return "mypage/reserve/info";
     }
+    
+    @GetMapping("/gear/return")
+    public String returnGeardsfa(@RequestParam Long id, HttpSession session) {
+    	
+    	Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
+        
+        
+    	
+        gearReservationService.returnStatus(id);
+        
+        
+        return "redirect:/mypage?tab=gear";
+    }
+    
 }

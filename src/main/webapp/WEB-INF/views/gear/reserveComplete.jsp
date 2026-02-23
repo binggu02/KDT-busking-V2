@@ -9,6 +9,21 @@
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserveComplete.css" />
+
+  <style>
+    .alert.success {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    .alert.error {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,30 +32,36 @@
 <main class="complete-main">
   <div class="container">
   	<div class="complete-wrap">
-  	<div class="complete-box">
+  	  <div class="complete-box">
 
-      <h2>예약이 완료되었습니다 🎉</h2>
+        <h2>예약 확인</h2>
 
-      <c:if test="${not empty msg}">
-        <div class="alert success">${msg}</div>
-      </c:if>
+        <!-- 화면 내 메시지 표시 -->
+        <c:if test="${not empty msg}">
+          <div class="alert success">${msg}</div>
+        </c:if>
+        <c:if test="${not empty error}">
+          <div class="alert error">${error}</div>
+        </c:if>
 
-      <p>마이페이지에서 예약 내역을 확인할 수 있습니다.</p>
+        <p>마이페이지에서 예약 내역을 확인할 수 있습니다.</p>
 
-     <div class="complete-actions">
-	  <a class="btn-line" href="${pageContext.request.contextPath}/gear/list">
-	    장비 목록으로
-	  </a>
-	  <a class="btn-dark" href="${pageContext.request.contextPath}/mypage">
-	    마이페이지로
-	  </a>
-	</div>
+       <div class="complete-actions">
+    	  <a class="btn-line" href="${pageContext.request.contextPath}/gear/list">
+    	    장비 목록으로
+    	  </a>
+    	  <a class="btn-dark" href="${pageContext.request.contextPath}/mypage">
+    	    마이페이지로
+    	  </a>
+    	</div>
 
-    </div>
+      </div>
   	</div>
-    
   </div>
 </main>
+
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
