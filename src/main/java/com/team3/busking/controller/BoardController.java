@@ -88,7 +88,9 @@ public class BoardController {
     public String updateForm(@RequestParam Long id, Model model) {
         Board board = boardService.getBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 없음"));
-
+        if(model != null) {
+        	return "redirect:board/view?id=" + board.getBoardId();
+        }
         model.addAttribute("board", board);
         return "board/update";
     }

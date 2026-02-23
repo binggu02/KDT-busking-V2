@@ -11,48 +11,73 @@
 <body>
 
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
-
 <main class="main">
-  <div class="container board-wrap">
+  <div class="board-edit-wrap">
+    <div class="board-edit-box">
 
-    <h2 class="board-title">게시글 수정</h2>
-	
-    <div class="board-box board-edit-box">
-      <form action="<%= request.getContextPath() %>/board/update" method="post" class="board-form">
+      <!-- 제목 -->
+      <div class="board-title">게시글 수정</div>
+
+      <form action="<%= request.getContextPath() %>/board/update"
+            method="post"
+            class="board-form">
 
         <input type="hidden" name="boardId" value="${board.boardId}" />
 
         <div class="form-group">
           <label>게시판</label>
           <select name="boardTypeId" required>
-            <option value="1" <c:if test="${board.boardTypeId == 1}">selected</c:if>>자유게시판</option>
-            <option value="2" <c:if test="${board.boardTypeId == 2}">selected</c:if>>Q&A</option>
+            <option value="1"
+              <c:if test="${board.boardTypeId == 1}">selected</c:if>>
+              자유게시판
+            </option>
+            <option value="2"
+              <c:if test="${board.boardTypeId == 2}">selected</c:if>>
+              Q&A
+            </option>
           </select>
         </div>
 
         <div class="form-group">
           <label>제목</label>
-          <input type="text" name="title" class="form-input" value="${board.title}" placeholder="제목을 입력하세요" required />
+          <input type="text"
+                 name="title"
+                 value="${board.title}"
+                 placeholder="제목을 입력하세요"
+                 required />
         </div>
 
         <div class="form-group">
           <label>내용</label>
-          <textarea name="content" class="form-textarea" rows="12" placeholder="내용을 입력하세요" required>${board.content}</textarea>
+          <textarea name="content"
+                    placeholder="내용을 입력하세요"
+                    required>${board.content}</textarea>
         </div>
 
         <div class="form-group">
           <label>썸네일 URL</label>
-          <input type="text" name="thumbnailWriter" class="form-input" value="${board.thumbnailWriter}" placeholder="썸네일 URL 입력 (선택)" />
+          <input type="text"
+                 name="thumbnailWriter"
+                 value="${board.thumbnailWriter}"
+                 placeholder="썸네일 URL 입력 (선택)" />
         </div>
 
+        <!-- 버튼 영역 -->
         <div class="form-buttons">
-          <button type="submit" class="btn btn-primary">수정 완료</button>
-          <a href="<%= request.getContextPath() %>/board/view?id=${board.boardId}" class="btn btn-secondary">취소</a>
+          <a href="<%= request.getContextPath() %>/board/view?id=${board.boardId}"
+             class="btn-outline btn-secondary">
+            취소
+          </a>
+
+          <button type="submit"
+                  class="btn-outline btn-primary">
+            수정 완료
+          </button>
         </div>
 
       </form>
-    </div>
 
+    </div>
   </div>
 </main>
 
