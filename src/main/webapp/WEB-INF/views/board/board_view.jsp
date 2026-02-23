@@ -11,25 +11,22 @@
 </head>
 
 <body>
+
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+<main class="board-page">
+  <div class="board-view-wrap">
 
-<main class="main">
-  <div class="container board-wrap">
-
-    <div class="board-box board-view-box">
+    <div class="board-view-box">
 
       <!-- 제목 -->
-      <div class="board-view-header">
-        <h1 class="board-view-title">
-          ${board.title}
-        </h1>
+      <h1 class="board-view-title">
+        ${board.title}
+      </h1>
 
-        <div class="board-view-info">
-          <span>작성자 <b>user${board.userId}</b></span>
-          <span>
-            <c:out value="${board.createWriterAt}" />
-          </span>
-        </div>
+      <!-- 작성자 / 날짜 -->
+      <div class="board-view-meta">
+        작성자 user${board.userId} |
+        <c:out value="${board.createWriterAt}" />
       </div>
 
       <!-- 내용 -->
@@ -37,33 +34,34 @@
         ${board.content}
       </div>
 
-      <!-- 버튼 -->
+      <!-- 버튼 영역 -->
       <div class="board-view-actions">
-        <button class="action-btn btn-list"
+
+        <button class="btn-outline"
           onclick="location.href='<%=request.getContextPath()%>/board/main?typeId=${board.boardTypeId}'">
           목록
         </button>
 
-        <button class="action-btn btn-edit"
+        <button class="btn-outline"
           onclick="location.href='<%=request.getContextPath()%>/board/update?id=${board.boardId}'">
           수정
         </button>
 
-        <form action="<%=request.getContextPath()%>/board/delete" method="post" style="display:inline;">
+        <form action="<%=request.getContextPath()%>/board/delete" method="post">
           <input type="hidden" name="id" value="${board.boardId}" />
-          <button type="submit" class="action-btn btn-delete"
+          <button type="submit" class="btn-outline"
             onclick="return confirm('게시글을 삭제하시겠습니까?');">
             삭제
           </button>
         </form>
+
       </div>
 
     </div>
   </div>
 </main>
 
-  </div>
-  <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 </body>
 </html>

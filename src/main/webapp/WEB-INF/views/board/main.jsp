@@ -14,94 +14,62 @@
 
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+<main class="main board-page">
 
-<main class="main">
-  <div class="container board-wrap">
+  <div class="board-container">
 
-    <!-- 검색바 -->
-    <div class="board-search">
-      <input type="text" placeholder="검색어 입력" />
-      <button type="button">🔍</button>
+    <!-- 상단 헤더 -->
+    <div class="board-header">
+      <h2>${typeId == 1 ? "자유게시판" : "Q&A"}</h2>
+
+      <button class="btn-write"
+        onclick="location.href='${pageContext.request.contextPath}/board/create'">
+        글쓰기
+      </button>
     </div>
 
     <!-- 탭 -->
-    <section class="board-tabs">
-      <button class="tab ${typeId == 1 ? 'active' : ''}" type="button" data-tab="free">자유게시판</button>
-      <button class="tab ${typeId == 2 ? 'active' : ''}" type="button" data-tab="qna">Q&A</button>
-    </section>
+	<section class="board-tabs">
+	  <a href="?typeId=1"
+	     class="tab ${typeId == 1 ? 'active' : ''}">
+	     자유게시판
+	  </a>
 
-    <!-- 패널 -->
-    <section class="tab-panels">
+	  <a href="?typeId=2"
+	     class="tab ${typeId == 2 ? 'active' : ''}">
+	     Q&A
+	  </a>
+	</section>
 
-      <!-- 자유게시판 -->
-      <div class="tab-panel ${typeId == 1 ? 'show' : ''}" data-panel="free">
-        <div class="board-box">
-          <c:forEach var="b" items="${list}">
-            <c:if test="${b.boardTypeId == 1}">
-              <div class="board-row">
-                <div class="board-left">
-                  <span class="doc-icon">📄</span>
-                  <div class="board-text">
-                    <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
-                      ${b.title}
-                    </a>
-                    <p class="board-sub">
-                      ${b.content}
-                    </p>
-                  </div>
-                </div>
-                <div class="board-right">
-                  <div class="writer">user${b.userId}</div>
-                  <div class="date">
-                    <c:out value="${b.createWriterAt}" />
-                  </div>
-                </div>
-              </div>
-            </c:if>
-          </c:forEach>
-        </div>
-      </div>
+    <!-- 테이블 -->
+    <table class="board-table">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th style="width:160px;">작성자</th>
+          <th style="width:220px;">작성일</th>
+        </tr>
+      </thead>
 
-      <!-- Q&A -->
-      <div class="tab-panel ${typeId == 2 ? 'show' : ''}" data-panel="qna">
-        <div class="board-box">
-          <c:forEach var="b" items="${list}">
-            <c:if test="${b.boardTypeId == 2}">
-              <div class="board-row">
-                <div class="board-left">
-                  <span class="doc-icon">📄</span>
-                  <div class="board-text">
-                    <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
-                      ${b.title}
-                    </a>
-                    <p class="board-sub">
-                      ${b.content}
-                    </p>
-                  </div>
-                </div>
-                <div class="board-right">
-                  <div class="writer">user${b.userId}</div>
-                  <div class="date">
-                    <c:out value="${b.createWriterAt}" />
-                  </div>
-                </div>
-              </div>
-            </c:if>
-          </c:forEach>
-        </div>
-      </div>
-
-    </section>
+      <tbody>
+        <c:forEach var="b" items="${list}">
+          <c:if test="${b.boardTypeId == typeId}">
+            <tr>
+              <td class="title-cell">
+                <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
+                  ${b.title}
+                </a>
+              </td>
+              <td>user${b.userId}</td>
+              <td><c:out value="${b.createWriterAt}" /></td>
+            </tr>
+          </c:if>
+        </c:forEach>
+      </tbody>
+    </table>
 
   </div>
 </main>
-
-<!-- 글쓰기 -->
-<button class="btn-create floating"
-  onclick="location.href='${pageContext.request.contextPath}/board/create'">
-  <span class="icon">✍️</span>
-  <span class="text">글쓰기</span>
-</button>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script>
