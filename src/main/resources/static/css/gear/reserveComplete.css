@@ -1,32 +1,43 @@
-/* 완료 페이지 전용 */
+/* ============================= */
+/* 예약 완료 페이지 전용 */
+/* ============================= */
 
+/* 전체 영역 */
 .complete-main{
-  padding: 34px 0 60px;
+  min-height: calc(80vh - 140px); /* nav + footer 고려 */
+  display: flex;
+  align-items: center;   /* 세로 중앙 */
+  justify-content: center; /* 가로 중앙 */
+  padding: 40px 16px;
 }
 
-.complete-wrap{
+/* container 영향 제거 */
+.complete-main .container{
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
+/* 감싸는 래퍼 */
+.complete-wrap{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* 박스 */
 .complete-box{
   width: 720px;
-  max-width: calc(100% - 28px);
+  max-width: 100%;
   background: #fff;
   border: 1.6px solid #222;
   border-radius: 28px;
-  padding: 28px 22px 26px;
+  padding: 32px 24px 28px;
   text-align: center;
+
 }
 
-.check-icon{
-  display: flex;
-  justify-content: center;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  color: #111;
-}
-
+/* 제목 */
 .complete-title{
   margin: 6px 0 18px;
   font-size: 22px;
@@ -34,67 +45,17 @@
   color: #111;
 }
 
-/* 가운데 작은 카드(사진 느낌) */
-.mini-card{
-  width: 230px;
-  margin: 0 auto;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.mini-thumb{
-  height: 160px;
-  background: #ececec;
-  background-size: cover;       /* ✅ 이미지 들어와도 예쁘게 */
-  background-position: center;  /* ✅ 가운데 정렬 */
-  background-repeat: no-repeat;
-}
-
-.mini-body{
-  padding: 12px 12px 14px;
-  text-align: left;
-}
-
-.mini-gear{
+/* 메시지 */
+.complete-box p{
   font-size: 14px;
-  font-weight: 900;
-  margin-bottom: 8px;
-  color: #111;
+  color: #444;
+  margin-bottom: 18px;
 }
 
-.mini-info{
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+/* ============================= */
+/* 버튼 영역 */
+/* ============================= */
 
-.mini-row{
-  display: flex;
-  gap: 8px;
-  font-size: 12px;
-  line-height: 1.25;
-}
-
-.mini-row dt{
-  width: 74px;
-  flex: 0 0 74px;     /* ✅ dt 폭 고정(줄바꿈 안정) */
-  color: #666;
-  font-weight: 800;
-}
-
-.mini-row dd{
-  margin: 0;
-  flex: 1;            /* ✅ dd가 남은 공간 차지 */
-  color: #111;
-  font-weight: 700;
-  word-break: break-word;
-  min-width: 0;       /* ✅ flex 줄바꿈 버그 방지 */
-}
-
-/* 하단 버튼 */
 .complete-actions{
   display: flex;
   justify-content: center;
@@ -102,55 +63,62 @@
   margin-top: 18px;
 }
 
-.btn-line, .btn-dark{
+.btn-line,
+.btn-dark{
   height: 40px;
-  padding: 0 14px;
+  padding: 0 18px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 900;
   cursor: pointer;
-  white-space: nowrap; /* ✅ 버튼 글자 줄바꿈 방지 */
+  white-space: nowrap;
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
 }
 
+/* 라인 버튼 */
 .btn-line{
   border: 1px solid #d6d6d6;
   background: #fff;
   color: #111;
 }
-.btn-line:hover{ background: #f6f6f6; }
 
+.btn-line:hover{
+  background: #f6f6f6;
+}
+
+/* 다크 버튼 */
 .btn-dark{
   border: 1px solid #2b2f36;
   background: #2b2f36;
   color: #fff;
 }
+
 .btn-dark:hover{
   background: #1f232a;
   border-color: #1f232a;
 }
 
-/* ✅ 모바일 대응 */
+/* ============================= */
+/* 모바일 대응 */
+/* ============================= */
+
 @media (max-width: 520px){
   .complete-actions{
     flex-direction: column;
   }
-  .btn-line, .btn-dark{
-    width: 100%;
-  }
-  .mini-card{
-    width: 100%;
-    max-width: 280px;
-  }
-}
-.complete-main{
-  display: flex;
-  justify-content: center;
-  padding: 80px 0;
-}
 
-.complete-main .container{
-  width: auto;
-}
-.complete-box{
-  margin: 0 auto;
+  .btn-line,
+  .btn-dark{
+    width: 100%;
+  }
+
+  .complete-box{
+    padding: 24px 16px;
+  }
 }

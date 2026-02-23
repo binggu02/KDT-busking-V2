@@ -8,7 +8,6 @@
   <title>장비 예약</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserve.css" />
 </head>
 <body>
@@ -37,9 +36,7 @@
       <div class="selected-card">
 
         <div class="selected-thumb"
-             style="background-image:url('${empty gear.gearThumbnail 
-               ? pageContext.request.contextPath.concat("/default.jpg") 
-               : gear.gearThumbnail}')">
+             style="background-image:url('/images/gear/${gear.gearThumbnail }')">
         </div>
 
         <div class="selected-body">

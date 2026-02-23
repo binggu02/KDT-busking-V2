@@ -8,16 +8,16 @@
   <title>예약 완료</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserveComplete.css" />
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-<main class="main">
+<main class="complete-main">
   <div class="container">
-    <div class="complete-box">
+  	<div class="complete-wrap">
+  	<div class="complete-box">
 
       <h2>예약이 완료되었습니다 🎉</h2>
 
@@ -27,12 +27,18 @@
 
       <p>마이페이지에서 예약 내역을 확인할 수 있습니다.</p>
 
-      <div class="actions">
-        <a class="btn" href="${pageContext.request.contextPath}/gear/list">장비 목록으로</a>
-        <a class="btn primary" href="${pageContext.request.contextPath}/mypage">마이페이지로</a>
-      </div>
+     <div class="complete-actions">
+	  <a class="btn-line" href="${pageContext.request.contextPath}/gear/list">
+	    장비 목록으로
+	  </a>
+	  <a class="btn-dark" href="${pageContext.request.contextPath}/mypage">
+	    마이페이지로
+	  </a>
+	</div>
 
     </div>
+  	</div>
+    
   </div>
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

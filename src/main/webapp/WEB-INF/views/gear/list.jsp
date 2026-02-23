@@ -54,7 +54,7 @@
                 <c:url var="imgUrl" value="${g.gearThumbnail}" />
               </c:when>
               <c:otherwise>
-                <c:url var="imgUrl" value="/images/${g.gearThumbnail}" />
+                <c:url var="imgUrl" value="/images/gear/${g.gearThumbnail}" />
               </c:otherwise>
             </c:choose>
           </c:when>
@@ -71,7 +71,8 @@
         <a class="gear-link gear-card" href="${reserveWithIdUrl}">
           <div class="thumb"
                style="background-image:url('${imgUrl}');"
-               aria-label="<c:out value='${g.gearName}'/> 이미지"></div>
+               aria-label="<c:out value='${g.gearName}'/> 이미지">
+               </div>
 
           <div class="card-body">
             <div class="card-title"><c:out value="${g.gearName}" /></div>
