@@ -173,7 +173,7 @@
 
 	              <div class="item-right">
 	              	<button class="btn outline" type="button"
-		                      onclick="location.href='<c:url value='${post.boardId}'/>'">
+		                      onclick="location.href='${pageContext.request.contextPath}/board/view?id=<c:url value='${post.boardId}'/>'">
 		                게시글 가기
 		              </button>
 	              

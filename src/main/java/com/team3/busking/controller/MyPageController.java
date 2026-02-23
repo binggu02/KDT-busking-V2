@@ -1,5 +1,6 @@
 package com.team3.busking.controller;
 
+import com.team3.busking.domain.Board;
 import com.team3.busking.domain.Member;
 import com.team3.busking.service.BoardService;
 import com.team3.busking.service.GearReservationService;
@@ -7,6 +8,9 @@ import com.team3.busking.service.LocaleService;
 import com.team3.busking.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -138,12 +142,14 @@ public class MyPageController {
        /mypage/board/update
        ========================= */
     @GetMapping("/board/update")
-    public String boardUpdate(HttpSession session) {
+    public String boardUpdate(HttpSession session, Model model) {
 
         Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
+        
+        
 
         return "mypage/board/update";
     }
