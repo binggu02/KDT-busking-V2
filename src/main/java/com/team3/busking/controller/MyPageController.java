@@ -206,4 +206,26 @@ public class MyPageController {
         return "redirect:/mypage?tab=gear";
     }
     
+    @GetMapping("/place/return")
+    public String returnPlaceReservation(
+            @RequestParam Long id, // PlaceReservation ID
+            HttpSession session
+    ) {
+        Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
+
+        try {
+            // LocaleService에서 취소 로직 호출
+            reservationService.cancelReservation(id, loginMember.getId());
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            // 실패 시 alert 띄우고 싶다면 FlashAttribute 사용 가능
+            session.setAttribute("error", ex.getMessage());
+        }
+
+        // 취소 후 마이페이지 장소 탭으로 이동
+        return "redirect:/mypage?tab=place";
+    
+    }
 }

@@ -4,6 +4,31 @@ COLLATE utf8mb4_unicode_ci;
 
 USE buskingdb;
 
+delete from member where id = 1;
+
+delete from place_reservation where user_id = 4;
+
+select * from member;
+select * from board;
+select * from place_reservation;
+select * from gear_reservation;
+select * from gear;
+delete from gear;
+
+
+TRUNCATE gear;
+TRUNCATE gear_reservation;
+
+TRUNCATE TABLE gear_reservation;
+TRUNCATE TABLE gear;
+DELETE FROM gear WHERE id > 0;
+
+drop table place_reservation;
+drop table place;
+
+
+desc board;
+
 CREATE USER IF NOT EXISTS 'busker'@'localhost'
 IDENTIFIED BY '1234';
 
@@ -46,14 +71,14 @@ INSERT INTO gear (
     gear_price,
     gear_thumbnail
 ) VALUES
-(3, '어쿠스틱 기타', '버스킹용 기본 어쿠스틱 기타', 15000, 'acoustic_guitar.jpg'),
-(8, '일렉 기타 앰프', '야외 공연용 고출력 기타 앰프', 20000, 'guitar_amp.jpg'),
-(2, '마이크 세트', '유선 마이크 + 스탠드 포함', 10000, 'mic_set.jpg'),
-(5, '포터블 스피커', '야외용 블루투스 스피커', 25000, 'portable_speaker.jpg'),
-(4, '전자 키보드', '61건반 전자 키보드', 30000, 'keyboard.jpg'),
-(10, '카혼', '버스킹용 타악기 카혼', 12000, 'cajon.jpg'),
-(3, '마이크 스탠드', '높이 조절 가능 스탠드', 5000, 'mic_stand.jpg'),
-(4, '이펙터 보드', '기타 멀티 이펙터', 18000, 'effector.jpg');
+(3, '어쿠스틱 기타', '버스킹용 기본 어쿠스틱 기타', 15000, 'guitar.jpg'),
+(8, '일렉 기타 앰프', '야외 공연용 고출력 기타 앰프', 20000, 'em.jpg'),
+(2, '마이크 세트', '유선 마이크 + 스탠드 포함', 10000, 'ma.jpg'),
+(5, '포터블 스피커', '야외용 블루투스 스피커', 25000, 'speak.jpg'),
+(4, '전자 키보드', '61건반 전자 키보드', 30000, 'key.jpg'),
+(10, '카혼', '버스킹용 타악기 카혼', 12000, 'kahon.jpg'),
+(3, '마이크 스탠드', '높이 조절 가능 스탠드', 5000, 'stand.jpg'),
+(4, '이펙터 보드', '기타 멀티 이펙터', 18000, 'ter.jpg');
 SELECT gear_id, place_id, gear_name, gear_price FROM gear;
 
 
@@ -109,12 +134,28 @@ CREATE TABLE gear_reservation (
      CONSTRAINT fk_place_city FOREIGN KEY (city_id) REFERENCES city(city_id)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     
+use buskingdb;
+TRUNCATE place;
+delete from place;
+delete from place_reservation;
+
+select * from place_reservation;
+
+select * from place;
+
+delete from place
+where city_id > 0;
+
+DELETE FROM place_reservation
+WHERE id > 0;
+
+    
     insert into place
 (city_id, place_name, place_address, place_phone, place_description, thumbnail)
 values
 
 -- 서울
-(1, '서울광장', '서울 중구 세종대로', '02-120', '서울 대표 버스킹 광장', 'seoul.jpg',
+(1, '서울광장', '서울 중구 세종대로', '02-120', '서울 대표 버스킹 광장', 'seoul.jpg'),
 (1, '한강공원 여의도', '서울 영등포구 여의동로', '02-3780-0561', '한강 버스킹 인기 지역', 'Han River.png'),
 (1, '홍대 걷고싶은거리', '서울 마포구 홍익로', '02-3153-8100', '젊음의 거리 버스킹 명소', 'Hongdae.png'),
 
@@ -169,7 +210,10 @@ values
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_res_place
-        FOREIGN KEY (place_id) REFERENCES place(place_id)
+        FOREIGN KEY (place_id) REFERENCES place(place_id),
+
+    -- ✅ 중복 방지를 위한 유니크 인덱스 (status 포함)
+    UNIQUE KEY uq_place_reservation_slot (place_id, reservation_date, start_time, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -217,7 +261,6 @@ CREATE TABLE role (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 select * from member;
-
 -- 일반 회원 권한 회원 매핑
 CREATE TABLE member_role (
   member_role_id BIGINT NOT NULL AUTO_INCREMENT,
@@ -263,6 +306,8 @@ CREATE TABLE board_type (
     board_type_id INT AUTO_INCREMENT PRIMARY KEY,
     board_name VARCHAR(50) NOT NULL UNIQUE COMMENT '게시판 이름 (홍보게시판, Q&A 등)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+select * from board;
 
 -- =========================
 -- 게시글 테이블

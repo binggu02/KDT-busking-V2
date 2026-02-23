@@ -89,6 +89,12 @@
 	                <span class="status ${r.status ? 'done' : 'pending'}">
 	                  ${r.status ? '완료' : '취소'}
 	                </span>
+	                <c:if test="${r.status}">
+					    <button class="btn outline" type="button"
+					      onclick="location.href='${pageContext.request.contextPath}/mypage/place/return?id=${r.id}&tab=place'">
+					      예약 취소하기
+					    </button>
+					  </c:if>
 	              </div>
 	            </article>
 	          </c:forEach>
