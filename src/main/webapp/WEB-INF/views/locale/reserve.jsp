@@ -23,6 +23,12 @@
       <!-- 선택 장소 -->
       <aside class="place-side">
         <div class="place-info">
+        	<div class="place-img-wrap">
+			  <img src="<c:url value='/images/place/${place.thumbnail}' />"
+			       alt="${place.placeName}"
+			       class="place-img">
+			</div>
+        
           <!-- 🔥 여기 수정됨 -->
           <div class="place-name">${place.placeName}</div>
           <div class="place-addr">${place.placeAddress}</div>
@@ -37,8 +43,7 @@
 
           <div class="form-left">
             <div class="line">
-              <span class="label">예약자 명 :</span>
-              <span class="value">${userName}</span>
+              <label class="label">예약자 명 : ${userName }</label>
             </div>
 
             <div class="line input">

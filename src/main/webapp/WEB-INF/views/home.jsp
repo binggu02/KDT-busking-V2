@@ -55,35 +55,41 @@
         </div>
 
         <div class="grid grid-3">
+          <a href="<c:url value='/locale/reserve?placeId=24'/>">
           <article class="card place-card">
             <div class="thumb">
-              <img src="<c:url value='/images/Hongdae.png'/>" alt="홍대 걷고싶은거리">
+              <img src="<c:url value='/images/place/Hongdae.png'/>" alt="홍대 걷고싶은거리">
             </div>
             <div class="card-body">
               <h3>홍대 걷고싶은거리</h3>
               <p>서울 마포구</p>
             </div>
           </article>
+          </a>
 
+			<a href="<c:url value='/locale/reserve?placeId=23'/>">
           <article class="card place-card">
             <div class="thumb">
-              <img src="<c:url value='/images/Han River.png'/>" alt="한강 반포공원">
+              <img src="<c:url value='/images/place/Han River.png'/>" alt="한강공원 여의도">
             </div>
             <div class="card-body">
               <h3>한강 반포공원</h3>
               <p>서울 서초구</p>
             </div>
           </article>
+          </a>
 
+			<a href="<c:url value='/locale/reserve?placeId=29'/>">
           <article class="card place-card">
             <div class="thumb">
-              <img src="<c:url value='/images/Gwanganri.png'/>" alt="광안리 해변">
+              <img src="<c:url value='/images/place/Gwanganri.png'/>" alt="광안리 해변">
             </div>
             <div class="card-body">
               <h3>광안리 해변</h3>
               <p>부산 수영구</p>
             </div>
           </article>
+          </a>
         </div>
       </section>
 

@@ -31,7 +31,7 @@
 			<button class="thumb"
 			        type="button"
 			        aria-label="지도보기"
-			        style="background-image: url('<c:url value="/images/Hongdae.png"/>');">
+			        style="background-image: url('<c:url value="/images/place/${place.thumbnail}"/>');">
 			</button>
 
 

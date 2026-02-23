@@ -1,14 +1,20 @@
 package com.team3.busking.controller;
 
+import com.team3.busking.domain.Board;
 import com.team3.busking.domain.Member;
 import com.team3.busking.service.BoardService;
 import com.team3.busking.service.GearReservationService;
 import com.team3.busking.service.LocaleService;
+import com.team3.busking.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MyPageController {
 
+    private final MemberService memberService;
+
     private final GearReservationService gearReservationService;
     private final LocaleService reservationService;
     private final BoardService boardService;
+
 
     /* =========================
        마이페이지 메인
@@ -58,7 +67,7 @@ public class MyPageController {
        /mypage/update
        ========================= */
     @GetMapping("/update")
-    public String update(HttpSession session, Model model) {
+    public String Getupdate(HttpSession session, Model model) {
 
         Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
@@ -68,6 +77,35 @@ public class MyPageController {
         model.addAttribute("member", loginMember);
         return "mypage/update";
     }
+    
+    /* =========================
+    프로필 수정 요청처리
+    /mypage/update
+    ========================= */
+    @PostMapping("/update")
+    public String Setupdate(HttpSession session, Member member,
+    						@RequestParam String pw1, @RequestParam String pw2) {
+    	
+    	// 로그인 세션 처리
+    	Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
+        
+        // 비번 두개가 맞는지 확인 로직
+        if(pw1.equals(pw2)) {
+        	loginMember.setPw(pw2);
+        	memberService.updateMember(loginMember);
+        } else {
+        	return "redirect:/mypage/update";
+        }
+        
+        
+    	
+    	return "redirect:/mypage";
+    }
+    
+    
 
     /* =========================
        회원 탈퇴
@@ -104,12 +142,14 @@ public class MyPageController {
        /mypage/board/update
        ========================= */
     @GetMapping("/board/update")
-    public String boardUpdate(HttpSession session) {
+    public String boardUpdate(HttpSession session, Model model) {
 
         Member loginMember = (Member) session.getAttribute("loginUser");
         if (loginMember == null) {
             return "redirect:/member/login";
         }
+        
+        
 
         return "mypage/board/update";
     }

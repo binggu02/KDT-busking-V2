@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.team3.busking.domain.Board;
+import com.team3.busking.domain.Member;
 import com.team3.busking.service.BoardService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
@@ -38,8 +41,13 @@ public class BoardController {
        게시글 상세
        ========================= */
     @GetMapping("/view")
-    public String view(@RequestParam Long id, Model model) {
-
+    public String view(HttpSession session, @RequestParam Long id, Model model) {
+    	Member loginUser = (Member) session.getAttribute("loginUser");
+    	if(loginUser == null) {
+    		
+    	}
+    	
+    	
         Board board = boardService.getBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 없음"));
 
@@ -65,11 +73,17 @@ public class BoardController {
        글쓰기 처리
        ========================= */
     @PostMapping("/create")
-    public String createSubmit(Board board) {
+    public String createSubmit(HttpSession session, Board board) {
 
-        // 🔥 임시 작성자 (로그인 기능 연동 시 교체)
-        board.setUserId(1L);
+    	Member loginMember = (Member) session.getAttribute("loginUser");
+    	if (loginMember == null) {
+            return "redirect:/member/login";
+        }
+    	
+        board.setUserId(loginMember.getId());
 
+        
+        
         boardService.createBoard(
                 board.getUserId(),
                 board.getBoardTypeId(),
@@ -89,6 +103,8 @@ public class BoardController {
         Board board = boardService.getBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 없음"));
 
+       
+        
         model.addAttribute("board", board);
         return "board/update";
     }
