@@ -207,6 +207,10 @@
       panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
     });
   });
+  
+  window.addEventListener("DOMContentLoaded", () => {
+	    document.querySelector('.tab[data-tab="place"]')?.click();
+	  });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
