@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,25 +59,30 @@
       <!-- 버튼 영역 -->
       <div class="board-view-actions">
 
-        <button class="btn-outline"
-          onclick="location.href='<%=request.getContextPath()%>/board/main?typeId=${board.boardTypeId}'">
-          목록
+  <button class="btn-outline"
+    onclick="location.href='<%=request.getContextPath()%>/board/main?typeId=${board.boardTypeId}'">
+    목록
+  </button>
+
+  <c:if test="${not empty sessionScope.loginUser 
+              and sessionScope.loginUser.id == board.userId}">
+
+      <button class="btn-outline"
+        onclick="location.href='<%=request.getContextPath()%>/board/update?id=${board.boardId}'">
+        수정
+      </button>
+
+      <form action="<%=request.getContextPath()%>/board/delete" method="post">
+        <input type="hidden" name="id" value="${board.boardId}" />
+        <button type="submit" class="btn-outline"
+          onclick="return confirm('게시글을 삭제하시겠습니까?');">
+          삭제
         </button>
+      </form>
 
-        <button class="btn-outline"
-          onclick="location.href='<%=request.getContextPath()%>/board/update?id=${board.boardId}'">
-          수정
-        </button>
+  </c:if>
 
-        <form action="<%=request.getContextPath()%>/board/delete" method="post">
-          <input type="hidden" name="id" value="${board.boardId}" />
-          <button type="submit" class="btn-outline"
-            onclick="return confirm('게시글을 삭제하시겠습니까?');">
-            삭제
-          </button>
-        </form>
-
-      </div>
+</div>
 
     </div>
   </div>

@@ -75,6 +75,8 @@
           목록
         </button>
 
+<c:if test="${not empty sessionScope.loginUser 
+            and sessionScope.loginUser.id == board.userId}">
         <form action="<%=request.getContextPath()%>/board/delete"
               method="post"
               style="display:inline;">
@@ -84,6 +86,7 @@
                   onclick="return confirm('해당 Q&A를 삭제하시겠습니까?');">
             삭제
           </button>
+          </c:if>
         </form>
       </div>
     </div>
