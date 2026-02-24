@@ -56,4 +56,28 @@ public class AdminPlaceService {
         // 더티체킹으로 반영되지만 명시 저장해도 OK
         placeRepository.save(place);
     }
+
+    @Transactional
+	public void createPlace(Long cityId, String placeName, String placeAddress, String placePhone,
+			String placeDescription, String thumbnail) {
+		// TODO Auto-generated method stub
+    	
+    	Place place = new Place();
+    	
+    	if (cityId != null) {
+            City city = cityRepository.findById(cityId)
+                    .orElseThrow(() -> new IllegalArgumentException("도시가 존재하지 않습니다."));
+            place.setCity(city);
+        }
+
+        place.setPlaceName(placeName);
+        place.setPlaceAddress(placeAddress);
+        place.setPlacePhone(placePhone);
+        place.setPlaceDescription(placeDescription);
+        place.setThumbnail(thumbnail);
+
+        placeRepository.save(place);
+    	
+		
+	}
 }

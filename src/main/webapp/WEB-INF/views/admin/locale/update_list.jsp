@@ -58,6 +58,30 @@
         .edit { background-color: #ff7875; }
         .view { background-color: #ff4d4f; }
         .empty { padding: 30px; color: #666; }
+        
+        
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-write {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+
+  background: linear-gradient(135deg, #111, #333);
+  color: #fff;
+
+  border: none;
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+}
 	</style>	 
 
 </head>
@@ -89,7 +113,13 @@
 
 
 			<main>
-				<h2>장소 정보 업데이트</h2>
+				
+				
+				<div class="page-header">
+					<h2>장소 관리 > 장소 정보 리스트</h2>
+					<button class="btn-write" onclick="location.href='<c:url value="/admin/locale/create"/>'">장비 신규 등록</button>
+					
+				</div>
 
 				<table>
 					<thead>

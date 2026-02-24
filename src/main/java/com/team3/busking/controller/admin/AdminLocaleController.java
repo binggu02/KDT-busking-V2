@@ -3,12 +3,18 @@ package com.team3.busking.controller.admin;
 import com.team3.busking.domain.Member;
 
 import com.team3.busking.domain.Place;
+import com.team3.busking.repository.CityRepository;
+import com.team3.busking.repository.PlaceRepository;
+import com.team3.busking.service.LocaleService;
 import com.team3.busking.service.admin.AdminPlaceService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,6 +24,7 @@ import java.util.List;
 public class AdminLocaleController {
 
     private final AdminPlaceService adminPlaceService;
+    private final LocaleService localeService;
 
     // ✅ (1) 장소 업데이트 목록: GET /admin/place/update_list
     @GetMapping("/update_list")
@@ -60,6 +67,39 @@ public class AdminLocaleController {
 
         return "redirect:/admin/locale/update_list";
     }
+    
+    @GetMapping("/create")
+    public String createPlace(HttpSession session, Model model) {
+        if (!isAdmin(session)) return "redirect:/member/login";
+
+        model.addAttribute("cityList", localeService.getCities());
+
+        return "admin/locale/create";
+    }
+    
+    @PostMapping("create")
+    public String createPlaceComplete(HttpSession session,
+    		@RequestParam(required = false) Long cityId,
+            @RequestParam String placeName,
+            @RequestParam String placeAddress,
+            @RequestParam(required = false) String placePhone,
+            @RequestParam(required = false) String placeDescription,
+            @RequestParam(required = false) String thumbnail
+    		) {
+    	if (!isAdmin(session)) return "redirect:/member/login";
+    	
+    	adminPlaceService.createPlace(
+    			cityId,
+                placeName,
+                placeAddress,
+                placePhone,
+                placeDescription,
+                thumbnail
+               );
+    	
+    	return "redirect:/admin/locale/update_list";
+    }
+    
 
     private boolean isAdmin(HttpSession session) {
         Object obj = session.getAttribute("loginUser");
