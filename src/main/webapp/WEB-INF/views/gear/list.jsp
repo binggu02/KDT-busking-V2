@@ -26,6 +26,23 @@
 
 
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장비 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">장비 예약</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <main class="main">
   <div class="container">
 
@@ -34,10 +51,6 @@
     </c:if>
 
 
-    <!-- ✅ 디버깅용: DB에서 넘어온 개수 (문제 해결되면 지워도 됨) -->
-    <div style="margin:10px 0; color:#666; font-size:12px;">
-      gearList count : <c:out value="${gearList.size()}" />
-    </div>
 
     <section class="gear-grid">
 
@@ -70,15 +83,29 @@
 
         <a class="gear-link gear-card" href="${reserveWithIdUrl}">
           <div class="thumb"
-               style="background-image:url('${imgUrl}');"
-               aria-label="<c:out value='${g.gearName}'/> 이미지">
-               </div>
-
-          <div class="card-body">
-            <div class="card-title"><c:out value="${g.gearName}" /></div>
-            <div class="card-price">₩<c:out value="${g.gearPrice}" /></div>
-            <div class="card-desc"><c:out value="${g.gearDescription}" /></div>
-          </div>
+			     style="background-image:url('<c:out value="${imgUrl}"/>');"
+			     aria-label="<c:out value='${g.gearName}'/> 이미지">
+			</div>
+			<div class="card-body">
+			  
+			  <div class="card-header">
+			    <div class="card-title">
+			      <c:out value="${g.gearName}" />
+			    </div>
+			    <div class="card-quantity">
+			      수량 : <c:out value="${g.gearQuantity}" />
+			    </div>
+			  </div>
+			
+			  <div class="card-price">
+			    ₩<c:out value="${g.gearPrice}" />
+			  </div>
+			
+			  <div class="card-desc">
+			    <c:out value="${g.gearDescription}" />
+			  </div>
+			
+			</div>
         </a>
 
       </c:forEach>
