@@ -75,12 +75,18 @@ public class MemberService {
         // JpaRepository의 save() 메서드는 ID가 존재하면 업데이트를 수행합니다.
         memberRepository.save(member);
     }
+    
+ // PK(Long)로 회원 조회
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+    }
+
 
     // 5. 회원 정보 삭제
     @Transactional
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);
-        
     }
     
     // 아이디 찾기 메소드 feat.병현

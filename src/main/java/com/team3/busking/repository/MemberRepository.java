@@ -2,8 +2,10 @@ package com.team3.busking.repository;
 
 import com.team3.busking.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,4 +37,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByMemberId(String memberId);
     
     List<Member> findTop5ByOrderByIdDesc();
+    
 }

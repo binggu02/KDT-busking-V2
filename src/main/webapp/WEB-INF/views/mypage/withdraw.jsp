@@ -66,7 +66,7 @@
             <button id="btnWithdraw" class="joinok-btn danger" type="button">
               완전히 탈퇴하기
             </button>
-            <button class="joinok-btn" type="button" onclick="location.href='/mypage'">
+            <button class="joinok-btn" type="button" onclick="location.href='redirect:/'">
               취소
             </button>
           </div>
