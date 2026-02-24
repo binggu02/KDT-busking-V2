@@ -115,6 +115,7 @@ public class MyPageController {
 	    if (loginMember == null) {
 	        return "redirect:/member/login";
 	    }
+	    
 
 	    // 🔥 PK 그대로 사용
 	    Member freshMember = memberService.findById(loginMember.getId());
@@ -124,7 +125,17 @@ public class MyPageController {
 	        return "redirect:/mypage/withdraw";
 	    }
 
-	    memberService.deleteMember(freshMember.getId());
+	    try {
+	        // 🔥 삭제 시 예외 발생 여부 확인
+	        memberService.deleteMember(freshMember.getId());
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 콘솔에 예외 로그 출력
+	        redirectAttributes.addFlashAttribute("errorMessage", "회원 탈퇴 중 오류가 발생했습니다: " + e.getMessage());
+	        return "redirect:/mypage/withdraw";
+	    }
+	    
+	    
+	    
 	    session.invalidate();
 
 	    return "redirect:/";

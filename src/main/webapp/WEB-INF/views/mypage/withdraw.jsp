@@ -38,7 +38,7 @@
     <div class="container">
       <div class="login-wrapper withdraw-card">
 
-        <form id="withdrawForm" action="./main.jsp" method="post">
+        <form id="withdrawForm" action="/mypage/withdraw" method="post">
           <!-- ✅ 제목/설명 -->
           <h2 class="withdraw-title">정말 탈퇴 하시겠습니까?</h2>
 
@@ -63,7 +63,7 @@
 
           <!-- ✅ 버튼 -->
           <div class="btn-col withdraw-actions">
-            <button id="btnWithdraw" class="joinok-btn danger" type="button">
+            <button id="btnWithdraw" class="joinok-btn danger" type="submit">
               완전히 탈퇴하기
             </button>
             <button class="joinok-btn" type="button" onclick="location.href='redirect:/'">
@@ -95,30 +95,29 @@
 
     // ✅ 탈퇴 버튼: 비밀번호 입력 확인 + 팝업 확인 후 진행
     const withdrawBtn = document.getElementById("btnWithdraw");
-    const form = document.getElementById("withdrawForm");
-    const pwInput = document.getElementById("pw1");
+	const form = document.getElementById("withdrawForm");
+	const pwInput = document.getElementById("pw1");
 
-    withdrawBtn.addEventListener("click", () => {
-      const pw = pwInput.value.trim();
+	form.addEventListener("submit", (e) => {
+	  const pw = pwInput.value.trim();
 
-      // 1) 비밀번호 미입력 방지
-      if (!pw) {
-        alert("비밀번호를 입력해주세요.");
-        pwInput.focus();
-        return;
-      }
+	  // 비밀번호 미입력 방지
+	  if (!pw) {
+	    e.preventDefault(); // submit 막기
+	    alert("비밀번호를 입력해주세요.");
+	    pwInput.focus();
+	    return;
+	  }
 
-      // 2) 한번 더 확인 팝업
-      const ok = confirm("정말로 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.");
-      if (!ok) return;
+	  // 탈퇴 확인 팝업
+	  const ok = confirm("정말로 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.");
+	  if (!ok) {
+	    e.preventDefault(); // submit 막기
+	    return;
+	  }
 
-      // ✅ 여기서 서버로 탈퇴 요청을 보내야 함(실서비스)
-      // 지금은 예시로 form submit 또는 페이지 이동 처리
-      // form.submit();
-
-      // 폼 submit 대신 이동을 원하면:
-      location.href = "/";
-    });
+	  // ✅ 정상 제출 시 서버 컨트롤러로 POST 전송
+	});
   </script>
 </body>
 </html>

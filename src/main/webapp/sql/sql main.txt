@@ -1,42 +1,56 @@
+-- 데이터베이스 생성
 CREATE DATABASE IF NOT EXISTS buskingdb
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
-USE buskingdb;
-
-delete from member where id = 1;
-
-delete from place_reservation where user_id = 4;
-
-select * from member;
-select * from board;
-
-select * from place;
-
-select * from place_reservation;
-select * from gear_reservation;
-select * from gear;
-delete from gear;
-
-
-TRUNCATE gear;
-TRUNCATE gear_reservation;
-
-TRUNCATE TABLE gear_reservation;
-TRUNCATE TABLE gear;
-DELETE FROM gear WHERE id > 0;
-
-drop table place_reservation;
-drop table place;
-
-
-desc board;
-
+-- 계정 생성 명령어
 CREATE USER IF NOT EXISTS 'busker'@'localhost'
 IDENTIFIED BY '1234';
 
+-- 계정 권한 설정
 GRANT ALL PRIVILEGES ON buskingdb.* TO 'busker'@'localhost';
+
+-- 적용 명령어 
 FLUSH PRIVILEGES;
+
+-- 데이터베이스 선택
+USE buskingdb;
+
+-- 데이터베이스 전체 테이블 조회
+SHOW TABLES;
+
+
+-- member 회원 테이블 관련 명령어
+select * from member;
+
+delete from member where id = 1;
+
+-- board 게시판 관련 명령어
+select * from board;
+desc board;
+
+-- city 도시 관련 명령어
+select * from city;
+
+-- place 장소 관련 명령어
+select * from place;
+select * from place_reservation;
+
+drop table place;
+drop table place_reservation;
+delete from place_reservation where id > 0;
+
+-- gear 장비 관련 명령어
+select * from gear;
+select * from gear_reservation;
+
+delete from gear;
+DELETE FROM gear WHERE id > 0;
+
+
+
+
+
 
 CREATE TABLE member (
     id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
@@ -55,6 +69,7 @@ CREATE TABLE member (
     UNIQUE KEY uk_member_member_id (member_id)
 );
 
+
 CREATE TABLE gear (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '장비 PK',
 
@@ -67,6 +82,7 @@ CREATE TABLE gear (
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성일'
 ) ENGINE=InnoDB;
+
 INSERT INTO gear (
     gear_quantity,
     gear_name,
@@ -82,7 +98,7 @@ INSERT INTO gear (
 (10, '카혼', '버스킹용 타악기 카혼', 12000, 'kahon.jpg'),
 (3, '마이크 스탠드', '높이 조절 가능 스탠드', 5000, 'stand.jpg'),
 (4, '이펙터 보드', '기타 멀티 이펙터', 18000, 'ter.jpg');
-SELECT gear_id, place_id, gear_name, gear_price FROM gear;
+
 
 
 CREATE TABLE gear_reservation (
@@ -124,7 +140,6 @@ CREATE TABLE gear_reservation (
    ('ulsan',   '울산광역시'),
    ('daejeon', '대전광역시');
 
-   -- PLACE
    CREATE TABLE place (
      place_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      city_id  BIGINT NOT NULL,
@@ -137,21 +152,6 @@ CREATE TABLE gear_reservation (
      CONSTRAINT fk_place_city FOREIGN KEY (city_id) REFERENCES city(city_id)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     
-use buskingdb;
-TRUNCATE place;
-delete from place;
-delete from place_reservation;
-
-select * from place_reservation;
-
-select * from place;
-
-delete from place
-where city_id > 0;
-
-DELETE FROM place_reservation
-WHERE id > 0;
-
     
     insert into place
 (city_id, place_name, place_address, place_phone, place_description, thumbnail)
@@ -193,7 +193,6 @@ values
 (7, '한빛탑 광장', '대전 유성구', '042-270-8452', '야외 공연 무대',  'hanstar.jpg');
 
 
-   -- RESERVATION
    CREATE TABLE place_reservation (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
@@ -220,42 +219,6 @@ values
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- (선택) 같은 장소/날짜/시간 중복 방지
-CREATE UNIQUE INDEX uq_place_reservation_slot
-ON place_reservation(place_id, reservation_date, start_time);
-
-SHOW TABLES;
-
-use buskingdb;
-select * from place;
-
-drop table member;
-
-drop table gear;
-drop table gear_reservation;
-
-drop table city;
-drop table place;
-drop table place_reservation;
-
--- 지역별 장소 조회
-select city_id, place_name from place;
-
--- 지역 조회
-select * from city;
-
--- 장소 예약 조회
-select * from place_reservation;
-
--- 장비 조회
-select * from gear;
-
--- 장비 예약 조회
-select * from gear_reservation;
-
-DROP INDEX uq_reservation_slot ON reservation;
-
-show tables;
 -- 권한 부여 테이블
 CREATE TABLE role (
   role_id BIGINT NOT NULL AUTO_INCREMENT,
@@ -263,7 +226,6 @@ CREATE TABLE role (
   PRIMARY KEY (role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-select * from member;
 -- 일반 회원 권한 회원 매핑
 CREATE TABLE member_role (
   member_role_id BIGINT NOT NULL AUTO_INCREMENT,
@@ -311,6 +273,7 @@ CREATE TABLE board_type (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 select * from board;
+select * from board_type;
 
 -- =========================
 -- 게시글 테이블
