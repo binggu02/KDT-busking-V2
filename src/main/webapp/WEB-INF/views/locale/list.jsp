@@ -16,9 +16,24 @@
 	
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장소 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">지역 리스트</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <main class="main">
     <div class="container">
-      <h2 style="margin: 0 0 16px;">지역 선택</h2>
 
       <!-- FE UI 템플릿 + BE 데이터(cities)만 주입 -->
       <section class="region-grid" aria-label="지역 선택">

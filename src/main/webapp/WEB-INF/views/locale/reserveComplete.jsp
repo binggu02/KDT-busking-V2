@@ -15,6 +15,26 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장소 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <a href="/locale/list">지역 리스트</a>
+          <span class="divider">›</span>
+          <span class="current">장소 선택</span>
+          <span class="divider">›</span>
+          <span class="current">장소 예약 성공</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <main class="main complete-main">
   <div class="container">
 

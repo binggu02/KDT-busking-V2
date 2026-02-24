@@ -132,3 +132,62 @@ body {
   font-size: 14px;
   color: #666;
 }
+
+
+
+/* =========================
+   PAGE BANNER
+========================= */
+.page-banner{
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color:#fff;
+  padding: 35px 0 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-banner::after{
+  content:"";
+  position:absolute;
+  top:-50%;
+  right:-20%;
+  width:400px;
+  height:400px;
+  background: rgba(255,255,255,0.04);
+  border-radius:50%;
+}
+
+.page-banner-inner{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.page-title{
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.breadcrumb{
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+}
+
+.breadcrumb a{
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover{
+  text-decoration: underline;
+}
+
+.divider{
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+.current{
+  opacity: 0.7;
+}

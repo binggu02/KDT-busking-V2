@@ -14,13 +14,30 @@
 
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">게시판</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">게시판</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <main class="main board-page">
 
   <div class="board-container">
 
     <!-- 상단 헤더 -->
     <div class="board-header">
-      <h2>${typeId == 1 ? "자유게시판" : "Q&A"}</h2>
+      <h2></h2>
 
       <button class="btn-write"
         onclick="location.href='${pageContext.request.contextPath}/board/create'">

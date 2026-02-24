@@ -17,6 +17,25 @@
 
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+	
+	
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">마이페이지</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">대시보드</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	
+	
+	
 <main class="main">
   <div class="container">
 

@@ -13,6 +13,27 @@
 <body>
 
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">게시판</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <a href="/board/main?=typeId=1">게시판</a>
+          <span class="divider">›</span>
+          <span class="current">자유 게시판</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <main class="board-page">
   <div class="board-view-wrap">
 

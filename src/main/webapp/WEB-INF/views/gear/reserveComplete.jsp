@@ -29,6 +29,26 @@
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장비 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <a href="/">장비 리스트</a>
+          <span class="divider">›</span>
+          <span class="current">장비 예약</span>
+          <span class="divider">›</span>
+          <span class="current">장비 예약 성공</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <main class="complete-main">
   <div class="container">
   	<div class="complete-wrap">

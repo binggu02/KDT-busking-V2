@@ -35,7 +35,7 @@
         <div class="breadcrumb">
           <a href="/">홈</a>
           <span class="divider">›</span>
-          <span class="current">장비 예약</span>
+          <span class="current">장비 리스트</span>
         </div>
       </div>
     </div>

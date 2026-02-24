@@ -16,6 +16,25 @@
 <!-- body에 클래스 추가 -->
 <body class="mypage-page update-page">
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+	
+	
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">마이페이지</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+			<a href="/mypage?tab=gear">대시보드</a>          
+          <span class="divider">›</span>
+          <span class="current">회원 정보 수정</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	
 
   <main class="main">
     <div class="container">
@@ -62,7 +81,7 @@
           <div class="field">
             <label for="pw1"></label>
             <div class="input-toggle">
-              <input type="password" id="pw1" name="pw1" placeholder="새 비밀번호">
+              <input type="password" id="pw1" name="pw1" placeholder="새 비밀번호" required="required">
               <button type="button" class="toggle-btn" aria-label="비밀번호 보기" data-target="#pw1">
                 보기
               </button>
@@ -72,7 +91,7 @@
           <div class="field">
             <label for="pw2"></label>
             <div class="input-toggle">
-              <input type="password" id="pw2" name="pw2" placeholder="새 비밀번호 확인">
+              <input type="password" id="pw2" name="pw2" placeholder="새 비밀번호 확인" required="required">
               <button type="button" class="toggle-btn" aria-label="비밀번호 보기" data-target="#pw2">
                 보기
               </button>
