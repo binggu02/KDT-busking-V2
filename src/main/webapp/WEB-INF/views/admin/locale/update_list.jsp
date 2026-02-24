@@ -143,6 +143,7 @@
 								<td><c:out value="${p.placePhone}" /></td>
 								<td class="manage-btns">
 								<a class="edit" href="<c:url value='/admin/locale/update'/>?id=${p.id}">수정</a>
+								<a class="edit" href="<c:url value='/admin/locale/delete'/>?id=${p.id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 								</td>
 							</tr>
 						</c:forEach>

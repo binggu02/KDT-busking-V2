@@ -80,4 +80,11 @@ public class AdminPlaceService {
     	
 		
 	}
+
+    @Transactional
+	public void deletePlace(Long id) {
+		// TODO Auto-generated method stub
+    	placeRepository.deleteById(id);
+		
+	}
 }

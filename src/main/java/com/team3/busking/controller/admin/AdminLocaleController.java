@@ -100,6 +100,15 @@ public class AdminLocaleController {
     	return "redirect:/admin/locale/update_list";
     }
     
+    @GetMapping("delete")
+    public String deletePlace(HttpSession session, @RequestParam Long id) {
+    	if (!isAdmin(session)) return "redirect:/member/login";
+    	
+    	adminPlaceService.deletePlace(id);
+    	
+    	return "redirect:/admin/locale/update_list";
+    }
+    
 
     private boolean isAdmin(HttpSession session) {
         Object obj = session.getAttribute("loginUser");
