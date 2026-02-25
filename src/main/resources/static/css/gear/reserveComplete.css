@@ -122,3 +122,79 @@
     padding: 24px 16px;
   }
 }
+
+
+/* ======================
+   예약 요약 카드
+====================== */
+
+.mini-card{
+  width: 280px;
+  margin: 0 auto 32px;
+  border-radius: 14px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.mini-thumb{
+  height: 150px;
+  background:#fff center/cover no-repeat;
+    background-position:center;
+    background-size: contain;
+    background-color: #fff;
+}
+
+.mini-body{
+  padding: 16px 16px 18px;
+  text-align:left;
+}
+
+.mini-gear{
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color:#111;
+}
+
+.mini-info{
+  margin: 0;
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+}
+
+.mini-row{
+  display:flex;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.mini-row dt{
+  width: 72px;
+  color:#777;
+  font-weight: 700;
+}
+
+.mini-row dd{
+  margin:0;
+  color:#111;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+
+/* 체크 아이콘 (차분한 다크톤) */
+.check-icon{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:60px;
+  height:60px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background:#2f2f33;
+  color:#fff;
+  font-size:26px;
+  font-weight:900;
+}

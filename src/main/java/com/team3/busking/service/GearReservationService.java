@@ -20,7 +20,7 @@ public class GearReservationService {
     private final GearReservationRepository gearReservationRepository;
 
     @Transactional
-    public void reserve(Long gearId, Long memberId,
+    public Long reserve(Long gearId, Long memberId,
                         LocalDateTime start, LocalDateTime end) {
 
         // 1️⃣ 시간 검증
@@ -71,6 +71,8 @@ public class GearReservationService {
 
         // 7️⃣ 수량 차감 (dirty checking)
         gear.setGearQuantity(gear.getGearQuantity() - 1);
+        
+        return reservation.getId();
     }
 
     
@@ -92,6 +94,14 @@ public class GearReservationService {
     	
     	gr.setStatus(GearReservationStatus.RETURNED);
     	
+    }
+    
+    @Transactional
+    public GearReservation getGearReservation(Long id) {
+    	GearReservation gr = gearReservationRepository.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("예약 정보 없음: " + id));
+    	
+    	return gr; 
     }
     
 }
