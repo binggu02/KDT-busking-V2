@@ -94,6 +94,11 @@ public class GearReservationService {
     	
     	gr.setStatus(GearReservationStatus.RETURNED);
     	
+    	Gear gear = gr.getGear();
+    	
+    	gear.setGearQuantity(gear.getGearQuantity() + 1);
+    	
+    	
     }
     
     @Transactional
