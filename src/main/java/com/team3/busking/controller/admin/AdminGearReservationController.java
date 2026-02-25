@@ -1,19 +1,23 @@
 	package com.team3.busking.controller.admin;
 	
 	import com.team3.busking.domain.Member;
-	import com.team3.busking.service.admin.AdminGearReservationService;
+import com.team3.busking.service.GearReservationService;
+import com.team3.busking.service.admin.AdminGearReservationService;
 	import jakarta.servlet.http.HttpSession;
 	import lombok.RequiredArgsConstructor;
 	import org.springframework.stereotype.Controller;
 	import org.springframework.ui.Model;
 	import org.springframework.web.bind.annotation.*;
-	
-	@Controller
+
+@Controller
 	@RequiredArgsConstructor
 	@RequestMapping("/admin/gear") // ✅ 예약은 경로 분리!
 	public class AdminGearReservationController {
+
+        private final GearReservationService gearReservationService;
 	
 	    private final AdminGearReservationService adminGearReservationService;
+
 	
 	    @GetMapping("/list")
 	    public String list(HttpSession session, Model model) {
@@ -27,7 +31,10 @@
 	    public String delete(@PathVariable Long id, HttpSession session) {
 	        if (!isAdmin(session)) return "redirect:/member/login";
 	
-	        adminGearReservationService.deleteById(id);
+	        gearReservationService.deleteReserve(id);
+	        
+	        
+	        
 	        return "redirect:/admin/gear/list";
 	    }
 	
@@ -41,5 +48,14 @@
 	        return member.getRoles().stream()
 	                .anyMatch(mr -> mr.getRole() != null
 	                        && "ADMIN".equalsIgnoreCase(mr.getRole().getRoleName()));
+	    }
+	    
+	    @GetMapping("/return")
+	    public String returnGear(HttpSession session, @RequestParam Long id) {
+	    	if (!isAdmin(session)) return "redirect:/member/login";
+	    	
+	    	gearReservationService.returnStatus(id);
+	    	
+	    	return "redirect:/admin/gear/list";
 	    }
 	}

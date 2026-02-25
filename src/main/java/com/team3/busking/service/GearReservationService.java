@@ -85,6 +85,14 @@ public class GearReservationService {
     @Transactional
     public void deleteReserve(Long id) {
     	gearReservationRepository.deleteById(id);
+    	
+    	GearReservation gr = gearReservationRepository.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("예약이 존재하지 않습니다."));
+    	
+
+    	Gear gear = gr.getGear();
+    	
+    	gear.setGearQuantity(gear.getGearQuantity() + 1);
     }
     
     @Transactional
