@@ -26,7 +26,7 @@
         <div class="breadcrumb">
           <a href="/">홈</a>
           <span class="divider">›</span>
-			<a href="/mypage?tab=gear">대시보드</a>          
+		  <a href="/mypage?tab=place">대시보드</a>
           <span class="divider">›</span>
           <span class="current">회원 정보 수정</span>
         </div>
