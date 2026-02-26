@@ -11,7 +11,7 @@ import com.team3.busking.domain.Place;
 import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.repository.CityRepository;
 import com.team3.busking.repository.PlaceRepository;
-import com.team3.busking.repository.ReservationRepository;
+import com.team3.busking.repository.PlaceReservationRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -21,10 +21,10 @@ public class LocaleService {
 
     private final CityRepository cityRepository;
     private final PlaceRepository placeRepository;
-    private final ReservationRepository reservationRepository;
+    private final PlaceReservationRepository reservationRepository;
 
     public LocaleService(CityRepository cityRepository, PlaceRepository placeRepository,
-                         ReservationRepository reservationRepository) {
+                         PlaceReservationRepository reservationRepository) {
         this.cityRepository = cityRepository;
         this.placeRepository = placeRepository;
         this.reservationRepository = reservationRepository;

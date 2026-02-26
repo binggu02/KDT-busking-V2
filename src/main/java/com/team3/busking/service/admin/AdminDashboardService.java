@@ -8,7 +8,7 @@ import com.team3.busking.domain.PlaceReservation;
 import com.team3.busking.repository.BoardRepository;
 import com.team3.busking.repository.GearReservationRepository;
 import com.team3.busking.repository.MemberRepository;
-import com.team3.busking.repository.ReservationRepository;
+import com.team3.busking.repository.PlaceReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 public class AdminDashboardService {
 
     private final BoardRepository boardRepository;
-    private final ReservationRepository reservationRepository;      // PlaceReservation repo
+    private final PlaceReservationRepository reservationRepository;      // PlaceReservation repo
     private final GearReservationRepository gearReservationRepository;
     private final MemberRepository memberRepository;
 

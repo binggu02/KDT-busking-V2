@@ -1,5 +1,6 @@
 package com.team3.busking.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.team3.busking.domain.Board;
 import com.team3.busking.domain.Member;
 import com.team3.busking.service.BoardService;
+import com.team3.busking.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,9 +19,12 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
 
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, 
+    						MemberService memberService) {
         this.boardService = boardService;
+        this.memberService = memberService;
     }
 
     /* =========================
@@ -31,8 +36,26 @@ public class BoardController {
             Model model) {
 
         List<Board> list = boardService.getBoardsByBoardTypeId(typeId);
+        
         model.addAttribute("list", list);
         model.addAttribute("typeId", typeId);
+        
+        
+     // 2️⃣ 작성자 리스트 만들기
+        List<Member> matchedMembers = new ArrayList<>();
+        
+        for (Board board : list) {
+            Long userId = board.getUserId();   // 게시글 작성자 ID
+
+            Member member = memberService.findById(userId);  // 작성자 조회
+
+            if (member != null) {
+                matchedMembers.add(member);
+            }
+        }
+        
+        
+        model.addAttribute("matchedMembers", matchedMembers);
 
         return "board/main"; // JSP / Thymeleaf 뷰
     }

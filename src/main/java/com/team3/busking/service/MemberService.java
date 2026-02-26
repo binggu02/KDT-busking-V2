@@ -115,6 +115,11 @@ public class MemberService {
 				.orElseThrow(() ->
 						new IllegalArgumentException("일치하는 회원이 없습니다."));
 	}
+
+	public Member getMemberById(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 }

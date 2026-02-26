@@ -77,7 +77,7 @@
                   ${b.title}
                 </a>
               </td>
-              <td>user${b.userId}</td>
+              <td>user${matchedMembers.userName}</td>
               <td><c:out value="${b.createWriterAt}" /></td>
             </tr>
           </c:if>
