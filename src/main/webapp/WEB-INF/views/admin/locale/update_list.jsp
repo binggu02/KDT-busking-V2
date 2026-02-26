@@ -117,7 +117,7 @@
 				
 				<div class="page-header">
 					<h2>장소 관리 > 장소 정보 리스트</h2>
-					<button class="btn-write" onclick="location.href='<c:url value="/admin/locale/create"/>'">장비 신규 등록</button>
+					<button class="btn-write" onclick="location.href='<c:url value="/admin/locale/create"/>'">장소 신규 등록</button>
 					
 				</div>
 
