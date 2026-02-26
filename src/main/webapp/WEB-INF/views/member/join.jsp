@@ -176,6 +176,7 @@
 </head>
 
 <body class="join-page">
+
   <div class="join-bg"></div>
 
   <div class="join-wrap">
@@ -187,6 +188,11 @@
 
     <div class="join-card">
       <h2 class="join-title">회원가입</h2>
+      <c:if test="${not empty errorMessage}">
+<script>
+    alert("${errorMessage}");
+</script>
+</c:if>
 
       <!-- ✅ 컨트롤러에 맞게: POST /member/register -->
       <form method="post" action="<c:url value='/member/register'/>">
@@ -260,9 +266,9 @@
 
           <!-- ⚠️ find-id/find-pw는 컨트롤러에 POST만 있으므로
                GET 페이지가 없다면 정적 html로 연결해야 404가 안 남 -->
-          <a class="find-link" href="<c:url value='/idfind.html'/>">ID</a>
+          <a class="find-link" href="<c:url value='/member/find-id'/>">ID</a>
           <span class="slash">/</span>
-          <a class="find-link" href="<c:url value='/pwfind.html'/>">PW</a>
+          <a class="find-link" href="<c:url value='/member/find-pw'/>">PW</a>
           <span class="find-text">찾기</span>
         </div>
       </form>

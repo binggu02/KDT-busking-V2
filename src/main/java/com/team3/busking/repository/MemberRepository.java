@@ -37,5 +37,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByMemberId(String memberId);
     
     List<Member> findTop5ByOrderByIdDesc();
+
+	boolean existsByEmail(String email);
     
 }

@@ -37,16 +37,16 @@ public class MemberService {
     }
     
     // ================= 로그인 =================
-    public Optional<Member> login(String memberId, String pw) {
-        Optional<Member> memberOpt = memberRepository.findByMemberId(memberId);
+    public Member login(String memberId, String pw) {
 
-        if (memberOpt.isEmpty()) return Optional.empty();
-        
-        Member member = memberOpt.get();
-        
-        if (!member.getPw().equals(pw)) return Optional.empty();
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다."));
 
-        return memberOpt;
+        if (!member.getPw().equals(pw)) {
+            throw new IllegalStateException("비밀번호를 잘못 입력하셨습니다.");
+        }
+
+        return member;
     }
 
 
@@ -55,6 +55,14 @@ public class MemberService {
         if (memberRepository.existsByMemberId(member.getMemberId())) {
             throw new IllegalStateException("이미 존재하는 회원 ID입니다.");
         }
+        
+        
+        if (member.getEmail() != null && !member.getEmail().isBlank()) {
+            if (memberRepository.existsByEmail(member.getEmail())) {
+                throw new IllegalStateException("이미 사용중인 이메일입니다.");
+            }
+        }
+        
     }
 
     // 2. Read All - 전체 회원 목록 조회

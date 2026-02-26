@@ -50,28 +50,30 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String memberId, @RequestParam String pw, HttpSession session) {
+	   public String login(@RequestParam String memberId,
+	                       @RequestParam String pw,
+	                       HttpSession session,
+	                       Model model) {
 
-	    Optional<Member> memberOpt = memberService.login(memberId, pw);
+	       try {
+	           Member member = memberService.login(memberId, pw);
 
-	    if (memberOpt.isEmpty()) {
-	        return "member/login";
-	    }
+	           session.setAttribute("loginUser", member);
 
-	    Member member = memberOpt.get();
-	    session.setAttribute("loginUser", member);
+	           boolean isAdmin = member.getRoles().stream()
+	                   .anyMatch(mr -> "ADMIN".equalsIgnoreCase(mr.getRole().getRoleName()));
 
-	    // ✅ ADMIN 권한이면 관리자 페이지로 이동
-	    boolean isAdmin = member.getRoles().stream()
-	            .anyMatch(mr -> "ADMIN".equalsIgnoreCase(mr.getRole().getRoleName()));
+	           if (isAdmin) {
+	               return "redirect:/admin/main";
+	           }
 
-	    if (isAdmin) {
-	        return "redirect:/admin/main";
-	    }
+	           return "redirect:/";
 
-	    // ✅ 일반회원이면 기존처럼 홈으로
-	    return "redirect:/";
-	}
+	       } catch (IllegalArgumentException | IllegalStateException e) {
+	           model.addAttribute("errorMessage", e.getMessage());
+	           return "member/login";
+	       }
+	   }
 
 	// ================= 로그아웃 =================
 	@GetMapping("/logout")
@@ -87,15 +89,27 @@ public class MemberController {
 	}
 
 	@PostMapping("/register")
-	public String register(Member member) {
-		try {
-			memberService.register(member);
-		} catch (Exception e) {
-			return "member/join"; // 또는 에러 메시지
-		}
-		return "redirect:/member/joinSuccess";
-
-	}
+	   public String register(Member member, Model model) {
+	       try {
+	           memberService.register(member);
+	           return "redirect:/member/joinSuccess";
+	       } catch (IllegalStateException e) {
+	           // ✅ 중복 아이디 같은 "의도된" 예외 메시지
+	           model.addAttribute("errorMessage", e.getMessage());
+	           model.addAttribute("member", member); // ✅ 입력값 유지하고 싶으면
+	           return "member/join";
+	       } catch (IllegalArgumentException e) {
+	           // ✅ 필수값 누락 등
+	           model.addAttribute("errorMessage", e.getMessage());
+	           model.addAttribute("member", member);
+	           return "member/join";
+	       } catch (Exception e) {
+	           // ✅ 그 외 예상 못한 에러
+	           model.addAttribute("errorMessage", "회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+	           model.addAttribute("member", member);
+	           return "member/join";
+	       }
+	   }
 
 	@GetMapping("/joinSuccess")
 	public String joinSuccess() {
