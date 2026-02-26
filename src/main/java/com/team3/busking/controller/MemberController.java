@@ -113,7 +113,7 @@ public class MemberController {
 
 	@GetMapping("/joinSuccess")
 	public String joinSuccess() {
-		return "member/joinfinal";
+		return "member/join_final";
 	}
 	
 	@GetMapping("/find-id")

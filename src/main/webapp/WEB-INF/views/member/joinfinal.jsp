@@ -168,9 +168,8 @@
 		        <img src="<c:url value='/buskinglogo.png'/>" alt="BUSKING RESERVATION" />
 		      </a>
 		    </div>
-		</div>
-		
-		<div class="login-card">
+		    
+		    <div class="login-card">
 			<h1>가입이 완료되었습니다</h1>
 		    <p>
 		        이제 버스킹 예약 서비스를 자유롭게 이용하실 수 있습니다.
@@ -182,6 +181,9 @@
 		    </div>
 		
 		</div>
+		</div>
+		
+		
 	
 	</div>
 <!-- --------------------------------- -->

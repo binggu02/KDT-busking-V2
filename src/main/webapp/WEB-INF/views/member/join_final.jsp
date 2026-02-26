@@ -24,7 +24,7 @@
     .joinok-bg {
       position: fixed;
       inset: 0;
-      background: url("../buskinglogin.png") center / cover no-repeat;
+      background: url("/busking.png") center / cover no-repeat;
       z-index: 0;
     }
     .joinok-bg::after {
@@ -139,7 +139,7 @@
   <div class="joinok-wrap">
     <!-- 로고 -->
     <div class="joinok-brand">
-      <a href="../home.jsp" aria-label="메인페이지로 이동">
+      <a href="/" aria-label="메인페이지로 이동">
     <img src="../buskinglogo.png" alt="BUSKING RESERVATION" />
   </a>
     </div>
@@ -147,7 +147,7 @@
     <!-- 카드 -->
     <div class="joinok-card">
       <h2 class="joinok-title">회원가입</h2>
-      <p class="joinok-desc">OO님 회원가입을 축하드립니다!</p>
+      <p class="joinok-desc">회원가입을 축하드립니다!</p>
 
       <div class="check-wrap">
         <div class="check-circle" aria-hidden="true">
@@ -160,10 +160,10 @@
 
       <div class="btn-col">
         <!-- ✅ 경로는 너 파일 구조에 맞게 수정 가능 -->
-        <button class="joinok-btn" type="button" onclick="location.href='../home.jsp'">
+        <button class="joinok-btn" type="button" onclick="location.href='/'">
           메인페이지로 이동
         </button>
-        <button class="joinok-btn" type="button" onclick="location.href='../mypage/main.jsp'">
+        <button class="joinok-btn" type="button" onclick="location.href='/mypage'">
           마이페이지로 이동
         </button>
       </div>
