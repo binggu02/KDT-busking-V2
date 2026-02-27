@@ -87,7 +87,7 @@ public class MemberService {
  // PK(Long)로 회원 조회
     public Member findById(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+                .orElse(null);
     }
 
 
