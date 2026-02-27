@@ -121,44 +121,59 @@ public class MemberController {
 		return "member/id_find";
 	}
 
-	// ================= 아이디 찾기 =================
-	@PostMapping("/find-id")
-	public String findId(@RequestParam String name, @RequestParam String phone, @RequestParam String email,
-			Model model) {
 
-		String memberId = memberService.findMemberId(name, phone, email);
-		model.addAttribute("memberId", memberId);
+	   // ================= 아이디 찾기 =================
+	   // ✅ ID 찾기 API (DB 조회)
+	    @PostMapping("/find-id")
+	    public String findId(
+	            @RequestParam String name,
+	            @RequestParam String phone,
+	            @RequestParam String email,
+	            Model model
+	    ) {
+	        try {
+	            String normalizedPhone = phone.replaceAll("[^0-9]", "");
+	            String memberId = memberService.findMemberId(name, normalizedPhone, email);
 
-		return "member/findIdResult";
-	}
+	            // ✅ 성공: JSP에서 출력할 값
+	            model.addAttribute("foundId", memberId);
+	            return "member/id_find";
+
+	        } catch (IllegalArgumentException e) {
+	            // ✅ 실패: alert/토스트용
+	            model.addAttribute("errorMessage", "잘못 입력하셨습니다. 다시 입력해주세요.");
+	            return "member/id_find";
+	        }
+	    }
+
+	    @PostMapping("/find-pw")
+	    public String findPw(
+	            @RequestParam String memberId,   // ✅ name="memberId" 로 통일할 것
+	            @RequestParam String name,
+	            @RequestParam String phone,
+	            @RequestParam String email,
+	            Model model
+	    ) {
+	        try {
+	            String normalizedPhone = phone.replaceAll("[^0-9]", "");
+	            String tempPw = memberService.resetPasswordToTemp(memberId, name, normalizedPhone, email);
+
+	            // ✅ 성공: JSP에서 출력할 임시 비번
+	            model.addAttribute("tempPw", tempPw);
+	            return "member/pw_find";
+
+	        } catch (IllegalArgumentException e) {
+	            model.addAttribute("errorMessage", "잘못 입력하셨습니다. 다시 입력해주세요.");
+	            return "member/pw_find";
+	        }
+	    }
 	
-	@GetMapping("/find-pw")
-	public String findPw() {
-		return "member/pw_find";
-	}
 
-	// ================= 비밀번호 찾기 =================
-	@PostMapping("/find-pw")
-	public String findPw(@RequestParam String name, @RequestParam String memberId, @RequestParam String phone,
-			@RequestParam String email, Model model) {
+	    // ================= PW 찾기 =================
+	    @GetMapping("/find-pw")
+	    public String findPwForm() {
+	        return "member/pw_find";
+	    }
 
-		// 기존 bool 타입을 String으로 변경 및 변수 명 result에서 pw로 변경 feat.병현
-		String pw = memberService.checkMemberForPw(name, memberId, phone, email);
-
-		// pw 검사 로직 추가 feat.병현
-		if (pw.isEmpty()) {
-			// pw를 찾지 못했을 때 처리 로직
-			model.addAttribute("result", false);
-			model.addAttribute("memberId", memberId);
-			return "member/findPwResult";
-		}
-
-		// pw를 찾았을 때 처리 로직 feat.병현
-		model.addAttribute("result", true);
-		model.addAttribute("memberId", memberId);
-
-		model.addAttribute("pw", pw);
-		return "member/findPwResult";
-
-	}
+	    
 }

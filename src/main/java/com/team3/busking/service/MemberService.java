@@ -97,30 +97,47 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
     
-    // 아이디 찾기 메소드 feat.병현
-    @Transactional
-	public String findMemberId(String name, String phone, String email) {
-		// TODO Auto-generated method stub
-    	return memberRepository.findMemberIdByNameAndPhoneAndEmail(name, phone, email)
-    			.orElseThrow(() -> 
-    					new IllegalArgumentException("일치하는 회원이 없습니다."));
-    	
-    	
-	}
-
-    // 비밀번호 찾기 메소드 feat.병현
-	public String checkMemberForPw(String name, String memberId, String phone, String email) {
-		// TODO Auto-generated method stub
-		return memberRepository.findByNameAndMemberIdAndPhoneAndEmail(name, memberId, phone, email)
-				.orElseThrow(() ->
-						new IllegalArgumentException("일치하는 회원이 없습니다."));
-	}
+   
 
 	public Member getMemberById(Long userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
     
+	// ✅ 아이디 찾기 (DB 조회)
+    @Transactional(readOnly = true)
+    public String findMemberId(String name, String phone, String email) {
+        return memberRepository.findMemberIdByNamePhoneEmail(name, phone, email)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원이 없습니다."));
+    }
+
+    // ✅ 비밀번호 찾기 = 임시 비밀번호 발급 후 DB 업데이트
+    public String resetPasswordToTemp(String memberId, String name, String phone, String email) {
+
+        Member member = memberRepository
+                .findByMemberIdAndNameAndPhoneAndEmail(memberId, name, phone, email)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원이 없습니다."));
+
+        String tempPw = generateTempPassword(8);
+
+        // ⚠️ 지금 로그인 로직이 pw.equals 비교라서 "그대로 저장"해야 바로 로그인됨
+        member.setPw(tempPw);
+        memberRepository.save(member);
+
+        return tempPw;
+    }
+
+    private String generateTempPassword(int length) {
+        String chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int idx = (int)(Math.random() * chars.length());
+            sb.append(chars.charAt(idx));
+        }
+        return sb.toString();
+    }
+
+
     
 }
 

@@ -48,7 +48,10 @@
       <!-- 작성자 / 날짜 -->
       <div class="board-view-meta">
         작성자 user${board.userId} |
-        <c:out value="${board.createWriterAt}" />
+        <c:out value="${board.createWriterAt.toString().substring(0,4)}년 
+${board.createWriterAt.toString().substring(5,7)}월 
+${board.createWriterAt.toString().substring(8,10)}일 
+${board.createWriterAt.toString().substring(11,16)}" />
       </div>
 
       <!-- 내용 -->

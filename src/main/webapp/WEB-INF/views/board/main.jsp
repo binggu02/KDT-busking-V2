@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -78,7 +79,11 @@
                 </a>
               </td>
               <td>${matchedMembers[status.index].nickname}</td>
-              <td><c:out value="${b.createWriterAt}" /></td>
+              <td><c:out value="${b.createWriterAt.toString().substring(0,4)}년 
+${b.createWriterAt.toString().substring(5,7)}월 
+${b.createWriterAt.toString().substring(8,10)}일 
+${b.createWriterAt.toString().substring(11,16)}" /></td>
+              
             </tr>
           </c:if>
         </c:forEach>
