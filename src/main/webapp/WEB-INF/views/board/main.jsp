@@ -69,7 +69,7 @@
       </thead>
 
       <tbody>
-        <c:forEach var="b" items="${list}">
+        <c:forEach var="b" items="${list}" varStatus="status">
           <c:if test="${b.boardTypeId == typeId}">
             <tr>
               <td class="title-cell">
@@ -77,7 +77,7 @@
                   ${b.title}
                 </a>
               </td>
-              <td>user${matchedMembers.userName}</td>
+              <td>${matchedMembers[status.index].nickname}</td>
               <td><c:out value="${b.createWriterAt}" /></td>
             </tr>
           </c:if>
