@@ -25,10 +25,10 @@ public class AdminMainController {
         model.addAttribute("gearReservationCount", adminDashboardService.gearReservationCount());
         model.addAttribute("boardCount", adminDashboardService.boardCount());
 
-        model.addAttribute("recentBoards", adminDashboardService.recentBoards(5));
-        model.addAttribute("recentPlaceReservations", adminDashboardService.recentPlaceReservations(5));
-        model.addAttribute("recentGearReservations", adminDashboardService.recentGearReservations(5));
-        model.addAttribute("recentMembers", adminDashboardService.recentMembers(5));
+        model.addAttribute("recentBoards", adminDashboardService.recentBoards());
+        model.addAttribute("recentPlaceReservations", adminDashboardService.recentPlaceReservations());
+        model.addAttribute("recentGearReservations", adminDashboardService.recentGearReservations());
+        model.addAttribute("recentMembers", adminDashboardService.recentMembers());
 
         return "admin/main";
     }

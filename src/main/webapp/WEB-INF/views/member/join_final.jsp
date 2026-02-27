@@ -163,8 +163,8 @@
         <button class="joinok-btn" type="button" onclick="location.href='/'">
           메인페이지로 이동
         </button>
-        <button class="joinok-btn" type="button" onclick="location.href='/mypage'">
-          마이페이지로 이동
+        <button class="joinok-btn" type="button" onclick="location.href='/member/login'">
+          로그인으로 이동
         </button>
       </div>
     </div>

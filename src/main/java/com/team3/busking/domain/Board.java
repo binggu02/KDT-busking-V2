@@ -7,17 +7,18 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "board")
+@Getter @Setter
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @Column(nullable = false)
-    private Long userId;
+    // ✅ 작성자 FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Member member;
 
     @Column(name = "board_type_id", nullable = false)
     private Long boardTypeId;
@@ -34,7 +35,7 @@ public class Board {
     @Column(name = "thumbnail_writer", length = 255)
     private String thumbnailWriter;
 
-    // ✅ Q&A 답변 필드 추가
     @Column(columnDefinition = "TEXT")
     private String answer;
+    
 }

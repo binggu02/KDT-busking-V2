@@ -47,7 +47,7 @@
 
       <!-- 작성자 / 날짜 -->
       <div class="board-view-meta">
-        작성자 user${board.userId} |
+        작성자 ${board.member.nickname} |
         <c:out value="${board.createWriterAt.toString().substring(0,4)}년 
 ${board.createWriterAt.toString().substring(5,7)}월 
 ${board.createWriterAt.toString().substring(8,10)}일 
@@ -68,7 +68,7 @@ ${board.createWriterAt.toString().substring(11,16)}" />
   </button>
 
   <c:if test="${not empty sessionScope.loginUser 
-              and sessionScope.loginUser.id == board.userId}">
+              and sessionScope.loginUser.id == board.member.id}">
 
       <button class="btn-outline"
         onclick="location.href='<%=request.getContextPath()%>/board/update?id=${board.boardId}'">

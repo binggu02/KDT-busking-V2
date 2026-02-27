@@ -44,7 +44,7 @@
 
       <!-- 작성자 / 날짜 -->
       <div class="board-view-meta">
-        <span>작성자: user${board.userId}</span>
+        <span>작성자: ${board.member.nickname}</span>
         <span> | </span>
         <span>작성일: <c:out value="${board.createWriterAt.toString().substring(0,4)}년 
 ${board.createWriterAt.toString().substring(5,7)}월 
@@ -79,7 +79,7 @@ ${board.createWriterAt.toString().substring(11,16)}" /></span>
         </button>
 
 <c:if test="${not empty sessionScope.loginUser 
-            and sessionScope.loginUser.id == board.userId}">
+            and sessionScope.loginUser.id == board.member.id}">
         <form action="<%=request.getContextPath()%>/board/delete"
               method="post"
               style="display:inline;">

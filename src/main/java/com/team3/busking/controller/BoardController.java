@@ -22,7 +22,7 @@ public class BoardController {
     private final MemberService memberService;
 
     public BoardController(BoardService boardService, 
-    						MemberService memberService) {
+                      MemberService memberService) {
         this.boardService = boardService;
         this.memberService = memberService;
     }
@@ -42,20 +42,6 @@ public class BoardController {
         
         
      // 2️⃣ 작성자 리스트 만들기
-        List<Member> matchedMembers = new ArrayList<>();
-        
-        for (Board board : list) {
-            Long userId = board.getUserId();   // 게시글 작성자 ID
-
-            Member member = memberService.findById(userId);  // 작성자 조회
-
-            if (member != null) {
-                matchedMembers.add(member);
-            }
-        }
-        
-        
-        model.addAttribute("matchedMembers", matchedMembers);
 
         return "board/main"; // JSP / Thymeleaf 뷰
     }
@@ -65,12 +51,12 @@ public class BoardController {
        ========================= */
     @GetMapping("/view")
     public String view(HttpSession session, @RequestParam Long id, Model model) {
-    	Member loginUser = (Member) session.getAttribute("loginUser");
-    	if(loginUser == null) {
-    		
-    	}
-    	
-    	
+       Member loginUser = (Member) session.getAttribute("loginUser");
+       if(loginUser == null) {
+          
+       }
+       
+       
         Board board = boardService.getBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 없음"));
 
@@ -97,18 +83,11 @@ public class BoardController {
        ========================= */
     @PostMapping("/create")
     public String createSubmit(HttpSession session, Board board) {
+        Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) return "redirect:/member/login";
 
-    	Member loginMember = (Member) session.getAttribute("loginUser");
-    	if (loginMember == null) {
-            return "redirect:/member/login";
-        }
-    	
-        board.setUserId(loginMember.getId());
-
-        
-        
         boardService.createBoard(
-                board.getUserId(),
+                loginMember.getId(),
                 board.getBoardTypeId(),
                 board.getTitle(),
                 board.getContent(),

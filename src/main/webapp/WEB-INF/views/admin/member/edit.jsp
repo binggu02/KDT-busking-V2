@@ -221,8 +221,8 @@ th, td {
 						</div>
 
 						<div class="btns">
-							<a class="back" href="<c:url value='/admin/member/list'/>">목록</a>
 							<button class="save" type="submit">저장</button>
+							<a class="back" href="<c:url value='/admin/member/list'/>">취소</a>
 						</div>
 					</form>
 
