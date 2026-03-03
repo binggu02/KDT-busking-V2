@@ -57,7 +57,10 @@
           <div class="info-row"><dt>ID</dt><dd><c:out value="${member.memberId}" default="example_user"/></dd></div>
           <div class="info-row"><dt>전화</dt><dd><c:out value="${member.phone}" default="010-1234-5678"/></dd></div>
           <div class="info-row"><dt>이메일</dt><dd><c:out value="${member.email}" default="user@example.com"/></dd></div>
-          <div class="info-row"><dt>가입일</dt><dd>-</dd></div>
+          <div class="info-row"><dt>가입일</dt><dd><c:out value="${member.createdMemberAt.toString().substring(0,4)}년 
+${member.createdMemberAt.toString().substring(5,7)}월 
+${member.createdMemberAt.toString().substring(8,10)}일 
+${member.createdMemberAt.toString().substring(11,16)}"/></dd></div>
         </dl>
       </div>
     </section>
