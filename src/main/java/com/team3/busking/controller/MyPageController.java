@@ -73,23 +73,34 @@ public class MyPageController {
 	 * =========================
 	 */
 	@PostMapping("/update")
-	public String Setupdate(HttpSession session, Member member, @RequestParam String pw1, @RequestParam String pw2) {
+	public String setUpdate(HttpSession session,
+	                        Member member,
+	                        @RequestParam String pw1,
+	                        @RequestParam String pw2) {
 
-		// 로그인 세션 처리
-		Member loginMember = (Member) session.getAttribute("loginUser");
-		if (loginMember == null) {
-			return "redirect:/member/login";
-		}
+	    Member loginMember = (Member) session.getAttribute("loginUser");
+	    if (loginMember == null) {
+	        return "redirect:/member/login";
+	    }
 
-		// 비번 두개가 맞는지 확인 로직
-		if (pw1.equals(pw2)) {
-			loginMember.setPw(pw2);
-			memberService.updateMember(loginMember);
-		} else {
-			return "redirect:/mypage/update";
-		}
+	    // 🔥 폼에서 넘어온 값들 세팅
+	    loginMember.setNickname(member.getNickname());
+	    loginMember.setPhone(member.getPhone());
+	    loginMember.setEmail(member.getEmail());
 
-		return "redirect:/mypage";
+	    // 비밀번호 확인
+	    if (!pw1.equals(pw2)) {
+	        return "redirect:/mypage/update";
+	    }
+
+	    loginMember.setPw(pw1);
+
+	    memberService.updateMember(loginMember);
+
+	    // 세션에도 최신 정보 반영
+	    session.setAttribute("loginUser", loginMember);
+
+	    return "redirect:/mypage";
 	}
 
 	/*

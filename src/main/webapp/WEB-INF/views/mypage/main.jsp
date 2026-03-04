@@ -57,21 +57,7 @@
           <div class="info-row"><dt>ID</dt><dd><c:out value="${member.memberId}" default="example_user"/></dd></div>
           <div class="info-row"><dt>전화</dt>
           
-          <dd>
-          
-         	 <c:choose>
-	            <c:when test="${not empty member.phone}">
-	                ${fn:substring(member.phone,0,3)}-
-	                ${fn:substring(member.phone,3,7)}-
-	                ${fn:substring(member.phone,7,11)}
-	            </c:when>
-	            <c:otherwise>
-	                ${member.phone}
-	            </c:otherwise>
-	        </c:choose>
-          
-          
-          </dd>
+          <dd>${member.formattedPhone}</dd>
           
           
           

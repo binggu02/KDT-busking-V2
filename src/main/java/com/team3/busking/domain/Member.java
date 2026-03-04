@@ -64,4 +64,19 @@ public class Member {
     
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberRole> roles = new ArrayList<>();
+    
+    public String getFormattedPhone() {
+
+        if (this.phone == null) return "";
+
+        String onlyNumber = this.phone.replaceAll("[^0-9]", "");
+
+        if (onlyNumber.length() == 11) {
+            return onlyNumber.replaceAll("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3");
+        } else if (onlyNumber.length() == 10) {
+            return onlyNumber.replaceAll("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
+        }
+
+        return this.phone;
+    }
 }
