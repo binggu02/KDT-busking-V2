@@ -6,6 +6,16 @@ COLLATE utf8mb4_unicode_ci;
 
 USE buskingdb;
 
+
+show tables;
+
+
+select * from member;
+
+select * from place_reservation;
+
+select * from gear_reservation;
+
 CREATE TABLE member (
     id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
     member_id VARCHAR(20) NOT NULL COMMENT '로그인 ID',
@@ -64,7 +74,6 @@ CREATE TABLE board (
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     create_writer_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    thumbnail_writer VARCHAR(255),
 
     CONSTRAINT fk_board_user
         FOREIGN KEY (user_id)
@@ -190,17 +199,19 @@ INSERT INTO city (city_code, city_name) VALUES
    ('ulsan',   '울산광역시'),
    ('daejeon', '대전광역시');
 
+
 -- 장비 정보 데이터
 INSERT INTO gear (gear_quantity, gear_name, gear_description, gear_price, gear_thumbnail)
 VALUES
-(3, '어쿠스틱 기타', '버스킹용 기본 어쿠스틱 기타', 15000, 'guitar.jpg'),
-(8, '일렉 기타 앰프', '야외 공연용 고출력 기타 앰프', 20000, 'em.jpg'),
-(2, '마이크 세트', '유선 마이크 + 스탠드 포함', 10000, 'ma.jpg'),
-(5, '포터블 스피커', '야외용 블루투스 스피커', 25000, 'speak.jpg'),
+(3, '어쿠스틱 기타', '버스킹용 기본 어쿠스틱 기타', 40000, 'guitar.jpg'),
+(8, '일렉 기타 앰프', '야외 공연용 고출력 기타 앰프', 30000, 'em.jpg'),
+(2, '마이크 세트', '유선 마이크 + 스탠드 포함', 20000, 'ma.jpg'),
+(5, '포터블 스피커', '야외용 블루투스 스피커', 80000, 'speak.jpg'),
 (4, '전자 키보드', '61건반 전자 키보드', 30000, 'key.jpg'),
-(10, '카혼', '버스킹용 타악기 카혼', 12000, 'kahon.jpg'),
-(3, '마이크 스탠드', '높이 조절 가능 스탠드', 5000, 'stand.jpg'),
-(4, '이펙터 보드', '기타 멀티 이펙터', 18000, 'ter.jpg');
+(10, '카혼', '버스킹용 타악기 카혼', 100000, 'kahon.jpg'),
+(3, '마이크 스탠드', '높이 조절 가능 스탠드', 10000, 'stand.jpg'),
+(4, '이펙터 보드', '기타 멀티 이펙터', 150000, 'ter.jpg');
+
 
 -- 장소 데이터
  insert into place
@@ -267,3 +278,315 @@ WHERE m.member_id='admin'
 -- “Cascade 정책을 통해 참조 무결성을 자동 관리합니다.”
 
 -- “조회 성능을 고려해 인덱스를 설정했습니다.”
+
+
+INSERT INTO member 
+(member_id, pw, name, nickname, email, phone, birth_date, gender) 
+VALUES 
+('minsu01', 'alstn0312', '김민수', '민수', 'minsu01@gmail.com', '01012345678', '1995-03-12', 'M'),
+
+('tjdus0243', 'Z3mL8vT1', '이서연', 'StreetUnit', 'seoyeon02@gmail.com', '01023456789', '1998-07-25', 'F'),
+
+('jihoon03', 'q9W2eR6t', '박지훈', '지훈', 'jihoon03@naver.com', '01034567890', '1992-11-08', 'M'),
+
+('yujin0019', 'm8Tq3Lz5', '최유진', '유진', 'yujin04@gmail.com', '01045678901', '2000-01-19', 'F'),
+
+('wjdeh930', 'ehgus9709', '정도현', '도현', 'dohyun05@naver.com', '01056789012', '1997-09-30', 'M'),
+
+('hyunwoo94', 'k3Pz8Lm2', '김현우', '현우', 'hyunwoo94@gmail.com', '01067891023', '1994-05-21', 'M'),
+
+('jiae99', 'T7xQ4nV1', '한지애', '지애', 'jiae99@naver.com', '01078902134', '1999-08-14', 'F'),
+
+('sungmin93', 'r8Wm2Kq5', '이성민', '성민', 'sungmin93@daum.net', '01089013245', '1993-12-03', 'M'),
+
+('areum01', 'B4vN7pL9', '박아름', '아름', 'areum01@gmail.com', '01090124356', '2001-04-17', 'F'),
+
+('junseo96', 'x9Kq3Tz6', '최준서', '준서', 'junseo96@naver.com', '01011235467', '1996-10-09', 'M'),
+
+('soyoung97', 'M2pL8rQ4', '정소영', '소영', 'soyoung97@gmail.com', '01022346578', '1997-02-28', 'F'),
+
+('donghyun95', 'q7Zx5Wn1', '강동현', '동현', 'donghyun95@daum.net', '01033457689', '1995-07-11', 'M'),
+
+('hyerin98', 'L6vT2kP8', '윤혜린', '혜린', 'hyerin98@naver.com', '01044568790', '1998-09-22', 'F'),
+
+('taeyang92', 'n3Qw7Xm4', '오태양', '태양', 'taeyang92@gmail.com', '01055679801', '1992-06-30', 'M'),
+
+('minji00', 'P8kL2zQ5', '서민지', '민지', 'minji00@naver.com', '01066780912', '2000-03-05', 'F'),
+
+('jaehyun94', 't5Xn9Lm3', '임재현', '재현', 'jaehyun94@gmail.com', '01077891024', '1994-11-18', 'M'),
+
+('yuna02', 'Z4mQ7pK1', '김유나', '유나', 'yuna02@daum.net', '01088902135', '2002-01-27', 'F'),
+
+('woojin93', 'k8Lx3Tq6', '박우진', '우진', 'woojin93@gmail.com', '01099013246', '1993-05-09', 'M'),
+
+('chaerin99', 'Q2vN8pL4', '이채린', '채린', 'chaerin99@naver.com', '01010124357', '1999-12-12', 'F'),
+
+('seungwoo96', 'm7Kq5Xz2', '최승우', '승우', 'seungwoo96@gmail.com', '01021235468', '1996-08-03', 'M');
+
+
+
+INSERT INTO board (board_type_id, user_id, title, content, create_writer_at)
+SELECT 1, m.id, v.title, REGEXP_REPLACE(Ltrim(v.content), '^[[:space:]]+', ''), NOW()
+FROM (
+  SELECT 'minsu01' AS member_id, '[홍보] 홍대 버스킹 합니다 - 감성 어쿠스틱' AS title, '📍 장소: 홍대 걷고싶은거리
+⏰ 시간: 18:00 ~ 19:00
+🎵 장르: 어쿠스틱 / 발라드
+👥 인원: 2인
+
+잔잔한 기타와 보컬 공연 준비했습니다.
+퇴근길에 잠시 들러주세요!' AS content
+  UNION ALL SELECT 'tjdus0243', '[구인] 홍대 버스킹 보컬 구합니다',
+'
+📍 장소: 홍대 걷고싶은거리
+⏰ 공연 예정: 토요일 18:00 ~ 19:00
+🎵 장르: 발라드 / 팝
+👥 현재 구성: 기타, 카혼
+
+보컬 한 분 구합니다.
+버스킹 경험 없어도 괜찮습니다!'
+  UNION ALL SELECT 'jihoon03', '[홍보] 건대 버스킹 합니다 - 인디 밴드', '📍 장소: 건대 커먼그라운드 앞
+⏰ 시간: 19:00 ~ 20:00
+🎵 장르: 인디 / 록
+👥 인원: 4인 밴드
+
+자작곡과 커버곡 공연합니다.
+많이 놀러와 주세요!'
+  UNION ALL SELECT 'yujin0019', '[구인] 건대 버스킹 기타리스트 구합니다',
+'📍 장소: 건대 커먼그라운드
+⏰ 공연 예정: 금요일 19:00
+🎵 장르: 인디 / 팝
+👥 현재 구성: 보컬, 드럼
+
+리듬 기타 가능하신 분 구합니다.'
+  UNION ALL SELECT 'wjdeh930', '[홍보] 신촌 버스킹 합니다 - 팝 커버',
+'📍 장소: 신촌 연세로
+⏰ 시간: 17:30 ~ 18:30
+🎵 장르: 팝 / 팝락
+👥 인원: 3인
+
+유명 팝송 커버 공연 준비했습니다.'
+  UNION ALL SELECT 'hyunwoo94', '[구인] 신촌 버스킹 드럼 구합니다',
+'📍 장소: 신촌 연세로
+⏰ 공연 예정: 토요일 저녁
+🎵 장르: 록
+👥 현재 구성: 보컬, 기타, 베이스
+
+드럼 가능한 분 함께 해요!'
+  UNION ALL SELECT 'jiae99', '[홍보] 대학로 버스킹 합니다 - 재즈 공연',
+'📍 장소: 대학로 마로니에공원
+⏰ 시간: 18:30 ~ 19:30
+🎵 장르: 재즈
+👥 인원: 3인
+
+재즈 피아노와 보컬 공연입니다.'
+  UNION ALL SELECT 'sungmin93', '[구인] 대학로 버스킹 바이올린 구합니다',
+'📍 장소: 대학로 마로니에공원
+⏰ 공연 예정: 주말 오후
+🎵 장르: 클래식 / 크로스오버
+👥 현재 구성: 피아노, 보컬
+
+바이올린 연주자 구합니다.'
+  UNION ALL SELECT 'areum01', '[홍보] 성수 버스킹 합니다 - 힙합 공연',
+'📍 장소: 성수 카페거리
+⏰ 시간: 20:00 ~ 21:00
+🎵 장르: 힙합
+👥 인원: 2인
+
+자작 힙합곡과 프리스타일 랩 공연 진행합니다.'
+  UNION ALL SELECT 'junseo96', '[구인] 성수 버스킹 베이스 구합니다',
+'📍 장소: 성수 서울숲 근처
+⏰ 공연 예정: 주말 오후
+🎵 장르: 인디 / 팝
+👥 현재 구성: 보컬, 기타, 드럼
+
+베이스 연주 가능하신 분 연락주세요.'
+  UNION ALL SELECT 'soyoung97', '[홍보] 잠실 버스킹 합니다 - 팝 발라드',
+'📍 장소: 석촌호수
+⏰ 시간: 18:00 ~ 19:00
+🎵 장르: 팝 발라드
+👥 인원: 2인
+
+잔잔한 음악 들으러 오세요.'
+  UNION ALL SELECT 'donghyun95', '[구인] 잠실 버스킹 보컬 구합니다',
+'📍 장소: 석촌호수
+⏰ 공연 예정: 토요일 오후
+🎵 장르: 발라드
+👥 현재 구성: 기타, 카혼
+
+감성 발라드 좋아하시는 보컬 구합니다.'
+  UNION ALL SELECT 'hyerin98', '[홍보] 이태원 버스킹 합니다 - 팝 공연',
+'📍 장소: 이태원 해밀턴호텔 앞
+⏰ 시간: 19:30 ~ 20:30
+🎵 장르: 팝
+👥 인원: 3인
+
+즐거운 팝송 커버 공연입니다.'
+  UNION ALL SELECT 'taeyang92', '[구인] 홍대 버스킹 키보드 구합니다',
+'📍 장소: 홍대 레드로드
+⏰ 공연 예정: 금요일 저녁
+🎵 장르: 팝 / 팝락
+👥 현재 구성: 보컬, 기타, 베이스
+
+키보드 연주 가능하신 분 모집합니다.'
+  UNION ALL SELECT 'minji00', '[홍보] 여의도 버스킹 합니다 - 한강 공연',
+'📍 장소: 여의도 한강공원
+⏰ 시간: 17:00 ~ 18:00
+🎵 장르: 어쿠스틱
+👥 인원: 2인
+
+한강에서 감성 버스킹 진행합니다.'
+  UNION ALL SELECT 'jaehyun94', '[구인] 여의도 버스킹 퍼커션 구합니다',
+'📍 장소: 여의도 한강공원
+⏰ 공연 예정: 일요일 오후
+🎵 장르: 어쿠스틱
+👥 현재 구성: 보컬, 기타
+
+카혼이나 퍼커션 가능하신 분 구합니다.'
+  UNION ALL SELECT 'yuna02', '[홍보] 합정 버스킹 합니다 - 록 밴드',
+'📍 장소: 합정 메세나폴리스 앞
+⏰ 시간: 19:00 ~ 20:00
+🎵 장르: 록
+👥 인원: 4인
+
+에너지 넘치는 밴드 공연입니다.'
+  UNION ALL SELECT 'woojin93', '[구인] 합정 버스킹 베이스 구합니다',
+'📍 장소: 합정 메세나폴리스
+⏰ 공연 예정: 토요일 저녁
+🎵 장르: 록
+👥 현재 구성: 보컬, 기타, 드럼
+
+베이스 연주자 모집합니다.'
+  UNION ALL SELECT 'chaerin99', '[홍보] 왕십리 버스킹 합니다 - 팝 공연',
+'📍 장소: 왕십리 광장
+⏰ 시간: 18:30 ~ 19:30
+🎵 장르: 팝
+👥 인원: 3인
+
+즐거운 버스킹 공연 준비했습니다.'
+  UNION ALL SELECT 'seungwoo96', '[구인] 왕십리 버스킹 보컬 구합니다',
+'📍 장소: 왕십리 광장
+⏰ 공연 예정: 주말 오후
+🎵 장르: 팝
+👥 현재 구성: 기타, 베이스
+
+팝송 커버 위주 공연 예정입니다.'
+) v
+JOIN member m ON m.member_id = v.member_id;
+
+
+INSERT INTO board (board_type_id, user_id, title, content, create_writer_at)
+SELECT 2, m.id, v.title, REGEXP_REPLACE(Ltrim(v.content), '^[[:space:]]+', ''), NOW()
+FROM (
+  SELECT 'minsu01' AS member_id, '[Q&A] 버스킹 장소 허가 어떻게 받나요?' AS title,
+'홍대에서 버스킹 하려고 하는데
+공연 허가를 따로 받아야 하나요?
+
+구청에 신청해야 하는지
+아니면 자유롭게 가능한지 궁금합니다.' AS content
+  UNION ALL SELECT 'tjdus0243', '[Q&A] 버스킹 장비는 어떤게 필요할까요?',
+'처음 버스킹을 준비하고 있습니다.
+
+앰프, 마이크, 믹서 같은 장비가
+어느 정도 필요할까요?
+
+초보 버스커 분들 장비 추천 부탁드립니다.'
+  UNION ALL SELECT 'jihoon03', '[Q&A] 홍대 버스킹 경쟁 심한가요?',
+'홍대에서 버스킹 하려고 하는데
+자리가 많이 경쟁이 심한 편인가요?
+
+좋은 시간대나 자리 팁 있으면
+공유 부탁드립니다.'
+  UNION ALL SELECT 'yujin0019', '[Q&A] 버스킹 수익은 어느 정도인가요?',
+'버스킹 하면 보통 하루에
+어느 정도 수익이 나오는지 궁금합니다.
+
+경험 있으신 분들 이야기 듣고 싶습니다.'
+  UNION ALL SELECT 'wjdeh930', '[Q&A] 버스킹 시간 제한 있나요?',
+'한 장소에서 공연할 때
+시간 제한이 있는지 궁금합니다.
+
+보통 몇 시간 정도 공연하나요?'
+  UNION ALL SELECT 'hyunwoo94', '[Q&A] 버스킹 음향 장비 추천',
+'소형 버스킹용 앰프 추천 부탁드립니다.
+
+이동하기 편하고
+소리 괜찮은 제품 있으면 알려주세요.'
+  UNION ALL SELECT 'jiae99', '[Q&A] 버스킹 초보 곡 추천',
+'버스킹 처음 시작하려고 합니다.
+
+대중 반응 좋은 곡이나
+버스킹용으로 좋은 곡 추천 부탁드립니다.'
+  UNION ALL SELECT 'sungmin93', '[Q&A] 버스킹 팀 모집은 어디서 하나요?',
+'버스킹 팀원을 구하려고 하는데
+보통 어디에서 모집하시나요?
+
+커뮤니티나 사이트 추천 부탁드립니다.'
+  UNION ALL SELECT 'areum01', '[Q&A] 한강 버스킹 가능한가요?',
+'여의도 한강공원에서
+버스킹 가능한지 궁금합니다.
+
+허가가 필요한지
+경험 있으신 분들 알려주세요.'
+) v
+JOIN member m ON m.member_id = v.member_id;
+
+
+INSERT INTO place_reservation
+(user_id, place_id, band_name, band_count, phone, email, reservation_date, start_time, end_time, status)
+SELECT m.id, v.place_id, v.band_name, v.band_count, v.phone, v.email,
+       v.res_date, v.start_t, v.end_t, v.status
+FROM (
+  SELECT 'minsu01' AS member_id, 3 AS place_id, '홍대감성밴드' AS band_name, 4 AS band_count,
+         '01012345678' AS phone, 'minsu01@gmail.com' AS email,
+         DATE_ADD(CURDATE(), INTERVAL 3 DAY) AS res_date, '18:00:00' AS start_t, '19:00:00' AS end_t, 1 AS status
+  UNION ALL
+  SELECT 'tjdus0243', 3, 'StreetUnit', 3,
+         '01023456789', 'seoyeon02@gmail.com',
+         DATE_ADD(CURDATE(), INTERVAL 5 DAY), '19:30:00', '20:30:00', 1
+  UNION ALL
+  SELECT 'jihoon03', 1, '서울광장버스커즈', 2,
+         '01034567890', 'jihoon03@naver.com',
+         DATE_ADD(CURDATE(), INTERVAL 7 DAY), '17:00:00', '18:00:00', 1
+  UNION ALL
+  SELECT 'yujin0019', 2, '한강어쿠스틱', 2,
+         '01045678901', 'yujin04@gmail.com',
+         DATE_ADD(CURDATE(), INTERVAL 9 DAY), '16:00:00', '17:00:00', 1
+  UNION ALL
+  SELECT 'wjdeh930', 2, '여의도재즈트리오', 3,
+         '01056789012', 'dohyun05@naver.com',
+         DATE_ADD(CURDATE(), INTERVAL 11 DAY), '18:30:00', '19:30:00', 1
+) v
+JOIN member m ON m.member_id = v.member_id;
+
+
+
+INSERT INTO gear_reservation
+(gear_id, member_id, start_datetime, end_datetime, status)
+SELECT v.gear_id, m.id, v.start_dt, v.end_dt, v.status
+FROM (
+  SELECT 'minsu01' AS member_id, 1 AS gear_id,
+         DATE_ADD(NOW(), INTERVAL 1 DAY) AS start_dt,
+         DATE_ADD(NOW(), INTERVAL 1 DAY) + INTERVAL 4 HOUR AS end_dt,
+         'RESERVED' AS status
+  UNION ALL
+  SELECT 'tjdus0243', 3,
+         DATE_ADD(NOW(), INTERVAL 2 DAY),
+         DATE_ADD(NOW(), INTERVAL 2 DAY) + INTERVAL 3 HOUR,
+         'RESERVED'
+  UNION ALL
+  SELECT 'jihoon03', 5,
+         DATE_ADD(NOW(), INTERVAL 3 DAY),
+         DATE_ADD(NOW(), INTERVAL 3 DAY) + INTERVAL 2 HOUR,
+         'RESERVED'
+  UNION ALL
+  SELECT 'yujin0019', 4,
+         DATE_ADD(NOW(), INTERVAL 4 DAY),
+         DATE_ADD(NOW(), INTERVAL 4 DAY) + INTERVAL 5 HOUR,
+         'RESERVED'
+  UNION ALL
+  SELECT 'wjdeh930', 2,
+         DATE_ADD(NOW(), INTERVAL 5 DAY),
+         DATE_ADD(NOW(), INTERVAL 5 DAY) + INTERVAL 6 HOUR,
+         'RESERVED'
+) v
+JOIN member m ON m.member_id = v.member_id;
