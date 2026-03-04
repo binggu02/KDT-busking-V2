@@ -85,4 +85,11 @@ public class BoardService {
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
     }
+    
+    /**
+     * 최신 게시글 5개 가져오기
+     */
+    public List<Board> getLatestBoards() {
+        return boardRepository.findTop5ByOrderByCreateWriterAtDesc();
+    }
 }

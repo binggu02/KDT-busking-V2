@@ -45,6 +45,13 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
         order by b.boardId desc
     """)
     List<Board> findRecentWithMember(Pageable pageable);
+    
+
+
+    /**
+     * 생성일 기준 최신 5개 게시글 가져오기
+     */
+    List<Board> findTop5ByOrderByCreateWriterAtDesc();
 }
   
 

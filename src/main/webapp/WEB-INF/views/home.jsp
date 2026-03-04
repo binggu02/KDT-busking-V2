@@ -8,119 +8,81 @@
 <title>Busking Reservation - Main</title>
 
 <!-- CSS -->
-
 <link rel="stylesheet" href="<c:url value='/css/main.css'/>" />
 </head>
 
-	<body class="main-page">
+<body class="main-page">
 
 <div class="page">
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
 	<section class="hero">
 	  <div class="container hero-inner">
 	    <h1>당신의 순간을, 무대로.</h1>
 	    <p class="hero-sub">Busking Platform</p>
 	  </div>
 	</section>
+
 	<!-- ================= BRAND INTRO ================= -->
 	<section class="brand-intro">
 	  <div class="container">
-
 	    <p class="intro-label">OUR PHILOSOPHY</p>
-
 	    <h2 class="intro-title">
 	      거리의 무대를<br>
 	      가장 가치 있는 순간으로
 	    </h2>
-
 	    <p class="intro-desc">
 	      우리는 공간과 아티스트를 연결하여<br>
 	      누구나 자신만의 무대를 경험할 수 있도록 돕습니다.
 	    </p>
-
 	  </div>
 	</section>
-
 
   <!-- ================= MAIN ================= -->
   <main class="main">
     <div class="container">
 
-      <!-- 인기 장소 -->
+      <!-- 최신 장소 -->
       <section class="section">
         <div class="section-head">
-          <h2>인기 장소</h2>
+          <h2>최근 등록된 장소</h2>
           <a class="more" href="<c:url value='/locale/list'/>">더보기</a>
         </div>
 
         <div class="grid grid-3">
-          <a href="<c:url value='/locale/reserve?placeId=24'/>">
-          <article class="card place-card">
-            <div class="thumb">
-              <img src="<c:url value='/images/place/Hongdae.png'/>" alt="홍대 걷고싶은거리">
-            </div>
-            <div class="card-body">
-              <h3>홍대 걷고싶은거리</h3>
-              <p>서울 마포구</p>
-            </div>
-          </article>
-          </a>
-
-			<a href="<c:url value='/locale/reserve?placeId=23'/>">
-          <article class="card place-card">
-            <div class="thumb">
-              <img src="<c:url value='/images/place/Han River.png'/>" alt="한강공원 여의도">
-            </div>
-            <div class="card-body">
-              <h3>한강 반포공원</h3>
-              <p>서울 서초구</p>
-            </div>
-          </article>
-          </a>
-
-			<a href="<c:url value='/locale/reserve?placeId=29'/>">
-          <article class="card place-card">
-            <div class="thumb">
-              <img src="<c:url value='/images/place/Gwanganri.png'/>" alt="광안리 해변">
-            </div>
-            <div class="card-body">
-              <h3>광안리 해변</h3>
-              <p>부산 수영구</p>
-            </div>
-          </article>
-          </a>
+          <c:forEach var="place" items="${latestLocales}">
+            <a href="<c:url value='/locale/reserve?placeId=${place.id}'/>">
+              <article class="card place-card">
+                <div class="thumb">
+                  <img src="<c:url value='/images/place/${place.thumbnail}'/>" alt="${place.placeName}">
+                </div>
+                <div class="card-body">
+                  <h3>${place.placeName}</h3>
+                  <p>${place.placeAddress}</p>
+                </div>
+              </article>
+            </a>
+          </c:forEach>
         </div>
       </section>
 
-      <!-- 게시판 인기글 -->
+      <!-- 최신 게시글 -->
       <section class="section">
         <div class="section-head">
-          <h2>게시판 인기글</h2>
-          <a class="more" href="<c:url value='/board/main'/>">더보기</a> <!-- ← 수정됨 -->
+          <h2>게시판 최신글</h2>
+          <a class="more" href="<c:url value='/board/main'/>">더보기</a>
         </div>
 
         <ul class="list">
-          <li class="list-item">
-            <a href="#">[공지] 2월 대관 신청 오픈 안내</a>
-            <span class="meta">2026-01-27</span>
-          </li>
-          <li class="list-item">
-            <a href="#">홍대 버스킹 스피커 추천 / 세팅 팁</a>
-            <span class="meta">2026-01-26</span>
-          </li>
-          <li class="list-item">
-            <a href="#">야외 공연 시 전원(배터리) 구성 어떻게 해요?</a>
-            <span class="meta">2026-01-25</span>
-          </li>
-          <li class="list-item">
-            <a href="#">[후기] 반포에서 버스킹했는데 반응 미쳤다…</a>
-            <span class="meta">2026-01-24</span>
-          </li>
-          <li class="list-item">
-            <a href="#">처음 버스킹하는데 곡 구성 조언 부탁드립니다!</a>
-            <span class="meta">2026-01-23</span>
-          </li>
+          <c:forEach var="board" items="${latestBoards}">
+            <li class="list-item">
+              <a href="<c:url value='/board/view?id=${board.boardId}'/>">
+                ${board.title}
+              </a>
+              <span class="meta">${board.formattedCreateWriterAt}</span>
+            </li>
+          </c:forEach>
         </ul>
       </section>
 

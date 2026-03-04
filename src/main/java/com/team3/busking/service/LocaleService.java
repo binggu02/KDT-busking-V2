@@ -128,4 +128,11 @@ public class LocaleService {
         reservation.setStatus(false); // 취소 처리 (status = 0 / false)
         // @Transactional이므로 DB에 자동 반영됨
     }
+    
+    /**
+     * 최신 장소 3개 가져오기
+     */
+    public List<Place> getLatestLocales() {
+        return placeRepository.findTop3ByOrderByCreatedAtDesc();
+    }
 }

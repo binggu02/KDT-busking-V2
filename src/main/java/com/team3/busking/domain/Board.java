@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "board")
@@ -37,5 +38,14 @@ public class Board {
 
     @Column(columnDefinition = "TEXT")
     private String answer;
+    
+    /**
+     * 생성일자를 "YYYY년 MM월 DD일 HH:mm" 형식으로 반환
+     */
+    public String getFormattedCreateWriterAt() {
+        if (this.createWriterAt == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm");
+        return this.createWriterAt.format(formatter);
+    }
     
 }
