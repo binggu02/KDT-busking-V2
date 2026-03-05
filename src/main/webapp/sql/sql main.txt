@@ -16,6 +16,8 @@ select * from place_reservation;
 
 select * from gear_reservation;
 
+select * from gear;
+
 CREATE TABLE member (
     id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
     member_id VARCHAR(20) NOT NULL COMMENT '로그인 ID',
