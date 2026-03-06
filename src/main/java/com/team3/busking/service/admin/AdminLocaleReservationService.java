@@ -1,7 +1,7 @@
 package com.team3.busking.service.admin;
 
 import com.team3.busking.domain.PlaceReservation;
-import com.team3.busking.repository.ReservationRepository;
+import com.team3.busking.repository.PlaceReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class AdminLocaleReservationService {
 
-    private final ReservationRepository reservationRepository;
+    private final PlaceReservationRepository reservationRepository;
 
     @Transactional(readOnly = true)
     public List<PlaceReservation> findAll() {

@@ -142,11 +142,22 @@ th, td {
 							<td class="status wait">${r.status}</td>
 
 							<td class="manage-btns">
+							
+								<c:if test="${r.status != 'RETURNED'}">
+													    <button class="reject-btn" type="button"
+													      onclick="location.href='${pageContext.request.contextPath}/admin/gear/return?id=${r.id}'">
+													      반납하기
+													    </button>
+													  </c:if>
+								
+								
+								
 								<form method="post"
 									action="<c:url value='/admin/gear/${r.id}/delete'/>"
 									onsubmit="return confirm('정말 삭제할까요?');">
 									<button class="reject-btn" type="submit">삭제</button>
 								</form>
+								
 							</td>
 						</tr>
 					</c:forEach>

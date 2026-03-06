@@ -5,19 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "board")
+@Getter @Setter
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @Column(nullable = false)
-    private Long userId;
+    // ✅ 작성자 FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Member member;
 
     @Column(name = "board_type_id", nullable = false)
     private Long boardTypeId;
@@ -31,10 +33,16 @@ public class Board {
     @Column(name = "create_writer_at", columnDefinition = "DATETIME")
     private LocalDateTime createWriterAt = LocalDateTime.now();
 
-    @Column(name = "thumbnail_writer", length = 255)
-    private String thumbnailWriter;
-
-    // ✅ Q&A 답변 필드 추가
     @Column(columnDefinition = "TEXT")
     private String answer;
+    
+    /**
+     * 생성일자를 "YYYY년 MM월 DD일 HH:mm" 형식으로 반환
+     */
+    public String getFormattedCreateWriterAt() {
+        if (this.createWriterAt == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm");
+        return this.createWriterAt.format(formatter);
+    }
+    
 }

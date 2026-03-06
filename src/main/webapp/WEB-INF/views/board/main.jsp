@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,93 +16,95 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-<main class="main">
-  <div class="container board-wrap">
 
-    <!-- 검색바 -->
-    <div class="board-search">
-      <input type="text" placeholder="검색어 입력" />
-      <button type="button">🔍</button>
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">게시판</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">게시판</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main board-page">
+
+  <div class="board-container">
+
+    <!-- 상단 헤더 -->
+    <div class="board-header">
+      <h2></h2>
+
+      <button class="btn-write"
+        onclick="location.href='${pageContext.request.contextPath}/board/create'">
+        글쓰기
+      </button>
     </div>
 
     <!-- 탭 -->
-    <section class="board-tabs">
-      <button class="tab ${typeId == 1 ? 'active' : ''}" type="button" data-tab="free">자유게시판</button>
-      <button class="tab ${typeId == 2 ? 'active' : ''}" type="button" data-tab="qna">Q&A</button>
-    </section>
+	<section class="board-tabs">
+	  <a href="?typeId=1"
+	     class="tab ${typeId == 1 ? 'active' : ''}">
+	     자유게시판
+	  </a>
 
-    <!-- 패널 -->
-    <section class="tab-panels">
+	  <a href="?typeId=2"
+	     class="tab ${typeId == 2 ? 'active' : ''}">
+	     Q&A
+	  </a>
+	</section>
 
-      <!-- 자유게시판 -->
-      <div class="tab-panel ${typeId == 1 ? 'show' : ''}" data-panel="free">
-        <div class="board-box">
-          <c:forEach var="b" items="${list}">
-            <c:if test="${b.boardTypeId == 1}">
-              <div class="board-row">
-                <div class="board-left">
-                  <span class="doc-icon">📄</span>
-                  <div class="board-text">
-                    <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
-                      ${b.title}
-                    </a>
-                    <p class="board-sub">
-                      ${b.content}
-                    </p>
-                  </div>
-                </div>
-                <div class="board-right">
-                  <div class="writer">user${b.userId}</div>
-                  <div class="date">
-                    <c:out value="${b.createWriterAt}" />
-                  </div>
-                </div>
-              </div>
-            </c:if>
-          </c:forEach>
-        </div>
-      </div>
+    <!-- 테이블 -->
+    <table class="board-table">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th style="width:160px;">작성자</th>
+          <th style="width:220px;">작성일</th>
+        </tr>
+      </thead>
 
-      <!-- Q&A -->
-      <div class="tab-panel ${typeId == 2 ? 'show' : ''}" data-panel="qna">
-        <div class="board-box">
-          <c:forEach var="b" items="${list}">
-            <c:if test="${b.boardTypeId == 2}">
-              <div class="board-row">
-                <div class="board-left">
-                  <span class="doc-icon">📄</span>
-                  <div class="board-text">
-                    <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
-                      ${b.title}
-                    </a>
-                    <p class="board-sub">
-                      ${b.content}
-                    </p>
-                  </div>
-                </div>
-                <div class="board-right">
-                  <div class="writer">user${b.userId}</div>
-                  <div class="date">
-                    <c:out value="${b.createWriterAt}" />
-                  </div>
-                </div>
-              </div>
-            </c:if>
-          </c:forEach>
-        </div>
-      </div>
-
-    </section>
+      <tbody>
+        <c:forEach var="b" items="${list}" varStatus="status">
+          <c:if test="${b.boardTypeId == typeId}">
+            <tr>
+              <td class="title-cell">
+                <a href="${pageContext.request.contextPath}/board/view?id=${b.boardId}">
+                  ${b.title}
+                </a>
+              </td>
+              <td>
+              <c:choose>
+                              <c:when
+                                 test="${not empty b.member and not empty b.member.nickname}">
+                                 <c:out value="${b.member.nickname}" />
+                              </c:when>
+                              <c:when test="${not empty b.member}">
+                                 <c:out value="${b.member.memberId}" />
+                              </c:when>
+                              <c:otherwise>
+                    user<c:out value="${b.userId}" />
+                              </c:otherwise>
+                           </c:choose>
+              </td>
+              <td><c:out value="${b.createWriterAt.toString().substring(0,4)}년 
+${b.createWriterAt.toString().substring(5,7)}월 
+${b.createWriterAt.toString().substring(8,10)}일 
+${b.createWriterAt.toString().substring(11,16)}" /></td>
+              
+            </tr>
+          </c:if>
+        </c:forEach>
+      </tbody>
+    </table>
 
   </div>
 </main>
-
-<!-- 글쓰기 -->
-<button class="btn-create floating"
-  onclick="location.href='${pageContext.request.contextPath}/board/create'">
-  <span class="icon">✍️</span>
-  <span class="text">글쓰기</span>
-</button>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script>

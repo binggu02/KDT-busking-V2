@@ -10,10 +10,8 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    // 기존: 아이디로 회원 조회 (로그인/조회 등에 사용)
     Optional<Member> findByMemberId(String memberId);
 
-    // ✅ 추가: 로그인 시 roles까지 같이 가져오기 (관리자 판별용)
     @Query("""
         select distinct m
         from Member m
@@ -25,14 +23,26 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> loginWithRoles(@Param("memberId") String memberId,
                                     @Param("pw") String pw);
 
-    // 아이디 찾기
-    Optional<String> findMemberIdByNameAndPhoneAndEmail(String name, String phone, String email);
+    // ✅ ID 찾기: member_id만 반환
+    @Query("""
+        select m.memberId
+        from Member m
+        where m.name = :name
+          and m.phone = :phone
+          and m.email = :email
+    """)
+    Optional<String> findMemberIdByNamePhoneEmail(@Param("name") String name,
+                                                 @Param("phone") String phone,
+                                                 @Param("email") String email);
 
-    // 비밀번호 찾기
-    Optional<String> findByNameAndMemberIdAndPhoneAndEmail(String name, String memberId, String phone, String email);
+    // ✅ PW 찾기: 회원이 맞는지만 확인 (Member 반환)
+    Optional<Member> findByMemberIdAndNameAndPhoneAndEmail(String memberId,
+                                                          String name,
+                                                          String phone,
+                                                          String email);
 
-    // 중복 체크
     boolean existsByMemberId(String memberId);
-    
+    boolean existsByEmail(String email);
+
     List<Member> findTop5ByOrderByIdDesc();
 }

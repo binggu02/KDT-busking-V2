@@ -1,107 +1,93 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>게시글 수정</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:"Pretendard", Arial, sans-serif; }
-        body { background-color:#e5e5e5; }
+<meta charset="UTF-8">
+<title>게시글 수정</title>
 
-        .header {
-            position:fixed; top:0; left:0; width:100%; height:80px;
-            background:url("<c:url value='/images/busking.png'/>") center/cover no-repeat;
-            display:flex; align-items:center; justify-content:flex-end; padding-right:40px; z-index:1000;
-        }
-        .header::before {
-            content:""; position:absolute; inset:0;
-            background:rgba(0,0,0,0.4); z-index:1;
-        }
-        .logo-img {
-            position:absolute; left:30px; top:50%;
-            transform:translateY(-50%); height:120px; z-index:2;
-        }
-        .logout {
-            color:#fff; font-size:14px; border:1px solid #fff;
-            padding:6px 16px; border-radius:20px; text-decoration:none; z-index:2;
-        }
+<link rel="stylesheet" href="<c:url value='/css/common.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/admin.css'/>">
 
-        .container {
-            margin-top:100px;
-            width:600px;
-            margin-left:auto;
-            margin-right:auto;
-            background:#fff;
-            padding:40px;
-            border-radius:8px;
-        }
-
-        .field { margin-bottom:20px; }
-        .field label { display:block; margin-bottom:6px; font-weight:bold; }
-        .field input, .field textarea {
-            width:100%;
-            padding:10px;
-            border:1px solid #ccc;
-            border-radius:6px;
-            font-size:14px;
-        }
-        textarea { resize:none; height:200px; }
-
-        .btn-area {
-            margin-top:20px;
-            text-align:right;
-        }
-
-        .btn {
-            padding:8px 18px;
-            border:none;
-            border-radius:6px;
-            cursor:pointer;
-            font-size:14px;
-            text-decoration:none;
-        }
-
-        .save { background:#ff4d4f; color:white; }
-        .cancel { background:#999; color:white; }
-    </style>
+<style>
+main { flex: 1; background: #fff; padding: 40px; }
+h2 { margin-bottom: 20px; }
+label { display: block; margin-top: 20px; font-weight: bold; margin-bottom: 6px; }
+input[type=text], textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+}
+textarea { height: 150px; resize: none; }
+.btn-group { margin-top: 20px; display: flex; gap: 10px; }
+.btn {
+	padding: 8px 18px;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+	color: white;
+}
+.submit { background-color: #52c41a; }
+.cancel {
+	background-color: #ff4d4f;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+	line-height: 28px;
+}
+</style>
 </head>
+
 <body>
+<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
-<header class="header">
-    <a href="<c:url value='/admin/main'/>">
-        <img src="<c:url value='/images/buskinglogo.png'/>" class="logo-img" alt="로고">
-    </a>
-    <a class="logout" href="<c:url value='/admin/logout'/>">logout</a>
-</header>
+<div class="admin-page">
+	<div class="admin-container">
+<aside class="admin-aside">
+				<ul>
+					<li><a href="<c:url value='/admin/main'/>">대시보드</a></li>
+					<li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
+					<li><a href="<c:url value='/admin/board/qna_list'/>">Q&A
+							관리</a></li>
+					<li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
+					<li><a href="<c:url value='/admin/locale/list'/>">장소 예약 관리</a></li>
+					<li><a href="<c:url value='/admin/gear/update_list'/>">장비
+							관리</a></li>
+					<li><a href="<c:url value='/admin/locale/update_list'/>">장소
+							관리</a></li>
+					<li><a href="<c:url value='/admin/member/list'/>">회원 관리</a></li>
+				</ul>
+			</aside>
 
-<div class="container">
-    <h2>게시글 수정</h2>
+		<main>
+			<h2>게시글 수정</h2>
 
-    <form method="post" action="<c:url value='/admin/board/revise'/>">
+			<form action="<c:url value='/admin/board/revise'/>" method="post">
+				<label>게시글 번호</label>
+				<input type="text" name="boardId" value="${board.boardId}" readonly="readonly">
 
-        <!-- hidden id -->
-        <input type="hidden" name="boardId" value="${board.boardId}">
+				<label>게시글 제목</label>
+				<input type="text" name="title" value="${board.title}" required>
 
-        <div class="field">
-            <label>제목</label>
-            <input type="text" name="title" value="${board.title}" required>
-        </div>
+				<label>게시글 내용</label>
+				<textarea name="content" required>${board.content}</textarea>
 
-        <div class="field">
-            <label>내용</label>
-            <textarea name="content" required>${board.content}</textarea>
-        </div>
+				<div class="btn-group">
+					<button type="submit" class="btn submit">수정 완료</button>
+					<a href="<c:url value='/admin/board/list'/>"
+						class="btn cancel">취소</a>
+				</div>
+			</form>
+		</main>
 
-        <div class="btn-area">
-            <a href="<c:url value='/admin/board/list'/>" class="btn cancel">취소</a>
-            <button type="submit" class="btn save">저장</button>
-        </div>
-
-    </form>
+	</div>
 </div>
 
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
-
-이게 관리자 페이지 게시판 수정 부분 

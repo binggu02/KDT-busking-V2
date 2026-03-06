@@ -178,6 +178,11 @@
     </div>
 
     <div class="login-card">
+    <c:if test="${not empty errorMessage}">
+<script>
+    alert("${errorMessage}");
+</script>
+</c:if>
       <!-- ✅ 컨트롤러에 맞게: POST /member/login, name=memberId, pw -->
       <form id="loginForm" method="post" action="<c:url value='/member/login'/>">
         <label class="login-label" for="memberId">ID</label>

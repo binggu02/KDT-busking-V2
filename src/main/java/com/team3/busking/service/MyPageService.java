@@ -2,7 +2,7 @@ package com.team3.busking.service;
 
 import com.team3.busking.repository.GearReservationRepository;
 import com.team3.busking.repository.PlaceRepository;
-import com.team3.busking.repository.ReservationRepository;
+import com.team3.busking.repository.PlaceReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class MyPageService {
 
-    private final ReservationRepository reservationRepository;
+    private final PlaceReservationRepository reservationRepository;
     private final GearReservationRepository gearReservationRepository;
 
-    public MyPageService(ReservationRepository reservationRepository,
+    public MyPageService(PlaceReservationRepository reservationRepository,
                          GearReservationRepository gearReservationRepository) {
         this.reservationRepository = reservationRepository;
         this.gearReservationRepository = gearReservationRepository;

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public interface ReservationRepository extends JpaRepository<PlaceReservation, Long> {
+public interface PlaceReservationRepository extends JpaRepository<PlaceReservation, Long> {
 
     boolean existsByPlace_IdAndReservationDateAndStartTime(
             Long placeId, LocalDate reservationDate, LocalTime startTime);
@@ -32,4 +32,22 @@ public interface ReservationRepository extends JpaRepository<PlaceReservation, L
             order by r.id desc
         """)
         List<PlaceReservation> findAllWithPlace();
+    
+    @Query("""
+    	    select case when count(r) > 0 then true else false end
+    	    from PlaceReservation r
+    	    where r.place.id = :placeId
+    	      and r.reservationDate = :reservationDate
+    	      and r.status = true                
+    	      and r.startTime < :endTime
+    	      and r.endTime > :startTime
+    	""")
+    	boolean existsByPlaceAndOverlappingTime(
+    	        @Param("placeId") Long placeId,
+    	        @Param("reservationDate") LocalDate reservationDate,
+    	        @Param("startTime") LocalTime startTime,
+    	        @Param("endTime") LocalTime endTime
+    	);
+    
+    
 }

@@ -37,16 +37,16 @@ public class MemberService {
     }
     
     // ================= 로그인 =================
-    public Optional<Member> login(String memberId, String pw) {
-        Optional<Member> memberOpt = memberRepository.findByMemberId(memberId);
+    public Member login(String memberId, String pw) {
 
-        if (memberOpt.isEmpty()) return Optional.empty();
-        
-        Member member = memberOpt.get();
-        
-        if (!member.getPw().equals(pw)) return Optional.empty();
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다."));
 
-        return memberOpt;
+        if (!member.getPw().equals(pw)) {
+            throw new IllegalStateException("비밀번호를 잘못 입력하셨습니다.");
+        }
+
+        return member;
     }
 
 
@@ -55,6 +55,14 @@ public class MemberService {
         if (memberRepository.existsByMemberId(member.getMemberId())) {
             throw new IllegalStateException("이미 존재하는 회원 ID입니다.");
         }
+        
+        
+        if (member.getEmail() != null && !member.getEmail().isBlank()) {
+            if (memberRepository.existsByEmail(member.getEmail())) {
+                throw new IllegalStateException("이미 사용중인 이메일입니다.");
+            }
+        }
+        
     }
 
     // 2. Read All - 전체 회원 목록 조회
@@ -75,33 +83,61 @@ public class MemberService {
         // JpaRepository의 save() 메서드는 ID가 존재하면 업데이트를 수행합니다.
         memberRepository.save(member);
     }
+    
+ // PK(Long)로 회원 조회
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElse(null);
+    }
+
 
     // 5. 회원 정보 삭제
     @Transactional
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);
-        
     }
     
-    // 아이디 찾기 메소드 feat.병현
-    @Transactional
-	public String findMemberId(String name, String phone, String email) {
-		// TODO Auto-generated method stub
-    	return memberRepository.findMemberIdByNameAndPhoneAndEmail(name, phone, email)
-    			.orElseThrow(() -> 
-    					new IllegalArgumentException("일치하는 회원이 없습니다."));
-    	
-    	
-	}
+   
 
-    // 비밀번호 찾기 메소드 feat.병현
-	public String checkMemberForPw(String name, String memberId, String phone, String email) {
+	public Member getMemberById(Long userId) {
 		// TODO Auto-generated method stub
-		return memberRepository.findByNameAndMemberIdAndPhoneAndEmail(name, memberId, phone, email)
-				.orElseThrow(() ->
-						new IllegalArgumentException("일치하는 회원이 없습니다."));
+		return null;
 	}
     
+	// ✅ 아이디 찾기 (DB 조회)
+    @Transactional(readOnly = true)
+    public String findMemberId(String name, String phone, String email) {
+        return memberRepository.findMemberIdByNamePhoneEmail(name, phone, email)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원이 없습니다."));
+    }
+
+    // ✅ 비밀번호 찾기 = 임시 비밀번호 발급 후 DB 업데이트
+    public String resetPasswordToTemp(String memberId, String name, String phone, String email) {
+
+        Member member = memberRepository
+                .findByMemberIdAndNameAndPhoneAndEmail(memberId, name, phone, email)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원이 없습니다."));
+
+        String tempPw = generateTempPassword(8);
+
+        // ⚠️ 지금 로그인 로직이 pw.equals 비교라서 "그대로 저장"해야 바로 로그인됨
+        member.setPw(tempPw);
+        memberRepository.save(member);
+
+        return tempPw;
+    }
+
+    private String generateTempPassword(int length) {
+        String chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int idx = (int)(Math.random() * chars.length());
+            sb.append(chars.charAt(idx));
+        }
+        return sb.toString();
+    }
+
+
     
 }
 

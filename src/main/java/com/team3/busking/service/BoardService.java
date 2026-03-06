@@ -1,7 +1,10 @@
 package com.team3.busking.service;
 
 import com.team3.busking.domain.Board;
+import com.team3.busking.domain.Member;
 import com.team3.busking.repository.BoardRepository;
+import com.team3.busking.repository.MemberRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +16,11 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, MemberRepository memberRepository) {
         this.boardRepository = boardRepository;
+        this.memberRepository = memberRepository;
     }
 
     // 게시판별 글 조회
@@ -25,7 +30,7 @@ public class BoardService {
 
     // 작성자별 글 조회
     public List<Board> getBoardsByUserId(Long userId) {
-        return boardRepository.findByUserIdOrderByBoardIdDesc(userId);
+        return boardRepository.findByMember_IdOrderByBoardIdDesc(userId);
     }
 
     // 단일 게시글 조회
@@ -34,13 +39,16 @@ public class BoardService {
     }
 
     // 게시글 등록
-    public Board createBoard(Long userId, Long boardTypeId, String title, String content, String thumbnail) {
+    public Board createBoard(Long userId, Long boardTypeId, String title, String content) {
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+
         Board board = new Board();
-        board.setUserId(userId);
-        board.setBoardTypeId(boardTypeId); // FK 컬럼으로만 관리
+        board.setMember(member);                 // ✅ Board에 member 연관관계가 있어야 함
+        board.setBoardTypeId(boardTypeId);
         board.setTitle(title);
         board.setContent(content);
-        board.setThumbnailWriter(thumbnail);
+
         return boardRepository.save(board);
     }
 
@@ -59,10 +67,6 @@ public class BoardService {
         existing.setTitle(boardDto.getTitle());
         existing.setContent(boardDto.getContent());
 
-        // null 체크 후 set
-        if (boardDto.getThumbnailWriter() != null) {
-            existing.setThumbnailWriter(boardDto.getThumbnailWriter());
-        }
 
         // ✅ Q&A 답변 업데이트
         if (boardDto.getAnswer() != null) {
@@ -75,5 +79,12 @@ public class BoardService {
     // 게시글 삭제
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
+    }
+    
+    /**
+     * 최신 게시글 5개 가져오기
+     */
+    public List<Board> getLatestBoards() {
+        return boardRepository.findTop5ByOrderByCreateWriterAtDesc();
     }
 }

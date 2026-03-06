@@ -1,471 +1,490 @@
 /* =========================
-   BOARD PAGE ONLY
+   COMMUNITY BOARD STYLE
 ========================= */
 
-/* board 페이지 배경 */
 .board-page {
-  background: #f5f6f8;
+  background: #f3f4f6;
+  padding: 60px 0 100px;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
-.board-page .main {
-  padding: 30px 0 60px;
-}
-
-.board-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.board-search {
-  width: min(720px, 100%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 999px;
-  padding: 10px 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-  margin: 30px 0 20px;
-}
-
-.board-search input {
-  border: none;
-  outline: none;
+/* 가운데 고정 폭 */
+.board-container {
   width: 100%;
-  font-size: 14px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.board-search button {
-  height: 32px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid #e1e1e1;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
+/* 상단 제목 + 버튼 */
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.board-header h2 {
+  font-size: 22px;
   font-weight: 700;
+  color: #222;
 }
 
-/* =========================
-   TABS
-========================= */
+/* 글쓰기 버튼 */
+.btn-write {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
+.btn-write:hover {
+  background: #000;
+}
+
+/* 탭 */
 .board-tabs {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
 }
 
 .tab {
-  height: 34px;
-  padding: 0 16px;
-  border-radius: 999px;
-  border: 1px solid #e3e3e3;
-  background: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #777;
+  text-decoration: none;
 }
 
 .tab.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
+  color: #111;
+  border-bottom: 2px solid #111;
 }
 
-/* =========================
-   LIST
-========================= */
-
-.board-box {
-  width: min(980px, 100%);
+/* 테이블 박스 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
   background: #fff;
-  border: 1px solid #dcdcdc;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  border: 1px solid #e5e7eb;
 }
 
-.board-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 18px;
-  border-top: 1px solid #e3e3e3;
+/* 헤더 */
+.board-table thead {
+  background: #fafafa;
 }
 
-.board-left {
-  display: flex;
-  gap: 12px;
-  flex: 1;
+.board-table thead th {
+  padding: 14px 15px;
+  font-size: 12px;
+  text-align: left;
+  color: #888;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.board-link {
-  font-weight: 700;
+/* 바디 */
+.board-table tbody td {
+  padding: 18px 15px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* hover */
+.board-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* 제목 */
+.title-cell a {
+  font-weight: 600;
   color: #222;
   text-decoration: none;
 }
 
-.board-sub {
-  font-size: 13px;
-  color: #666;
+.title-cell a:hover {
+  color: #000;
+  text-decoration: underline;
 }
 
-.board-right {
-  width: 140px;
-  text-align: right;
+/* 작성자 / 날짜 */
+.board-table td:nth-child(2),
+.board-table td:nth-child(3) {
   font-size: 13px;
-  color: #555;
+  color: #888;
+}
+/* =========================
+   BOARD VIEW PAGE
+========================= */
+
+.board-view-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 100px;
+  
+}
+
+/* 카드 박스 */
+.board-view-box {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 50px 60px;
+}
+
+/* 제목 */
+.board-view-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 15px;
+}
+
+/* 작성자/날짜 */
+.board-view-meta {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 내용 */
+.board-view-content {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #333;
+  white-space: pre-line;
+  margin-bottom: 50px;
+}
+
+/* 하단 버튼 영역 */
+.board-view-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;  
+  
+}
+
+/* 버튼 */
+.btn-outline {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 999px;   
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: #111;
+  color: #fff;
 }
 
 /* =========================
-   VIEW PAGE
+   TAB PANEL FIX
 ========================= */
-
-.board-view-box {
-  padding: 40px;
-}
-
-.board-view-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.board-view-content {
-  font-size: 15px;
-  line-height: 1.9;
-  margin-bottom: 40px;
-}
 
 .tab-panel {
   display: none;
+  width: 100%;
 }
 
 .tab-panel.show {
-  display: block;
+  display: block;  /* 🔥 flex 제거 */
 }
-
-
 /* =========================
-   EDIT PAGE
+   BOARD EDIT - MATCH BOARD VIEW
 ========================= */
 
+.board-edit-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 100px;
+}
+
 .board-edit-box {
-  width: min(800px, 100%);
-  margin: 0 auto;
-  padding: 40px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 50px 60px;
 }
 
+/* 제목 */
 .board-title {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
+  color: #111;
+  margin-bottom: 30px;
 }
 
+/* 입력 영역 */
 .board-form input,
-.board-form textarea {
+.board-form textarea,
+.board-form select {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
+.board-form textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.board-form input:focus,
+.board-form textarea:focus,
+.board-form select:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* 버튼 영역 */
 .form-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-}
-
-.btn-primary {
-  background: #111;
-  color: #fff;
-}
-
-.btn-secondary {
-  background: #e5e5e5;
-  color: #333;
-}
-/* ===== 게시글 상세 버튼 영역 ===== */
-.board-view-actions {
-  display: flex;
-  justify-content: flex-end;   /* 🔥 오른쪽 끝 */
-  gap: 10px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 /* 공통 버튼 */
-.action-btn {
-  min-width: 70px;
-  height: 36px;
-  padding: 0 18px;
-  border-radius: 999px;        /* 🔥 동그라미 */
+.btn-outline {
+  padding: 8px 16px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: transparent;
+  color: #222;
   cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
+  transition: 0.2s;
+  border-radius: 999px;
 }
 
-/* 목록 */
-.btn-list {
-  background: #f2f2f2;
-  color: #333;
-}
-
-.btn-list:hover {
-  background: #e6e6e6;
-}
-
-/* 수정 */
-.btn-edit {
+.btn-outline:hover {
   background: #111;
   color: #fff;
 }
 
-.btn-edit:hover {
+/* 취소 */
+.btn-secondary {
+  background: #e5e5e5;
+  border: none;
+  color: #333;
+  border-radius: 999px;
+}
+
+.btn-secondary:hover {
+  background: #d6d6d6;
+}
+
+/* 수정완료 */
+.btn-primary {
+  background: #111;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+}
+
+.btn-primary:hover {
   background: #000;
 }
 
-/* 삭제 (위험 버튼) */
-.btn-delete {
-  background: #ff4d4f;
-  color: #fff;
+/* =========================
+   QNA - BOARD VIEW STYLE
+========================= */
+
+.board-view-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 100px;
 }
 
-.btn-delete:hover {
-  background: #e63b3d;
-}
-/* qna.css - Q&A 상세 전용 CSS */
-
-/* 질문 영역 */
-.post-header {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+.board-view-box {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 50px 60px;
 }
 
-.post-title {
-  font-size: 24px;
-  font-weight: 800;
+/* 제목 */
+.board-view-title {
+  font-size: 26px;
+  font-weight: 700;
   color: #111;
-  margin-bottom: 6px;
+  margin-bottom: 15px;
 }
 
-.post-info {
+/* 작성자 / 날짜 */
+.board-view-meta {
   font-size: 13px;
   color: #888;
-  gap: 12px;
-  display: flex;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
 }
 
 /* 질문 내용 */
-.post-content {
-  font-size: 15px;
-  line-height: 1.6;
+.board-view-content {
+  font-size: 16px;
+  line-height: 1.9;
   color: #333;
-  margin-bottom: 30px;
+  white-space: pre-line;
+  margin-bottom: 50px;
 }
 
 /* 답변 박스 */
 .answer-box {
   background-color: #f9f9f9;
   border-left: 4px solid #6b46ff;
-  padding: 16px 20px;
-  border-radius: 8px;
-  margin-bottom: 30px;
+  padding: 20px 24px;
+  border-radius: 6px;
+  margin-bottom: 40px;
 }
 
 .answer-box h3 {
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: #6b46ff;
 }
 
 .answer-box p {
   font-size: 15px;
   color: #555;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
-
-/* 버튼 영역 오른쪽 정렬 */
-.btn-area {
+/* 버튼 영역 */
+.board-view-actions {
   display: flex;
-  justify-content: flex-end;  /* 오른쪽으로 */
-  gap: 12px;
-  margin-bottom: 50px;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-/* 공통 버튼 스타일 */
-.btn-area button {
-	min-width: 70px;
-	 height: 36px;
-	 padding: 0 18px;
-	 border-radius: 999px;        /* 🔥 동그라미 */
-	 font-size: 13px;
-	 font-weight: 700;
-	 cursor: pointer;
-	 border: none;
-	 transition: all 0.2s ease;
+/* 버튼 */
+.btn-outline {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 999px;
 }
 
-/* 목록 버튼 - 회색 */
-.btn-list {
-  background-color: #e0e0e0;
-  color: #333;
+.btn-outline:hover {
+  background: #111;
+  color: #fff;
 }
 
-.btn-list:hover {
-  background-color: #ccc;
-}
-
-/* 삭제 버튼 - 빨간색 */
 .btn-delete {
-  background-color: #f56565;  /* 빨강 */
+  background-color: #f56565;
+  border: none;
   color: #fff;
 }
 
 .btn-delete:hover {
-  background-color: #c53030;  /* 진한 빨강 */
-}
-
-/* 플로팅 글쓰기 버튼 - 네모 + 둥근 모서리 */
-.btn-create.floating {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 12px 20px;      /* 세로/가로 여백 */
-  border-radius: 12px;      /* 둥근 모서리 */
-  background-color: #38b2ac; /* 청록색 */
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  display: flex;
-  align-items: center;
-  gap: 8px;                 /* 아이콘과 텍스트 사이 간격 */
-  transition: 0.2s;
-  z-index: 1000;
-}
-
-/* hover 효과 */
-.btn-create.floating:hover {
-  background-color: #319795; /* 좀 더 진한 색 */
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-/* 아이콘 크기 */
-.btn-create .icon {
-  font-size: 18px;
-  display: flex;
-  align-items: center;
+  background-color: #c53030;
 }
 
 /* =========================
-   BOARD CREATE PAGE ONLY
+   BOARD CREATE - MATCH BOARD VIEW
 ========================= */
 
-/* =========================
-   BOARD CREATE PAGE - FORM STYLING
-========================= */
+.board-create-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 100px;
+}
 
-/* 작성 폼 전체 컨테이너 */
+/* 카드 박스 */
 .board-create-box {
-  width: min(800px, 100%);
-  margin: 40px auto;
-  padding: 30px 40px;              /* 안쪽 여백 */
-  background: #fff;                 /* 흰색 배경 */
-  border: 1px solid #dcdcdc;       /* 연한 테두리 */
-  border-radius: 12px;              /* 둥근 모서리 */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* 살짝 그림자 */
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 50px 60px;
 }
 
 /* 제목 */
 .board-create-box .board-title {
-  text-align: center;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
+  color: #111;
   margin-bottom: 30px;
 }
 
-/* 입력폼 (제목 / 내용) */
+/* 입력 폼 */
 .board-create-box .board-form input,
 .board-create-box .board-form textarea,
 .board-create-box .board-form select {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid #ddd;
-  border-radius: 8px;             /* 둥근 모서리 */
-  margin-bottom: 20px;
   font-size: 14px;
-  background: #fafafa;             /* 입력 칸 배경 */
+  background: #fff;
+  margin-bottom: 20px;
   box-sizing: border-box;
+}
+
+.board-create-box .board-form textarea {
+  min-height: 200px;
+  resize: vertical;
 }
 
 /* 버튼 영역 */
 .board-create-box .form-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 30px;
 }
 
-/* 작성 완료 버튼 */
-.board-create-box .btn-primary {
-  min-width: 90px;
-  height: 38px;
-  padding: 0 18px;
-  border-radius: 8px;             /* 직사각형 + 둥근 모서리 */
-  background: #333;                /* 짙은 회색 */
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
+/* 공통 버튼 (board-view 스타일 통일) */
+.btn-outline {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #222;
+  background: transparent;
+  color: #222;
   cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
+  transition: 0.2s;
+  border-radius: 999px;
 }
 
-.board-create-box .btn-primary:hover {
-  background: #111;               /* hover 진하게 */
+.btn-outline:hover {
+  background: #111;
+  color: #fff;
 }
 
 /* 취소 버튼 */
-.board-create-box .btn-secondary {
-  min-width: 90px;
-  height: 38px;
-  padding: 0 18px;
-  border-radius: 8px;
-  background: #e5e5e5;             /* 연한 회색 */
-  color: #333;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
+.btn-secondary {
+  background: #e5e5e5;
   border: none;
-
-  display: inline-flex;            /* 글자 가운데 정렬 */
-  align-items: center;
-  justify-content: center;
-
-  text-decoration: none;           /* underline 제거 */
-  transition: all 0.2s ease;
+  color: #333;
+  border-radius: 999px;
 }
 
-.board-create-box .btn-secondary:hover {
+.btn-secondary:hover {
   background: #d6d6d6;
 }
 
-.board-create-box .btn-secondary:hover {
-  background: #d6d6d6;
+/* 등록 버튼 */
+.btn-primary {
+  background: #111;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #000;
 }

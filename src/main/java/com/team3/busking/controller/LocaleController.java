@@ -22,7 +22,9 @@ public class LocaleController {
         this.localeService = localeService;
     }
 
+    // -------------------------
     // 지역 목록
+    // -------------------------
     @GetMapping("/list")
     public String cityList(Model model) {
         model.addAttribute("pageTitle", "지역별 장소 예약");
@@ -30,7 +32,9 @@ public class LocaleController {
         return "locale/list";
     }
 
+    // -------------------------
     // 도시별 장소 목록
+    // -------------------------
     @GetMapping("/{cityCode}")
     public String placeList(@PathVariable String cityCode, Model model) {
         model.addAttribute("pageTitle", "장소 목록");
@@ -38,12 +42,15 @@ public class LocaleController {
         return "locale/placelist";
     }
 
+    // -------------------------
     // 예약 페이지
+    // -------------------------
     @GetMapping("/reserve")
     public String reservePage(
             @RequestParam Long placeId,
             HttpSession session,
-            Model model
+            Model model,
+            @ModelAttribute("error") String errorMessage
     ) {
         Place place = localeService.getPlace(placeId);
         if (place == null) {
@@ -59,9 +66,17 @@ public class LocaleController {
             model.addAttribute("userName", loginUser.getName());
         }
 
+        // Flash Attribute로 전달된 에러 메시지 표시
+        if (errorMessage != null && !errorMessage.isEmpty()) {
+            model.addAttribute("error", errorMessage);
+        }
+
         return "locale/reserve";
     }
+
+    // -------------------------
     // 예약 저장 (POST)
+    // -------------------------
     @PostMapping("/reserve")
     public String reserveSubmit(
             @RequestParam Long placeId,
@@ -80,7 +95,8 @@ public class LocaleController {
             return "redirect:/member/login";
         }
 
-        Long reservationId = localeService.createReservation(
+        try {
+            Long reservationId = localeService.createReservation(
                 loginUser.getId(),
                 placeId,
                 bandName,
@@ -89,13 +105,18 @@ public class LocaleController {
                 email,
                 reservationDate,
                 startTime
-        );
-
-        ra.addAttribute("reservationId", reservationId);
-        return "redirect:/locale/reserve/complete";
+            );
+            ra.addAttribute("reservationId", reservationId);
+            return "redirect:/locale/reserve/complete";
+        } catch (IllegalStateException | IllegalArgumentException ex) {
+            ra.addFlashAttribute("error", ex.getMessage());
+            return "redirect:/locale/reserve?placeId=" + placeId;
+        }
     }
 
+    // -------------------------
     // 예약 완료 페이지
+    // -------------------------
     @GetMapping("/reserve/complete")
     public String reserveComplete(
             @RequestParam Long reservationId,

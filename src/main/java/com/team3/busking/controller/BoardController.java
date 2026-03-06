@@ -1,5 +1,6 @@
 package com.team3.busking.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.team3.busking.domain.Board;
 import com.team3.busking.domain.Member;
 import com.team3.busking.service.BoardService;
+import com.team3.busking.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,9 +19,12 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
 
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, 
+                      MemberService memberService) {
         this.boardService = boardService;
+        this.memberService = memberService;
     }
 
     /* =========================
@@ -31,8 +36,12 @@ public class BoardController {
             Model model) {
 
         List<Board> list = boardService.getBoardsByBoardTypeId(typeId);
+        
         model.addAttribute("list", list);
         model.addAttribute("typeId", typeId);
+        
+        
+     // 2️⃣ 작성자 리스트 만들기
 
         return "board/main"; // JSP / Thymeleaf 뷰
     }
@@ -42,12 +51,12 @@ public class BoardController {
        ========================= */
     @GetMapping("/view")
     public String view(HttpSession session, @RequestParam Long id, Model model) {
-    	Member loginUser = (Member) session.getAttribute("loginUser");
-    	if(loginUser == null) {
-    		
-    	}
-    	
-    	
+       Member loginUser = (Member) session.getAttribute("loginUser");
+       if(loginUser == null) {
+          
+       }
+       
+       
         Board board = boardService.getBoardById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 없음"));
 
@@ -74,22 +83,14 @@ public class BoardController {
        ========================= */
     @PostMapping("/create")
     public String createSubmit(HttpSession session, Board board) {
+        Member loginMember = (Member) session.getAttribute("loginUser");
+        if (loginMember == null) return "redirect:/member/login";
 
-    	Member loginMember = (Member) session.getAttribute("loginUser");
-    	if (loginMember == null) {
-            return "redirect:/member/login";
-        }
-    	
-        board.setUserId(loginMember.getId());
-
-        
-        
         boardService.createBoard(
-                board.getUserId(),
+                loginMember.getId(),
                 board.getBoardTypeId(),
                 board.getTitle(),
-                board.getContent(),
-                board.getThumbnailWriter()
+                board.getContent()
         );
 
         return "redirect:/board/main?typeId=" + board.getBoardTypeId();

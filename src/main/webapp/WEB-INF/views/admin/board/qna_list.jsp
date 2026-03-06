@@ -93,6 +93,7 @@
                 <tr>
                     <th>번호</th>
                     <th>질문 제목</th>
+                    <th>작성자 회원 ID</th>
                     <th>작성자</th>
                     <th>작성일</th>
                     <th>관리</th>
@@ -104,7 +105,21 @@
                         <tr>
                             <td><c:out value="${b.boardId}"/></td>
                             <td><c:out value="${b.title}"/></td>
-                            <td><c:out value="${b.userId}"/></td>
+                            <td><c:out value="${b.member.id}"/></td>
+                            <td>
+                            <c:choose>
+                                 <c:when test="${not empty b.member and not empty b.member.nickname}">
+                                    <c:out value="${b.member.nickname}" />
+                                 </c:when>
+                                 <c:when test="${not empty b.member}">
+                                    <c:out value="${b.member.memberId}" />
+                                 </c:when>
+                                 <c:otherwise>
+                                    (알 수 없음)
+                                 </c:otherwise>
+                              </c:choose>
+                            
+                            </td>
                             <td><c:out value="${b.createWriterAt}"/></td>
                             <td class="manage-btns">
                                 <a class="view" href="<c:url value='/admin/board/view'><c:param name='id' value='${b.boardId}'/></c:url>">확인</a>

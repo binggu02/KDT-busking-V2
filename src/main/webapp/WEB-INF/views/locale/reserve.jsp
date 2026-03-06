@@ -8,12 +8,29 @@
   <title>${pageTitle}</title>
 
   <link rel="stylesheet" href="<c:url value='/css/common.css'/>" />
-  
   <link rel="stylesheet" href="<c:url value='/css/locale/reserve.css'/>" />
 </head>
 
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장소 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <a href="/locale/list">지역 리스트</a>
+          <span class="divider">›</span>
+          <span class="current">장소 선택</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <main class="main">
   <div class="container">
@@ -23,13 +40,12 @@
       <!-- 선택 장소 -->
       <aside class="place-side">
         <div class="place-info">
-        	<div class="place-img-wrap">
-			  <img src="<c:url value='/images/place/${place.thumbnail}' />"
-			       alt="${place.placeName}"
-			       class="place-img">
-			</div>
-        
-          <!-- 🔥 여기 수정됨 -->
+          <div class="place-img-wrap">
+            <img src="<c:url value='/images/place/${place.thumbnail}' />"
+                 alt="${place.placeName}"
+                 class="place-img">
+          </div>
+
           <div class="place-name">${place.placeName}</div>
           <div class="place-addr">${place.placeAddress}</div>
           <div class="place-phone">${place.placePhone}</div>
@@ -43,7 +59,7 @@
 
           <div class="form-left">
             <div class="line">
-              <label class="label">예약자 명 : ${userName }</label>
+              <label class="label">예약자 명 : ${userName}</label>
             </div>
 
             <div class="line input">
@@ -89,8 +105,14 @@
   </div>
 </main>
 
-
-  </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+<!-- 예약 시 예외 메시지 alert -->
+<c:if test="${not empty error}">
+  <script>
+    alert("${error}");
+  </script>
+</c:if>
+
 </body>
 </html>

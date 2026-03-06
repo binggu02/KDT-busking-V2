@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -17,6 +17,25 @@
 
 
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+	
+	
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">마이페이지</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <span class="current">대시보드</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	
+	
+	
 <main class="main">
   <div class="container">
 
@@ -36,18 +55,27 @@
       <div class="profile-right">
         <dl class="info">
           <div class="info-row"><dt>ID</dt><dd><c:out value="${member.memberId}" default="example_user"/></dd></div>
-          <div class="info-row"><dt>전화</dt><dd><c:out value="${member.phone}" default="010-1234-5678"/></dd></div>
+          <div class="info-row"><dt>전화</dt>
+          
+          <dd>${member.formattedPhone}</dd>
+          
+          
+          
+          </div>
           <div class="info-row"><dt>이메일</dt><dd><c:out value="${member.email}" default="user@example.com"/></dd></div>
-          <div class="info-row"><dt>가입일</dt><dd>-</dd></div>
+          <div class="info-row"><dt>가입일</dt><dd><c:out value="${member.createdMemberAt.toString().substring(0,4)}년 
+${member.createdMemberAt.toString().substring(5,7)}월 
+${member.createdMemberAt.toString().substring(8,10)}일 
+${member.createdMemberAt.toString().substring(11,16)}"/></dd></div>
         </dl>
       </div>
     </section>
 
 	<!-- 탭 메뉴 -->
 	<section class="tabs">
-	  <button class="tab" type="button" data-tab="place" >장소 예약 내역</button>
+	  <button class="tab" type="button" data-tab="place">장소 예약 내역</button>
 	  <button class="tab" type="button" data-tab="gear">장비 대여 내역</button>
-	  <button class="tab" type="button" data-tab="posts">내 게시글</button>
+	  <button class="tab" type="button" data-tab="post">내 게시글</button>
 	</section>
 
 	<!-- 탭 패널들 -->
@@ -77,18 +105,24 @@
 	            <article class="list-item">
 	              <div class="item-left">
 	                <h3 class="item-title">
-	                  <c:out value="${r.place.placeName}" /> ·
+	                  장소명 : <c:out value="${r.place.placeName}" /> · 밴드명 : 
 	                  <c:out value="${r.bandName}" /> (<c:out value="${r.bandCount}" />명)
 	                </h3>
 	                <p class="item-meta">
-	                  <c:out value="${r.reservationDate}" /> · <c:out value="${r.startTime}" />
+	                  <c:out value="${r.getFormattedReservationPeriod()}" />
 	                </p>
 	              </div>
 
 	              <div class="item-right">
 	                <span class="status ${r.status ? 'done' : 'pending'}">
-	                  ${r.status ? '완료' : '취소'}
+	                  ${r.status ? '에약 완료' : '예약 취소'}
 	                </span>
+	                <c:if test="${r.status}">
+					    <button class="btn outline" type="button"
+					      onclick="location.href='${pageContext.request.contextPath}/mypage/place/return?id=${r.id}&tab=place'">
+					      예약 취소하기
+					    </button>
+					  </c:if>
 	              </div>
 	            </article>
 	          </c:forEach>
@@ -124,15 +158,22 @@
 	                  <c:out value="${gr.gear.gearName}" />
 	                </h3>
 	                <p class="item-meta">
-	                  <c:out value="${gr.startDatetime}" /> ~ <c:out value="${gr.endDatetime}" />
+	                  <c:out value="${gr.getFormattedReservationPeriod()}" />
 	                </p>
 	              </div>
 
 	              <div class="item-right">
-	                <span class="status ${gr.status == 'RESERVED' ? 'pending' : 'done'}">
-	                  <c:out value="${gr.status}" />
-	                </span>
-	              </div>
+					  <span class="status ${gr.status == 'RESERVED' ? 'pending' : 'done'}">
+					    <c:out value="${gr.status == 'RESERVED' ? '예약 완료' : '반납 완료'}" />
+					  </span>
+					
+					  <c:if test="${gr.status != 'RETURNED'}">
+					    <button class="btn outline" type="button"
+					      onclick="location.href='${pageContext.request.contextPath}/mypage/gear/return?id=${gr.id}&tab=gear'">
+					      반납하기
+					    </button>
+					  </c:if>
+					</div>
 	            </article>
 	          </c:forEach>
 	        </c:otherwise>
@@ -141,7 +182,7 @@
 	  </div>
 
 	  <!-- 3) 내 게시글 -->
-	  <div class="tab-panel" data-panel="posts">
+	  <div class="tab-panel" data-panel="post">
 	    <section class="list">
 	      <c:choose>
 	        <c:when test="${empty posts}">
@@ -164,10 +205,10 @@
 	            <article class="list-item">
 	              <div class="item-left">
 	                <h3 class="item-title">
-	                  <c:out value="${post.boardId}" />
+	                  <c:out value="${post.title }"/>
 	                </h3>
 	                <p class="item-meta">
-	                  <c:out value="${post.createWriterAt}" /> ~ <c:out value="${gr.endDatetime}" />
+	                  <c:out value="${post.getFormattedCreateWriterAt()}" />
 	                </p>
 	              </div>
 
@@ -193,24 +234,39 @@
   </div>
 </main>
 
-
 <script>
-  // 탭 전환 JS
   const tabs = document.querySelectorAll(".tab");
   const panels = document.querySelectorAll(".tab-panel");
 
+  function activateTab(tabName) {
+    tabs.forEach(t => {
+      t.classList.toggle("active", t.dataset.tab === tabName);
+    });
+
+    panels.forEach(p => {
+      p.classList.toggle("show", p.dataset.panel === tabName);
+    });
+  }
+
+  // 탭 클릭 이벤트
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      panels.forEach(p => p.classList.toggle("show", p.dataset.panel === target));
+      activateTab(target);
+
+      // URL에 탭 정보 추가 (뒤로가기 대응)
+      const url = new URL(window.location);
+      url.searchParams.set("tab", target);
+      window.history.replaceState(null, "", url);
     });
   });
-  
+
+  // 페이지 로드시 URL 파라미터 읽기
   window.addEventListener("DOMContentLoaded", () => {
-	    document.querySelector('.tab[data-tab="place"]')?.click();
-	  });
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentTab = urlParams.get("tab") || "place"; // 기본값 place
+    activateTab(currentTab);
+  });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

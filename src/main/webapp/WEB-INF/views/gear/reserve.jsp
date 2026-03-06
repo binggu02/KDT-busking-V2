@@ -8,12 +8,29 @@
   <title>장비 예약</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gear/reserve.css" />
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+
+
+<section class="page-banner">
+  <div class="container">
+    <div class="page-banner-inner">
+      <div class="page-text">
+        <h1 class="page-title">장비 예약</h1>
+        <div class="breadcrumb">
+          <a href="/">홈</a>
+          <span class="divider">›</span>
+          <a href="/gear/list">장비 리스트</a>
+          <span class="divider">›</span>
+          <span class="current">장비 예약</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <main class="main">
   <div class="container">
@@ -37,9 +54,7 @@
       <div class="selected-card">
 
         <div class="selected-thumb"
-             style="background-image:url('${empty gear.gearThumbnail 
-               ? pageContext.request.contextPath.concat("/default.jpg") 
-               : gear.gearThumbnail}')">
+             style="background-image:url('/images/gear/${gear.gearThumbnail }')">
         </div>
 
         <div class="selected-body">

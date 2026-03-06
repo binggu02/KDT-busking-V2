@@ -42,4 +42,24 @@ public class AdminGearService {
         gear.setGearThumbnail(gearThumbnail);
         // JPA dirty checking
     }
+    
+    @Transactional
+	public void deleteGear(Long id) {
+		// TODO Auto-generated method stub
+    	gearRepository.deleteById(id);
+	}
+    
+    @Transactional
+	public void createGear(String gearName, Integer gearQuantity, String gearDescription, Integer gearPrice,
+			String gearThumbnail) {
+		// TODO Auto-generated method stub
+    	Gear gear = new Gear();
+    	gear.setGearName(gearName);
+        gear.setGearQuantity(gearQuantity);
+        gear.setGearDescription(gearDescription);
+        gear.setGearPrice(gearPrice);
+        gear.setGearThumbnail(gearThumbnail);
+		
+        gearRepository.save(gear);
+	}
 }

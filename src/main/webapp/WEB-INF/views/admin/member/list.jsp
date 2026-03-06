@@ -97,6 +97,7 @@ th, td {
 						<th>번호(ID)</th>
 						<th>아이디</th>
 						<th>이름</th>
+						<th>가입일</th>
 						<th>관리</th>
 					</tr>
 				</thead>
@@ -106,6 +107,13 @@ th, td {
 							<td>${m.id}</td>
 							<td>${m.memberId}</td>
 							<td>${m.name}</td>
+							<td>
+								<c:out value="${m.createdMemberAt.toString().substring(0,4)}년 
+${m.createdMemberAt.toString().substring(5,7)}월 
+${m.createdMemberAt.toString().substring(8,10)}일 
+${m.createdMemberAt.toString().substring(11,16)}" />
+
+							</td>
 							<td class="manage-btns"><a class="edit-btn"
 								href="<c:url value='/admin/member/${m.id}/edit'/>">수정</a>
 

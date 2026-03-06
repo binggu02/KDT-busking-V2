@@ -83,7 +83,6 @@ textarea {
             <!-- 사이드 메뉴 -->
             <aside class="admin-aside">
                 <ul>
-                	<li><a href="<c:url value='/admin/main'/>">대시보드</a></li>
                     <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
                     <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
                     <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
@@ -99,36 +98,51 @@ textarea {
 
 
 <div >
-  <h1>장비 정보 수정</h1>
+  <h1>장소 신규 등록</h1>
+<form method="post" action="<c:url value='/admin/locale/create'/>">
 
-    <form method="post" action="<c:url value='/admin/gear/update'/>">
-        <input type="hidden" name="id" value="${gear.id}"/>
+    <!-- 도시 선택 -->
+    <label>도시 선택</label>
+<select name="cityId" required>
+    <c:forEach var="city" items="${cityList}">
+        <option value="${city.id}">
+            ${city.cityName}
+        </option>
+    </c:forEach>
+</select>
 
-            <label>장비명</label>
-            <input type="text" name="gearName" value="${gear.gearName}" required/>
+    <!-- 장소 이름 -->
+    <label>장소명</label>
+    <input type="text" name="placeName" required/>
 
-            <label>수량</label>
-            <input type="number" name="gearQuantity" value="${gear.gearQuantity}" min="0" required/>
+    <!-- 주소 -->
+    <label>주소</label>
+    <input type="text" name="placeAddress" required/>
 
-            <label>가격(원)</label>
-            <input type="number" name="gearPrice" value="${gear.gearPrice}" min="0" required/>
+    <!-- 전화번호 -->
+    <label>전화번호</label>
+    <input type="text" name="placePhone"/>
 
-            <label>썸네일 경로</label>
-            <input type="text" name="gearThumbnail" value="${gear.gearThumbnail}"/>
+    <!-- 썸네일 -->
+    <label>썸네일 경로</label>
+    <input type="text" name="thumbnail"/>
 
-            <label>설명</label>
-            <textarea name="gearDescription">${gear.gearDescription}</textarea>
+    <!-- 설명 -->
+    <label>장소 설명</label>
+    <textarea name="placeDescription"></textarea>
 
+    <div class="btn-group">
+        <button type="submit" class="btn submit">
+            장소 신규 등록
+        </button>
 
-      <div class="btn-group">
-        
-        <button type="button" class="btn submit" onclick="updateGear()">수정 완료</button>
-        <a href="/admin/gear/update_list" class="btn cancel">수정 취소</a>
-      </div>
-      
-
+        <a href="/admin/locale/list" class="btn cancel">
+            등록 취소
+        </a>
     </div>
-  </form>
+
+</form>
+
   </main>
 </div>
 </div>
@@ -138,8 +152,8 @@ textarea {
 
 <script>
 function updateGear() {
-  alert("장비 정보가 수정되었습니다.");
-  location.href = "/admin/gear/update_list";
+  alert("장비 신규 등록이 완료 되었습니다.");
+  location.href = "/admin/locale/update_list";
 }
 </script>
 

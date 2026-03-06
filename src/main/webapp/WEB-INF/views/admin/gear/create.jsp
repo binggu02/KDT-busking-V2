@@ -83,7 +83,6 @@ textarea {
             <!-- 사이드 메뉴 -->
             <aside class="admin-aside">
                 <ul>
-                	<li><a href="<c:url value='/admin/main'/>">대시보드</a></li>
                     <li><a href="<c:url value='/admin/board/list'/>">게시판 관리</a></li>
                     <li><a href="<c:url value='/admin/board/qna_list'/>">Q&A 관리</a></li>
                     <li><a href="<c:url value='/admin/gear/list'/>">장비 예약 관리</a></li>
@@ -99,31 +98,30 @@ textarea {
 
 
 <div >
-  <h1>장비 정보 수정</h1>
+  <h1>장비 신규 등록</h1>
 
-    <form method="post" action="<c:url value='/admin/gear/update'/>">
-        <input type="hidden" name="id" value="${gear.id}"/>
+    <form method="post" action="<c:url value='/admin/gear/create'/>">
 
             <label>장비명</label>
-            <input type="text" name="gearName" value="${gear.gearName}" required/>
+            <input type="text" name="gearName" required/>
 
             <label>수량</label>
-            <input type="number" name="gearQuantity" value="${gear.gearQuantity}" min="0" required/>
+            <input type="number" name="gearQuantity" min="0" required/>
 
             <label>가격(원)</label>
-            <input type="number" name="gearPrice" value="${gear.gearPrice}" min="0" required/>
+            <input type="number" name="gearPrice" min="0" required/>
 
             <label>썸네일 경로</label>
-            <input type="text" name="gearThumbnail" value="${gear.gearThumbnail}"/>
+            <input type="text" name="gearThumbnail" />
 
             <label>설명</label>
-            <textarea name="gearDescription">${gear.gearDescription}</textarea>
+            <textarea name="gearDescription"></textarea>
 
 
       <div class="btn-group">
         
-        <button type="button" class="btn submit" onclick="updateGear()">수정 완료</button>
-        <a href="/admin/gear/update_list" class="btn cancel">수정 취소</a>
+        <button type="submit" class="btn submit" onclick="updateGear()">장비 신규 등록</button>
+        <a href="/admin/gear/update_list" class="btn cancel">등록 취소</a>
       </div>
       
 
@@ -138,7 +136,7 @@ textarea {
 
 <script>
 function updateGear() {
-  alert("장비 정보가 수정되었습니다.");
+  alert("장비 신규 등록이 완료 되었습니다.");
   location.href = "/admin/gear/update_list";
 }
 </script>

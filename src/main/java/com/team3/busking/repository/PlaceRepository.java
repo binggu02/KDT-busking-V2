@@ -2,6 +2,7 @@ package com.team3.busking.repository;
 
 import com.team3.busking.domain.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
   // cityId로도 쓰고 싶으면
   List<Place> findByCity_IdOrderByIdDesc(Long cityId);
+  
+  List<Place> findTop3ByOrderByCreatedAtDesc();
 }
